@@ -36,6 +36,7 @@ public class Main {
 
     //Similar to placeShip, but with firing.
     private static String fireAt(Request req) {
+        //System.out.println(req);
         return null;
     }
 
