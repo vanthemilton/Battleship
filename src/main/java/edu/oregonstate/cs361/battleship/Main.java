@@ -19,6 +19,21 @@ public class Main {
         post("/placeShip/:id/:row/:col/:orientation", (req, res) -> placeShip(req));
     }
 
+    public Main(){
+        setPlayerHits(0);
+        setPlayerMisses(0);
+
+        setComputerHits(0);
+        setComputerMisses(0);
+    }
+
+    //Member varibles
+    private int playerMisses;
+    private int playerHits;
+
+    private int computerMisses;
+    private int computerHits;
+
     //This function should return a new model
     static String newModel() {
         return "MODEL";
@@ -34,9 +49,46 @@ public class Main {
         return "SHIP";
     }
 
+
+
     //Similar to placeShip, but with firing.
     private static String fireAt(Request req) {
+        //System.out.println(req);
         return null;
     }
 
+
+    //Player gets and sets for hitting and missing.
+    public int getPlayerMisses(){
+        return playerMisses;
+    }
+
+    public int getPlayerHits(){
+        return playerHits;
+    }
+
+    public void setPlayerMisses(int a){
+        this.playerMisses = a;
+    }
+
+    public void setPlayerHits(int a){
+        this.playerHits = a;
+    }
+
+    //Computer gets and sets for hitting and missing.
+    public int getComputerMisses(){
+        return computerMisses;
+    }
+
+    public int getComputerHits(){
+        return computerHits;
+    }
+
+    public void setComputerMisses(int a){
+        this.computerMisses = a;
+    }
+
+    public void setComputerHits(int a){
+        this.computerHits = a;
+    }
 }

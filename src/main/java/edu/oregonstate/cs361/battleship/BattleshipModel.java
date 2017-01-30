@@ -32,11 +32,11 @@ public class BattleshipModel {
 
         setEndX(endHorizontal);
         setEndY(endVertical);
+
     }
 
 
     //                  Member variables
-
     private String type;
     private int size;
 
@@ -53,7 +53,7 @@ public class BattleshipModel {
     }
 
     public void setType(String name) {
-        this.type = type;
+        this.type = name;
     }
 
     public int getSize() {

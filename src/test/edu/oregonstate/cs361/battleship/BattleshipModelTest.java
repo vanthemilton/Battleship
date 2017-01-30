@@ -24,6 +24,5 @@ class BattleshipModelTest {
         assertEquals(1, ship.test());
     }
 
-
 }
 
