@@ -20,8 +20,8 @@ class BattleshipModelTest {
 
     @Test
     public void testTest() {
-        BattleshipModel ship = new BattleshipModel(SSMcBoatyBoat, 10, 1, 1, 10, 1);
-        assertEquals(1, ship.test());
+        BattleshipModel ship = new BattleshipModel();
+        assertEquals(1, );
     }
 
 }

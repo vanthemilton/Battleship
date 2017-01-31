@@ -7,7 +7,7 @@ package edu.oregonstate.cs361.battleship;
 public class BattleshipModel {
 
     //                  Constructor
-    public BattleshipModel (String model, int startHorizontal, int startVertical, int endHorizontal, int endVertical) {
+    public BattleshipModel (String model, Point startPoint, Point endPoint) {
 
         setType(model);
 
@@ -27,11 +27,8 @@ public class BattleshipModel {
             default: break;
         }
 
-        setStartX(startHorizontal);
-        setStartY(startVertical);
-
-        setEndX(endHorizontal);
-        setEndY(endVertical);
+        start = startPoint;
+        end = endPoint;
 
     }
 
@@ -41,10 +38,8 @@ public class BattleshipModel {
     private int size;
 
     // Locational data
-    private int startX;
-    private int startY;
-    private int endX;
-    private int endY;
+    private Point start;
+    private Point end;
 
 
     //                  Getters and Setters
@@ -56,6 +51,7 @@ public class BattleshipModel {
         this.type = name;
     }
 
+
     public int getSize() {
         return size;
     }
@@ -64,38 +60,23 @@ public class BattleshipModel {
         this.size = size;
     }
 
-    public int getStartX() {
-        return startX;
+
+    public int getStart() {
+        return start;
     }
 
-    public void setStartX(int startX) {
-        this.startX = startX;
+    public void setStart(int start) {
+        this.start = start;
     }
 
-    public int getStartY() {
-        return startY;
+
+    public int getEnd() {
+        return end;
     }
 
-    public void setStartY(int startY) {
-        this.startY = startY;
+    public void setEnd(int end) {
+        this.end = end;
     }
-
-    public int getEndX() {
-        return endX;
-    }
-
-    public void setEndX(int endX) {
-        this.endX = endX;
-    }
-
-    public int getEndY() {
-        return endY;
-    }
-
-    public void setEndY(int endY) {
-        this.endY = endY;
-    }
-
 
 
     public int test() {
