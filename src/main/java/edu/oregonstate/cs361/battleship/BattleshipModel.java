@@ -61,20 +61,20 @@ public class BattleshipModel {
     }
 
 
-    public int getStart() {
+    public Point getStart() {
         return start;
     }
 
-    public void setStart(int start) {
+    public void setStart(Point start) {
         this.start = start;
     }
 
 
-    public int getEnd() {
+    public Point getEnd() {
         return end;
     }
 
-    public void setEnd(int end) {
+    public void setEnd(Point end) {
         this.end = end;
     }
 
