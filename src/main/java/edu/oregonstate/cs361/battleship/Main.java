@@ -27,7 +27,7 @@ public class Main {
         setComputerMisses(0);
     }
 
-    //Member varibles
+    //Member variables
     private int playerMisses;
     private int playerHits;
 
