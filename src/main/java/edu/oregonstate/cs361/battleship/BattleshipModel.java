@@ -65,9 +65,11 @@ public class BattleshipModel {
         return start;
     }
 
+
     public void setStart(int x, int y) {
         start.Across = x;
         start.Down = y;
+
     }
 
 
@@ -75,9 +77,11 @@ public class BattleshipModel {
         return end;
     }
 
+
     public void setEnd(int x, int y) {
         end.Across = x;
         end.Down = y;
+
     }
 
 

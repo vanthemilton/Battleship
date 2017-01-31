@@ -20,8 +20,11 @@ class BattleshipModelTest {
 
     @Test
     public void testTest() {
-        BattleshipModel ship = new BattleshipModel();
-        assertEquals(1, );
+        Point pnt1 = new Point(1,1);
+        Point pnt2 = new Point(5, 1);
+
+        BattleshipModel ship = new BattleshipModel(new String("aircraftCarrier"), pnt1, pnt2);
+        assertEquals(1, ship.test());
     }
 
 }

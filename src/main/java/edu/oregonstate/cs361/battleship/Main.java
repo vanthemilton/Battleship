@@ -78,6 +78,8 @@ public class Main {
     }
 
 
+    //////////////////////////////////////////////////////////////////
+
     //Player gets and sets for hitting and missing.
     public int getPlayerMisses(){
         return playerMisses;
@@ -94,7 +96,10 @@ public class Main {
     public void setPlayerHits(int a){
         this.playerHits = a;
     }
+    //////////////////////////////////////////////////////////////////
 
+
+    //////////////////////////////////////////////////////////////////
     //Computer gets and sets for hitting and missing.
     public int getComputerMisses(){
         return computerMisses;
@@ -111,4 +116,32 @@ public class Main {
     public void setComputerHits(int a){
         this.computerHits = a;
     }
+    //////////////////////////////////////////////////////////////////
+
+
+    //This function should return a new model
+    static String newModel() {
+        return "MODEL";
+    }
+
+    //This function should accept an HTTP request and deseralize it into an actual Java object.
+    private static BattleshipModel getModelFromReq(Request req){
+        return null;
+    }
+
+    //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
+    private static String placeShip(Request req) {
+        return "SHIP";
+    }
+
+
+
+    //Similar to placeShip, but with firing.
+    private static String fireAt(Request req) {
+        //System.out.println(req);
+        return null;
+    }
+
+
+
 }
