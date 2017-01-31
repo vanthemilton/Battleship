@@ -34,6 +34,46 @@ public class Main {
     private int computerMisses;
     private int computerHits;
 
+    //////////////////////////////////////////////////////////////////
+    //Player gets and sets for hitting and missing.
+    public int getPlayerMisses(){
+        return playerMisses;
+    }
+
+    public int getPlayerHits(){
+        return playerHits;
+    }
+
+    public void setPlayerMisses(int a){
+        this.playerMisses = a;
+    }
+
+    public void setPlayerHits(int a){
+        this.playerHits = a;
+    }
+    //////////////////////////////////////////////////////////////////
+
+
+    //////////////////////////////////////////////////////////////////
+    //Computer gets and sets for hitting and missing.
+    public int getComputerMisses(){
+        return computerMisses;
+    }
+
+    public int getComputerHits(){
+        return computerHits;
+    }
+
+    public void setComputerMisses(int a){
+        this.computerMisses = a;
+    }
+
+    public void setComputerHits(int a){
+        this.computerHits = a;
+    }
+    //////////////////////////////////////////////////////////////////
+
+
     //This function should return a new model
     static String newModel() {
         return "MODEL";
@@ -58,37 +98,5 @@ public class Main {
     }
 
 
-    //Player gets and sets for hitting and missing.
-    public int getPlayerMisses(){
-        return playerMisses;
-    }
 
-    public int getPlayerHits(){
-        return playerHits;
-    }
-
-    public void setPlayerMisses(int a){
-        this.playerMisses = a;
-    }
-
-    public void setPlayerHits(int a){
-        this.playerHits = a;
-    }
-
-    //Computer gets and sets for hitting and missing.
-    public int getComputerMisses(){
-        return computerMisses;
-    }
-
-    public int getComputerHits(){
-        return computerHits;
-    }
-
-    public void setComputerMisses(int a){
-        this.computerMisses = a;
-    }
-
-    public void setComputerHits(int a){
-        this.computerHits = a;
-    }
 }
