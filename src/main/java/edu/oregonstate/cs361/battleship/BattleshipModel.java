@@ -61,21 +61,23 @@ public class BattleshipModel {
     }
 
 
-    public int getStart() {
+    public Point getStart() {
         return start;
     }
 
-    public void setStart(int start) {
-        this.start = start;
+    public void setStart(int x, int y) {
+        start.Across = x;
+        start.Down = y;
     }
 
 
-    public int getEnd() {
+    public Point getEnd() {
         return end;
     }
 
-    public void setEnd(int end) {
-        this.end = end;
+    public void setEnd(int x, int y) {
+        end.Across = x;
+        end.Down = y;
     }
 
 
