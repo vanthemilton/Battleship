@@ -37,12 +37,10 @@ public class Main {
 
     //This function should return a new model
     static String newModel() {
-        BattleshipModel test = new BattleshipModel("test", new Point(0, 0), new Point(0, 0));
+        BattleshipModel test = new BattleshipModel();
         Gson gson = new Gson();
         String model = new String(gson.toJson(test));
         //System.out.println(model);
-        String fullModel = "model: ";
-
         return model;
     }
 
@@ -56,31 +54,29 @@ public class Main {
 
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
     private static String placeShip(Request req) {
-        BattleshipModel ship = getModelFromReq(req); //is this correct?
+        BattleshipModel model = getModelFromReq(req); //is this correct?
         String id, orientation, row, col;
         id = req.params("id");  //name of what ship with which player in front of it
         orientation = req.params("orientation"); //horizontal/vertical
         row = req.params("row");    //row #
         col = req.params("col");    //col #
 
-        //NEED HELP///////////////ID?//////
-
         int rows = Integer.parseInt(row);
         int column = Integer.parseInt(col);
 
-        ship.setStart(rows,column);
+        Ship current = model.getShipByID(id);
+        current.setStart(rows,column);
 
-        int size = ship.getSize();
+        int size = current.getLength();
 
         if(orientation.equals("horizontal")){
-            ship.setEnd(rows + size, column);
+            current.setEnd(rows + size, column);
         }else{
-            ship.setEnd(rows,column - size);
+            current.setEnd(rows,column - size);
         }
 
         Gson gson = new Gson();
-        String jsonobject = gson.toJson(ship);
-        return jsonobject;
+        return gson.toJson(model);
     }
 
     //Similar to placeShip, but with firing.
