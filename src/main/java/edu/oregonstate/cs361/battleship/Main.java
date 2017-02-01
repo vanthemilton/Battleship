@@ -69,19 +69,15 @@ public class Main {
         return jsonobject;
     }
 
-
-
     //Similar to placeShip, but with firing.
     private static String fireAt(Request req) {
         String X = req.params("row");
         String Y = req.params("col");
-        //System.out.println(req);
+        
         return null;
     }
 
-
     //////////////////////////////////////////////////////////////////
-
     //Player gets and sets for hitting and missing.
     public int getPlayerMisses(){
         return playerMisses;
