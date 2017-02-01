@@ -76,4 +76,9 @@ public class Ship {
         this.end = new Point(x, y);
     }
 
+    // RETURN ANY SHIP OBJECT DIRECTLY
+    public Ship getShip() {
+        return this;
+    }
+
 }
