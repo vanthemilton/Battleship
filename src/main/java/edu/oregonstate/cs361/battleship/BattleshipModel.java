@@ -20,14 +20,16 @@ public class BattleshipModel {
     private Ship computerDestroyer;
     private Ship computerSubmarine;
 
-    Point[] playerHits = new Point[100];
-    Point[] playerMisses = new Point[100];
-    Point[] computerHits = new Point[100];
-    Point[] computerMisses = new Point[100];
+    Point[] playerHits;
+    Point[] playerMisses;
+    Point[] computerHits;
+    Point[] computerMisses;
+
+    computerMisses.length()
 
 
     //                  Constructor
-    public BattleshipModel (String model, Point startPoint, Point endPoint) {
+    public BattleshipModel () {
 
         playerAircraftCarrier = new Ship("AircraftCarrier");
         playerBattleship = new Ship("Battleship");
@@ -41,10 +43,14 @@ public class BattleshipModel {
         playerDestroyer = new Ship("Destroyer");
         playerSubmarine = new Ship("Submarine");
 
+        playerHits = new Point[100];
+        playerMisses = new Point[100];
+        computerHits = new Point[100];
+        computerMisses = new Point[100];
     }
 
 
-    //          Add Point object to an array
+    //          Add Point object to an array function
     public boolean addPointtoArray(Point somePoint, Point[] someArray) {
 
     if (somePoint.getAcross() > 10 || somePoint.getAcross() < 0 || somePoint.getDown() > 10 || somePoint.getDown() < 0)
@@ -55,6 +61,58 @@ public class BattleshipModel {
     }
 }
 
+
+    //          Get ship by ID function, assumes user only selects from drop down menu on front end
+    public Ship getShipByID(String id) {
+
+        if(id.toLowerCase().contains("computer")) {
+
+            if (id.toLowerCase().contains("aircraftCarrier")) {
+                return computerAircraftCarrier;
+            }
+
+            else if (id.toLowerCase().contains("battleship")) {
+                return computerBattleship;
+            }
+
+            else if (id.toLowerCase().contains("submarine") ) {
+                return computerSubmarine;
+            }
+
+            else if (id.toLowerCase().contains("cruiser")) {
+                return computerCruiser;
+            }
+
+            else if (id.toLowerCase().contains("destroyer")) {
+                return computerDestroyer;
+            }
+        }
+
+        else {
+
+            if (id.toLowerCase().contains("aircraftCarrier")) {
+                return playerAircraftCarrier;
+            }
+
+            else if (id.toLowerCase().contains("battleship")) {
+                return playerBattleship;
+            }
+
+            else if (id.toLowerCase().contains("submarine") ) {
+                return playerSubmarine;
+            }
+
+            else if (id.toLowerCase().contains("cruiser")) {
+                return playerCruiser;
+            }
+
+            else if (id.toLowerCase().contains("destroyer")) {
+                return playerDestroyer;
+            }
+        }
+
+
+    }
 
     //          Getters and Setters
     public Ship getPlayerAircraftCarrier() {
