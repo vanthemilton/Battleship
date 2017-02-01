@@ -53,7 +53,6 @@ public class Main {
         Gson gson = new Gson();
         BattleshipModel ship = gson.fromJson(data, BattleshipModel.class);
         return ship;
-
     }
 
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
@@ -73,8 +72,15 @@ public class Main {
     private static String fireAt(Request req) {
         String X = req.params("row");
         String Y = req.params("col");
-        
-        return null;
+
+        int row = Integer.parseInt(X);
+        int col = Integer.parseInt(Y);
+
+        Point FireSpot = new Point(row,col);
+
+        Gson gson = new Gson();
+        String jsonobject = gson.toJson(FireSpot);
+        return jsonobject;
     }
 
     //////////////////////////////////////////////////////////////////
