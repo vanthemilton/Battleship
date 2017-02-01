@@ -44,7 +44,6 @@ public class Main {
         String fullModel = "model: ";
 
         return model;
-
     }
 
     //This function should accept an HTTP request and deseralize it into an actual Java object.
@@ -63,6 +62,22 @@ public class Main {
         orientation = req.params("orientation");
         row = req.params("row");
         col = req.params("col");
+
+        //NEED HELP///////////////ID?/////////////////////////////////////////
+
+        int rows = Integer.parseInt(row);
+        int column = Integer.parseInt(col);
+
+        ship.setStart(rows,column);
+
+        int size = ship.getSize();
+
+        if(orientation.equals("Horizontal")){
+            ship.setEnd(rows + size, column);
+        }else{
+            ship.setEnd(rows,column - size);
+        }
+
         Gson gson = new Gson();
         String jsonobject = gson.toJson(ship);
         return jsonobject;
@@ -80,12 +95,12 @@ public class Main {
         Point FireSpot = new Point(row,col);
 
         //See if the computer or the player is firing
-        //Go into ship and change Hit and Miss and ...
+        //Go into ship and ...
 
         //See if hit
-            //add a Point to the Hit file
+            //add a Point to the Hit Point array file
         //else Miss
-            //adds a Point to the Miss file
+            //adds a Point to the Miss Point array file
 
         Gson gson = new Gson();
         String jsonobject = gson.toJson(ship);
