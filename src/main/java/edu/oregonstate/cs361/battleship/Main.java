@@ -73,6 +73,8 @@ public class Main {
 
     //Similar to placeShip, but with firing.
     private static String fireAt(Request req) {
+        String X = req.params("row");
+        String Y = req.params("col");
         //System.out.println(req);
         return null;
     }
@@ -117,45 +119,5 @@ public class Main {
         this.computerHits = a;
     }
     //////////////////////////////////////////////////////////////////
-
-
-    //This function should return a new model
-    static String newModel() {
-        BattleshipModel aircraftCarrier;
-        BattleshipModel battleship;
-        BattleshipModel cruiser;
-        BattleshipModel destroyer;
-        BattleshipModel submarine;
-
-        BattleshipModel computer_aircraftCarrier;
-        BattleshipModel computer_battleship;
-        BattleshipModel computer_cruiser;
-        BattleshipModel computer_destroyer;
-        BattleshipModel computer_submarine;
-        
-        return "MODEL";
-    }
-
-    //This function should accept an HTTP request and deseralize it into an actual Java object.
-    private static BattleshipModel getModelFromReq(Request req){
-        return null;
-    }
-
-    //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
-    private static String placeShip(Request req) {
-
-
-
-        return "SHIP";
-    }
-
-
-    //Similar to placeShip, but with firing.
-    private static String fireAt(Request req) {
-        //System.out.println(req);
-        return null;
-    }
-
-
 
 }
