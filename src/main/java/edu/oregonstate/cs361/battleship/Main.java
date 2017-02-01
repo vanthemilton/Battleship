@@ -56,14 +56,14 @@ public class Main {
 
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
     private static String placeShip(Request req) {
-        BattleshipModel ship = getModelFromReq(req);
+        BattleshipModel ship = getModelFromReq(req); //is this correct?
         String id, orientation, row, col;
-        id = req.params("id");
-        orientation = req.params("orientation");
-        row = req.params("row");
-        col = req.params("col");
+        id = req.params("id");  //name of what ship with which player in front of it
+        orientation = req.params("orientation"); //horizontal/vertical
+        row = req.params("row");    //row #
+        col = req.params("col");    //col #
 
-        //NEED HELP///////////////ID?/////////////////////////////////////////
+        //NEED HELP///////////////ID?//////
 
         int rows = Integer.parseInt(row);
         int column = Integer.parseInt(col);
@@ -72,7 +72,7 @@ public class Main {
 
         int size = ship.getSize();
 
-        if(orientation.equals("Horizontal")){
+        if(orientation.equals("horizontal")){
             ship.setEnd(rows + size, column);
         }else{
             ship.setEnd(rows,column - size);
