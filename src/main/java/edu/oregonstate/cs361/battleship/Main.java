@@ -53,7 +53,6 @@ public class Main {
         Gson gson = new Gson();
         BattleshipModel ship = gson.fromJson(data, BattleshipModel.class);
         return ship;
-
     }
 
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
@@ -69,17 +68,31 @@ public class Main {
         return jsonobject;
     }
 
-
-
     //Similar to placeShip, but with firing.
     private static String fireAt(Request req) {
-        //System.out.println(req);
-        return null;
+        BattleshipModel ship = getModelFromReq(req);
+        String X = req.params("row");
+        String Y = req.params("col");
+
+        int row = Integer.parseInt(X);
+        int col = Integer.parseInt(Y);
+
+        Point FireSpot = new Point(row,col);
+
+        //See if the computer or the player is firing
+        //Go into ship and change Hit and Miss and ...
+
+        //See if hit
+            //add a Point to the Hit file
+        //else Miss
+            //adds a Point to the Miss file
+
+        Gson gson = new Gson();
+        String jsonobject = gson.toJson(ship);
+        return jsonobject;
     }
 
-
     //////////////////////////////////////////////////////////////////
-
     //Player gets and sets for hitting and missing.
     public int getPlayerMisses(){
         return playerMisses;
@@ -117,31 +130,5 @@ public class Main {
         this.computerHits = a;
     }
     //////////////////////////////////////////////////////////////////
-
-
-    //This function should return a new model
-    static String newModel() {
-        return "MODEL";
-    }
-
-    //This function should accept an HTTP request and deseralize it into an actual Java object.
-    private static BattleshipModel getModelFromReq(Request req){
-        return null;
-    }
-
-    //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
-    private static String placeShip(Request req) {
-        return "SHIP";
-    }
-
-
-
-    //Similar to placeShip, but with firing.
-    private static String fireAt(Request req) {
-        //System.out.println(req);
-        return null;
-    }
-
-
 
 }
