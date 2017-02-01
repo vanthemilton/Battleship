@@ -7,8 +7,11 @@ public class Point {
 
     //              Constructor
     public Point(int X_Coordinate, int Y_Coordinate) {
-        Across = X_Coordinate;
-        Down = Y_Coordinate;
+        setAcross(X_Coordinate);
+        setDown(Y_Coordinate);
+
+        //Across = X_Coordinate;
+        //Down = Y_Coordinate;
     }
 
 
