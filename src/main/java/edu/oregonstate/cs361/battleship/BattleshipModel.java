@@ -6,86 +6,134 @@ package edu.oregonstate.cs361.battleship;
 
 public class BattleshipModel {
 
+
+    //                  Member variables
+    private Ship playerAircraftCarrier;
+    private Ship playerBattleship;
+    private Ship playerCruiser;
+    private Ship playerDestroyer;
+    private Ship playerSubmarine;
+
+    private Ship computerAircraftCarrier;
+    private Ship computerBattleship;
+    private Ship computerCruiser;
+    private Ship computerDestroyer;
+    private Ship computerSubmarine;
+
+    Point[] playerHits = new Point[100];
+    Point[] playerMisses = new Point[100];
+    Point[] computerHits = new Point[100];
+    Point[] computerMisses = new Point[100];
+
+
     //                  Constructor
     public BattleshipModel (String model, Point startPoint, Point endPoint) {
 
-        setType(model);
+        playerAircraftCarrier = new Ship("AircraftCarrier");
+        playerBattleship = new Ship("Battleship");
+        playerCruiser = new Ship("Cruiser");
+        playerDestroyer = new Ship("Destroyer");
+        playerSubmarine = new Ship("Submarine");
 
-        // size is based on model
-        switch (model) {
-            case "aircraftCarrier": setSize(5);
-                break;
-            case "battleship": setSize(4);
-                break;
-            case "cruiser": setSize(3);
-                break;
-            case "destroyer": setSize(2);
-                break;
-            case "submarine": setSize(3);
-                break;
-
-            default: break;
-        }
-
-        start = startPoint;
-        end = endPoint;
+        playerAircraftCarrier = new Ship("AircraftCarrier");
+        playerBattleship = new Ship("Battleship");
+        playerCruiser = new Ship("Cruiser");
+        playerDestroyer = new Ship("Destroyer");
+        playerSubmarine = new Ship("Submarine");
 
     }
 
 
-    //                  Member variables
-    private String type;
-    private int size;
+    //          Add Point object to an array
+    public boolean addPointtoArray(Point somePoint, Point[] someArray) {
 
-    // Locational data
-    private Point start;
-    private Point end;
+    if (somePoint.getAcross() > 10 || somePoint.getAcross() < 0 || somePoint.getDown() > 10 || somePoint.getDown() < 0)
+        return false;
+
+    else {
+        someArray.add(somePoint);       // NEED TO FIGURE OUT IF THERE IS A PUSH EQU TO ARRAYS IN JAVA
+    }
+}
 
 
-    //                  Getters and Setters
-    public String getType() {
-        return type;
+    //          Getters and Setters
+    public Ship getPlayerAircraftCarrier() {
+        return playerAircraftCarrier;
     }
 
-    public void setType(String name) {
-        this.type = name;
+    public void setPlayerAircraftCarrier(Ship playerAircraftCarrier) {
+        this.playerAircraftCarrier = playerAircraftCarrier;
     }
 
-
-    public int getSize() {
-        return size;
+    public Ship getPlayerBattleship() {
+        return playerBattleship;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setPlayerBattleship(Ship playerBattleship) {
+        this.playerBattleship = playerBattleship;
     }
 
-
-    public Point getStart() {
-        return start;
+    public Ship getPlayerCruiser() {
+        return playerCruiser;
     }
 
-
-    public void setStart(int x, int y) {
-        start.Across = x;
-        start.Down = y;
-
+    public void setPlayerCruiser(Ship playerCruiser) {
+        this.playerCruiser = playerCruiser;
     }
 
-
-    public Point getEnd() {
-        return end;
+    public Ship getPlayerDestroyer() {
+        return playerDestroyer;
     }
 
-
-    public void setEnd(int x, int y) {
-        end.Across = x;
-        end.Down = y;
-
+    public void setPlayerDestroyer(Ship playerDestroyer) {
+        this.playerDestroyer = playerDestroyer;
     }
 
+    public Ship getPlayerSubmarine() {
+        return playerSubmarine;
+    }
 
-    public int test() {
-        return 1;
+    public void setPlayerSubmarine(Ship playerSubmarine) {
+        this.playerSubmarine = playerSubmarine;
+    }
+
+    public Ship getComputerAircraftCarrier() {
+        return computerAircraftCarrier;
+    }
+
+    public void setComputerAircraftCarrier(Ship computerAircraftCarrier) {
+        this.computerAircraftCarrier = computerAircraftCarrier;
+    }
+
+    public Ship getComputerBattleship() {
+        return computerBattleship;
+    }
+
+    public void setComputerBattleship(Ship computerBattleship) {
+        this.computerBattleship = computerBattleship;
+    }
+
+    public Ship getComputerCruiser() {
+        return computerCruiser;
+    }
+
+    public void setComputerCruiser(Ship computerCruiser) {
+        this.computerCruiser = computerCruiser;
+    }
+
+    public Ship getComputerDestroyer() {
+        return computerDestroyer;
+    }
+
+    public void setComputerDestroyer(Ship computerDestroyer) {
+        this.computerDestroyer = computerDestroyer;
+    }
+
+    public Ship getComputerSubmarine() {
+        return computerSubmarine;
+    }
+
+    public void setComputerSubmarine(Ship computerSubmarine) {
+        this.computerSubmarine = computerSubmarine;
     }
 }
