@@ -70,6 +70,7 @@ public class Main {
 
     //Similar to placeShip, but with firing.
     private static String fireAt(Request req) {
+        BattleshipModel ship = getModelFromReq(req);
         String X = req.params("row");
         String Y = req.params("col");
 
@@ -78,8 +79,16 @@ public class Main {
 
         Point FireSpot = new Point(row,col);
 
+        //See if the computer or the player is firing
+        //Go into ship and change Hit and Miss and ...
+
+        //See if hit
+            //add a Point to the Hit file
+        //else Miss
+            //adds a Point to the Miss file
+
         Gson gson = new Gson();
-        String jsonobject = gson.toJson(FireSpot);
+        String jsonobject = gson.toJson(ship);
         return jsonobject;
     }
 
