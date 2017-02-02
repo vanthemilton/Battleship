@@ -1,5 +1,11 @@
 package edu.oregonstate.cs361.battleship;
 
+import com.google.gson.Gson;
+import spark.Request;
+import static spark.Spark.get;
+import static spark.Spark.post;
+import static spark.Spark.staticFiles;
+
 /**
  * Created by dudeman on 1/31/17.
  */
@@ -18,7 +24,7 @@ public class Ship {
         setName(name);
 
         // size is based on name of ship, if unrecognized ship type the function sets size to 0
-        if (name.toLowerCase().contains("aircraftCarrier")) {
+        if (name.toLowerCase().contains("aircraftcarrier")) {
             setLength(5);
         }
 

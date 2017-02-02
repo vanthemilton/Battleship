@@ -81,7 +81,7 @@ public class Main {
 
     //Similar to placeShip, but with firing.
     private static String fireAt(Request req) {
-        BattleshipModel ship = getModelFromReq(req);
+        BattleshipModel model = getModelFromReq(req);
         String X = req.params("row");
         String Y = req.params("col");
 
@@ -99,7 +99,7 @@ public class Main {
             //adds a Point to the Miss Point array file
 
         Gson gson = new Gson();
-        String jsonobject = gson.toJson(ship);
+        String jsonobject = gson.toJson(model);
         return jsonobject;
     }
 

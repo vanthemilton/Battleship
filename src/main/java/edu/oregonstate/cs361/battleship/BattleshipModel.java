@@ -23,26 +23,26 @@ public class BattleshipModel {
     private Ship computerDestroyer;
     private Ship computerSubmarine;
 
-    List<Point> playerHits;
-    List<Point> playerMisses;
-    List<Point> computerHits;
-    List<Point> computerMisses;
+    private List<Point> playerHits;
+    private List<Point> playerMisses;
+    private List<Point> computerHits;
+    private List<Point> computerMisses;
 
 
     //                  Constructor
     public BattleshipModel () {
 
-        playerAircraftCarrier = new Ship("AircraftCarrier");
-        playerBattleship = new Ship("Battleship");
-        playerCruiser = new Ship("Cruiser");
-        playerDestroyer = new Ship("Destroyer");
-        playerSubmarine = new Ship("Submarine");
+        playerAircraftCarrier = new Ship("playerAircraftCarrier");
+        playerBattleship = new Ship("playerBattleship");
+        playerCruiser = new Ship("playerCruiser");
+        playerDestroyer = new Ship("playerDestroyer");
+        playerSubmarine = new Ship("playerSubmarine");
 
-        playerAircraftCarrier = new Ship("AircraftCarrier");
-        playerBattleship = new Ship("Battleship");
-        playerCruiser = new Ship("Cruiser");
-        playerDestroyer = new Ship("Destroyer");
-        playerSubmarine = new Ship("Submarine");
+        computerAircraftCarrier = new Ship("computerAircraftCarrier");
+        computerBattleship = new Ship("computerBattleship");
+        computerCruiser = new Ship("computerCruiser");
+        computerDestroyer = new Ship("computerDestroyer");
+        computerSubmarine = new Ship("computerSubmarine");
 
         playerHits = new ArrayList<Point>();
         playerMisses = new ArrayList<Point>();
@@ -69,7 +69,7 @@ public class BattleshipModel {
 
         if(id.toLowerCase().contains("computer")) {
 
-            if (id.toLowerCase().contains("aircraftCarrier")) {
+            if (id.toLowerCase().contains("aircraftcarrier")) {
                 return computerAircraftCarrier;
             }
 
@@ -92,7 +92,7 @@ public class BattleshipModel {
 
         else {
 
-            if (id.toLowerCase().contains("aircraftCarrier")) {
+            if (id.toLowerCase().contains("aircraftcarrier")) {
                 return playerAircraftCarrier;
             }
 
@@ -114,7 +114,7 @@ public class BattleshipModel {
         }
 
         // DEFAULTS TO THIS IF ID FORMAT IS INCORRECT:
-        return computerAircraftCarrier;
+        return playerDestroyer;
     }
 
     //          Getters and Setters
