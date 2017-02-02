@@ -54,14 +54,17 @@ public class BattleshipModel {
     //          Add Point object to an array function
     public boolean addPointtoArray(Point somePoint, List someArray) {
 
-    if (somePoint.getAcross() > 10 || somePoint.getAcross() < 0 || somePoint.getDown() > 10 || somePoint.getDown() < 0)
-        return false;
+        if (somePoint.getAcross() > 10 || somePoint.getAcross() < 0 || somePoint.getDown() > 10 || somePoint.getDown() < 0)
 
-    else {
-        someArray.add(somePoint);
-        return true;
+            return false;
+
+        else {
+
+            someArray.add(somePoint);
+            return true;
+
+        }
     }
-}
 
 
     //          Get ship by ID function, assumes user only selects from drop down menu on front end
@@ -114,7 +117,9 @@ public class BattleshipModel {
         }
 
         // DEFAULTS TO THIS IF ID FORMAT IS INCORRECT:
-        return playerDestroyer;
+        Ship PizzaShip = new Ship();
+        PizzaShip.setName("PizzaShip")
+        return PizzaShip;
     }
 
     //          Getters and Setters

@@ -83,8 +83,8 @@ public class Ship {
     }
 
     // RETURN ANY SHIP OBJECT DIRECTLY
-    public Ship getShip() {
-        return this;
-    }
+    //public Ship getShip() {
+        //return this;
+    //}
 
 }
