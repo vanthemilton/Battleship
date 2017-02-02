@@ -17,7 +17,7 @@ public class Ship {
 
         setName(name);
 
-        // size is based on name of ship, if unrecognized ship type sets size to 0
+        // size is based on name of ship, if unrecognized ship type the function sets size to 0
         if (name.toLowerCase().contains("aircraftCarrier")) {
             setLength(5);
         }

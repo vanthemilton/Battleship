@@ -1,5 +1,8 @@
 package edu.oregonstate.cs361.battleship;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by michaelhilton on 1/26/17.
  */
@@ -20,12 +23,10 @@ public class BattleshipModel {
     private Ship computerDestroyer;
     private Ship computerSubmarine;
 
-    Point[] playerHits;
-    Point[] playerMisses;
-    Point[] computerHits;
-    Point[] computerMisses;
-
-    computerMisses.length()
+    List<Point> playerHits;
+    List<Point> playerMisses;
+    List<Point> computerHits;
+    List<Point> computerMisses;
 
 
     //                  Constructor
@@ -43,21 +44,22 @@ public class BattleshipModel {
         playerDestroyer = new Ship("Destroyer");
         playerSubmarine = new Ship("Submarine");
 
-        playerHits = new Point[100];
-        playerMisses = new Point[100];
-        computerHits = new Point[100];
-        computerMisses = new Point[100];
+        playerHits = new ArrayList<Point>();
+        playerMisses = new ArrayList<Point>();
+        computerHits = new ArrayList<Point>();
+        computerMisses = new ArrayList<Point>();
     }
 
 
     //          Add Point object to an array function
-    public boolean addPointtoArray(Point somePoint, Point[] someArray) {
+    public boolean addPointtoArray(Point somePoint, List someArray) {
 
     if (somePoint.getAcross() > 10 || somePoint.getAcross() < 0 || somePoint.getDown() > 10 || somePoint.getDown() < 0)
         return false;
 
     else {
-        someArray.add(somePoint);       // NEED TO FIGURE OUT IF THERE IS A PUSH EQU TO ARRAYS IN JAVA
+        someArray.add(somePoint);
+        return true;
     }
 }
 
@@ -111,7 +113,8 @@ public class BattleshipModel {
             }
         }
 
-
+        // DEFAULTS TO THIS IF ID FORMAT IS INCORRECT:
+        return computerAircraftCarrier;
     }
 
     //          Getters and Setters
