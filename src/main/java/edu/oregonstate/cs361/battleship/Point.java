@@ -5,17 +5,21 @@ package edu.oregonstate.cs361.battleship;
  */
 public class Point {
 
-    //              Constructor
-    public Point(int X_Coordinate, int Y_Coordinate) {
-        setAcross(X_Coordinate);
-        setDown(Y_Coordinate);
-    }
-
-
     //              Member variables
     int Across;
     int Down;
 
+
+    //              Constructor
+    public Point() {
+        setAcross(-1);
+        setDown(-1);
+    }
+
+    public Point(int X_Coordinate, int Y_Coordinate) {
+        setAcross(X_Coordinate);
+        setDown(Y_Coordinate);
+    }
 
     //              Getters and Setters
     public int getAcross() {
