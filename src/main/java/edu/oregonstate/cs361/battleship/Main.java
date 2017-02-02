@@ -21,19 +21,11 @@ public class Main {
     }
 
     public Main(){
-        setPlayerHits(0);
-        setPlayerMisses(0);
 
-        setComputerHits(0);
-        setComputerMisses(0);
     }
 
     //Member variables
-    private int playerMisses;
-    private int playerHits;
-
-    private int computerMisses;
-    private int computerHits;
+    //Empty
 
     //This function should return a new model
     static String newModel() {
@@ -90,8 +82,12 @@ public class Main {
 
         Point FireSpot = new Point(row,col);
 
-        //See if the computer or the player is firing
-        //Go into ship and ...
+        //Player
+        if(Hit(model,1) == 0){
+
+        }else{
+            //model
+        }
 
         //See if hit
             //add a Point to the Hit Point array file
@@ -103,43 +99,14 @@ public class Main {
         return jsonobject;
     }
 
-    //////////////////////////////////////////////////////////////////
-    //Player gets and sets for hitting and missing.
-    public int getPlayerMisses(){
-        return playerMisses;
-    }
+    private static int Hit(BattleshipModel model, int who){
+        if(who == 0){
+            //firePlayerShips()
+        }else{
+            //fireComputerShips()
+        }
 
-    public int getPlayerHits(){
-        return playerHits;
+        return 0;
     }
-
-    public void setPlayerMisses(int a){
-        this.playerMisses = a;
-    }
-
-    public void setPlayerHits(int a){
-        this.playerHits = a;
-    }
-    //////////////////////////////////////////////////////////////////
-
-
-    //////////////////////////////////////////////////////////////////
-    //Computer gets and sets for hitting and missing.
-    public int getComputerMisses(){
-        return computerMisses;
-    }
-
-    public int getComputerHits(){
-        return computerHits;
-    }
-
-    public void setComputerMisses(int a){
-        this.computerMisses = a;
-    }
-
-    public void setComputerHits(int a){
-        this.computerHits = a;
-    }
-    //////////////////////////////////////////////////////////////////
 
 }
