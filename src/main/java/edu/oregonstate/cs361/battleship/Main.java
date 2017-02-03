@@ -65,6 +65,9 @@ public class Main {
 
         Ship current = model.getShipByID(id);
 
+        current.setEnd(-1,-1);
+        current.setStart(-1,-1);
+
         int size = current.getLength();
         int stop = 0;
         Point cord = new Point();
@@ -72,7 +75,7 @@ public class Main {
         if (orientation.equals("horizontal") && rows + size < 11 && rows > 0 && column < 11 && column > 0) {
             for (int i = rows; i < (rows + size); i++) {
                 cord.setAcross(i);
-                cord.setDown(current.getStart().getDown());
+                cord.setDown(column);
 
                 //if ship lands on another ship then
                 if (Hit(PAircraftCarrier.getStart(), PAircraftCarrier.getEnd(), cord)) {
@@ -93,9 +96,9 @@ public class Main {
                 current.setEnd(rows + size - 1, column);
             }
 
-        } else if (orientation.equals("vertical") && rows < 11 && rows > 0 && column < 11 && column - size + 1 > 0) {
-            for (int k = column; k > (rows - size); k--) {
-                cord.setAcross(current.getStart().getAcross());
+        } else if (orientation.equals("vertical") && rows < 11 && rows > 0 && column + size - 1 < 11 && column > 0) {
+            for (int k = column; k < (column + size); k++) {
+                cord.setAcross(rows);
                 cord.setDown(k);
 
                 //if ship lands on another ship then
@@ -114,8 +117,10 @@ public class Main {
 
             if (stop == 0) {
                 current.setStart(rows, column);
-                current.setEnd(rows, column - size + 1);
+                current.setEnd(rows, column + size - 1);
             }
+        }else{
+            stop = 1;
         }
 
 //        Point computerStart = new Point();
@@ -285,19 +290,19 @@ public class Main {
 
 
         // The following branch tree checks if a point fired at BY A PLAYER has hit a COMPUTER ship and adds the point to the array of hits if so
-        if( Hit( FireSpot, CAircraftCarrier.getStart(), CAircraftCarrier.getEnd() ) ){
+        if( Hit( CAircraftCarrier.getStart(), CAircraftCarrier.getEnd(), FireSpot ) ){
             model.addPointtoArray(FireSpot, model.getComputerHits());
         }
-        else if ( Hit(FireSpot, CBattleship.getStart(), CBattleship.getEnd() ) ){
+        else if ( Hit( CBattleship.getStart(), CBattleship.getEnd(), FireSpot ) ){
             model.addPointtoArray(FireSpot, model.getComputerHits());
         }
-        else if ( Hit(FireSpot, CCruiser.getStart(), CCruiser.getEnd() ) ){
+        else if ( Hit( CCruiser.getStart(), CCruiser.getEnd(), FireSpot  ) ){
             model.addPointtoArray(FireSpot, model.getComputerHits());
         }
-        else if ( Hit(FireSpot, CDestroyer.getStart(), CDestroyer.getEnd() ) ){
+        else if ( Hit( CDestroyer.getStart(), CDestroyer.getEnd(), FireSpot  ) ){
             model.addPointtoArray(FireSpot, model.getComputerHits());
         }
-        else if ( Hit(FireSpot, CSubmarine.getStart(), CSubmarine.getEnd() ) ){
+        else if ( Hit( CSubmarine.getStart(), CSubmarine.getEnd(), FireSpot  ) ){
             model.addPointtoArray(FireSpot, model.getComputerHits());
         }
         else{   // No hits on any ships, adds point to array of misses instead
@@ -311,19 +316,19 @@ public class Main {
         Point FireSpotComputer = new Point(shootX, shootY);
 
         // Following branch tree checks if a point fired at BY THE COMPUTER has hit a PLAYER ship and adds the point to the array of hits if so
-        if( Hit( FireSpotComputer, PAircraftCarrier.getStart(), PAircraftCarrier.getEnd() ) ){
+        if( Hit( PAircraftCarrier.getStart(), PAircraftCarrier.getEnd(), FireSpotComputer ) ){
             model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
         }
-        else if ( Hit(FireSpotComputer, PBattleship.getStart(), PBattleship.getEnd() ) ){
+        else if ( Hit( PBattleship.getStart(), PBattleship.getEnd(), FireSpotComputer  ) ){
             model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
         }
-        else if ( Hit(FireSpotComputer, PCruiser.getStart(), PCruiser.getEnd() ) ){
+        else if ( Hit( PCruiser.getStart(), PCruiser.getEnd(), FireSpotComputer  ) ){
             model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
         }
-        else if ( Hit(FireSpotComputer, PDestroyer.getStart(), PDestroyer.getEnd() ) ){
+        else if ( Hit( PDestroyer.getStart(), PDestroyer.getEnd(), FireSpotComputer  ) ){
             model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
         }
-        else if ( Hit(FireSpotComputer, PSubmarine.getStart(), PSubmarine.getEnd() ) ){
+        else if ( Hit( PSubmarine.getStart(), PSubmarine.getEnd(), FireSpotComputer  ) ){
             model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
         }
         else{   // No hits on any ships, adds point to array of misses instead
@@ -349,7 +354,7 @@ public class Main {
 
         else if (shotPoint.getAcross() == shipStart.getAcross()) {      // if start and end on same x coordinate, ship is vertical
             int x = shipStart.getAcross();
-            for (int y = shipEnd.getDown(); y < shipStart.getDown(); y++) {
+            for (int y = shipStart.getDown(); y < shipEnd.getDown(); y++) {
 
                 if (x == shotPoint.getAcross() && y == shotPoint.getDown())
                     return true;   // if the coordinates of current point match shot, you hit!
