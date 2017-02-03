@@ -68,7 +68,6 @@ public class Main {
         int size = current.getLength();
         int stop = 0;
         Point cord = new Point();
-        Point qwer;
 
         if (orientation.equals("horizontal") && rows + size < 11 && rows > 0 && column < 11 && column > 0) {
             for (int i = rows; i < (rows + size); i++) {
@@ -119,71 +118,135 @@ public class Main {
             }
         }
 
+        Point computerStart = new Point();
+        Point computerEnd = new Point();
         int computer_x;
         int computer_y;
+        int horizontal;
 
         if (stop == 0) {
             if (id.toLowerCase().contains("aircraftcarrier")) {
                 while (stop == 0) {
                     computer_x = (int) (Math.random() * 6 + 1);
                     computer_y = (int) (Math.random() * 10 + 5);
-                    cord = new Point(computer_x, computer_y);
+                    horizontal = (int) (Math.random() * 1);
 
-                    if (computer_x > computer_y) {
-                        qwer = new Point(computer_x, computer_y);
+                    computerStart = new Point(computer_x, computer_y);
+
+                    if (horizontal == 1) {
+                        computerEnd.setAcross(computer_x + 4);
+                        computerEnd.setDown(computer_y);
+                    }else{
+                        computerEnd.setAcross(computer_x);
+                        computerEnd.setDown(computer_y - 4);
                     }
 
                     //Test if it's placed on any other ship and if no then stop = 1
                     //set starting point and ending point
+                    if(ComputerMatchShipPlacement( model, computerStart, computerEnd, horizontal)) {
+                        CAircraftCarrier.setStart(computerStart.getAcross(),computerStart.getDown());
+                        CAircraftCarrier.setEnd(computerStart.getAcross(),computerStart.getDown());
+                        stop = 1;
+                    }
                 }
             } else if (id.toLowerCase().contains("battleship")) {
                 while (stop == 0) {
                     computer_x = (int) (Math.random() * 7 + 1);
                     computer_y = (int) (Math.random() * 10 + 4);
+                    horizontal = (int) (Math.random() * 1);
 
-                    if (computer_x > computer_y) {
-                        qwer = new Point(computer_x, computer_y);
+                    if (horizontal == 1) {
+                        computerEnd.setAcross(computer_x + 3);
+                        computerEnd.setDown(computer_y);
+                    }else{
+                        computerEnd.setAcross(computer_x);
+                        computerEnd.setDown(computer_y - 3);
                     }
 
                     //Test if it's placed on any other ship and if no then stop = 1
                     //set starting point and ending point
-                }
-
-            } else if (id.toLowerCase().contains("submarine")) {
-                while (stop == 0) {
-                    computer_x = (int) (Math.random() * 8 + 1);
-                    computer_y = (int) (Math.random() * 10 + 3);
-
-                    if (computer_x > computer_y) {
-                        qwer = new Point(computer_x, computer_y);
+                    if(ComputerMatchShipPlacement( model, computerStart, computerEnd, horizontal)) {
+                        CBattleship.setStart(computerStart.getAcross(),computerStart.getDown());
+                        CBattleship.setEnd(computerStart.getAcross(),computerStart.getDown());
+                        stop = 1;
                     }
-
-                    //Test if it's placed on any other ship and if no then stop = 1
-                    //set starting point and ending point
                 }
+
             } else if (id.toLowerCase().contains("cruiser")) {
                 while (stop == 0) {
                     computer_x = (int) (Math.random() * 8 + 1);
                     computer_y = (int) (Math.random() * 10 + 3);
+                    horizontal = (int) (Math.random() * 1);
 
-                    if (computer_x > computer_y) {
-                        qwer = new Point(computer_x, computer_y);
+                    computerStart.setDown(computer_y);
+                    computerStart.setAcross(computer_x);
+
+                    if (horizontal == 1) {
+                        computerEnd.setAcross(computer_x + 2);
+                        computerEnd.setDown(computer_y);
+                    }else{
+                        computerEnd.setAcross(computer_x);
+                        computerEnd.setDown(computer_y - 2);
                     }
 
                     //Test if it's placed on any other ship and if no then stop = 1
                     //set starting point and ending point
+                    if(ComputerMatchShipPlacement( model, computerStart, computerEnd, horizontal)) {
+                        CCruiser.setStart(computerStart.getAcross(),computerStart.getDown());
+                        CCruiser.setEnd(computerStart.getAcross(),computerStart.getDown());
+                        stop = 1;
+                    }
                 }
             } else if (id.toLowerCase().contains("destroyer")) {
                 while (stop == 0) {
                     computer_x = (int) (Math.random() * 9 + 1);
-                    computer_y = (int) (Math.random() * 10 + 2);
+                    computer_y = (int) (Math.random() * 10 + 3);
+                    horizontal = (int) (Math.random() * 1);
 
-                    if (computer_x > computer_y) {
-                        qwer = new Point(computer_x, computer_y);
+                    computerStart.setDown(computer_y);
+                    computerStart.setAcross(computer_x);
+
+                    if (horizontal == 1) {
+                        computerEnd.setAcross(computer_x + 2);
+                        computerEnd.setDown(computer_y);
+                    }else{
+                        computerEnd.setAcross(computer_x);
+                        computerEnd.setDown(computer_y - 2);
                     }
 
                     //Test if it's placed on any other ship and if no then stop = 1
                     //set starting point and ending point
+                    if(ComputerMatchShipPlacement( model, computerStart, computerEnd, horizontal)) {
+                        CDestroyer.setStart(computerStart.getAcross(),computerStart.getDown());
+                        CDestroyer.setEnd(computerStart.getAcross(),computerStart.getDown());
+                        stop = 1;
+                    }
+                }
+            }
+        } else if (id.toLowerCase().contains("submarine")) {
+            while (stop == 0) {
+                computer_x = (int) (Math.random() * 8 + 1);
+                computer_y = (int) (Math.random() * 10 + 2);
+                horizontal = (int) (Math.random() * 1);
+
+                computerStart.setDown(computer_y);
+                computerStart.setAcross(computer_x);
+
+
+                if (horizontal == 1) {
+                    computerEnd.setAcross(computer_x + 1);
+                    computerEnd.setDown(computer_y);
+                }else{
+                    computerEnd.setAcross(computer_x);
+                    computerEnd.setDown(computer_y - 1);
+                }
+
+                //Test if it's placed on any other ship and if no then stop = 1
+                //set starting point and ending point
+                if(ComputerMatchShipPlacement( model, computerStart, computerEnd, horizontal)) {
+                    CSubmarine.setStart(computerStart.getAcross(),computerStart.getDown());
+                    CSubmarine.setEnd(computerStart.getAcross(),computerStart.getDown());
+                    stop = 1;
                 }
             }
         }
@@ -222,19 +285,19 @@ public class Main {
 
 
         // The following branch tree checks if a point fired at BY A PLAYER has hit a COMPUTER ship and adds the point to the array of hits if so
-        if(Hit(FireSpot, CAircraftCarrier.getStart(), CAircraftCarrier.getEnd())){
+        if( Hit( FireSpot, CAircraftCarrier.getStart(), CAircraftCarrier.getEnd() ) ){
             model.addPointtoArray(FireSpot, model.getPlayerHits());
         }
-        else if (Hit(FireSpot, CBattleship.getStart(), CBattleship.getEnd())){
+        else if ( Hit(FireSpot, CBattleship.getStart(), CBattleship.getEnd() ) ){
             model.addPointtoArray(FireSpot, model.getPlayerHits());
         }
-        else if (Hit(FireSpot, CCruiser.getStart(), CCruiser.getEnd())){
+        else if ( Hit(FireSpot, CCruiser.getStart(), CCruiser.getEnd() ) ){
             model.addPointtoArray(FireSpot, model.getPlayerHits());
         }
-        else if (Hit(FireSpot, CDestroyer.getStart(), CDestroyer.getEnd())){
+        else if ( Hit(FireSpot, CDestroyer.getStart(), CDestroyer.getEnd() ) ){
             model.addPointtoArray(FireSpot, model.getPlayerHits());
         }
-        else if (Hit(FireSpot, CSubmarine.getStart(), CSubmarine.getEnd())){
+        else if ( Hit(FireSpot, CSubmarine.getStart(), CSubmarine.getEnd() ) ){
             model.addPointtoArray(FireSpot, model.getPlayerHits());
         }
         else{   // No hits on any ships, adds point to array of misses instead
@@ -248,25 +311,24 @@ public class Main {
         Point FireSpotComputer = new Point(shootX, shootY);
 
         // Following branch tree checks if a point fired at BY THE COMPUTER has hit a PLAYER ship and adds the point to the array of hits if so
-        if(Hit(FireSpotComputer, PAircraftCarrier.getStart(), PAircraftCarrier.getEnd())){
+        if( Hit( FireSpotComputer, PAircraftCarrier.getStart(), PAircraftCarrier.getEnd() ) ){
             model.addPointtoArray(FireSpotComputer, model.getComputerHits());
         }
-        else if (Hit(FireSpotComputer, PBattleship.getStart(), PBattleship.getEnd())){
+        else if ( Hit(FireSpotComputer, PBattleship.getStart(), PBattleship.getEnd() ) ){
             model.addPointtoArray(FireSpotComputer, model.getComputerHits());
         }
-        else if (Hit(FireSpotComputer, PCruiser.getStart(), PCruiser.getEnd())){
+        else if ( Hit(FireSpotComputer, PCruiser.getStart(), PCruiser.getEnd() ) ){
             model.addPointtoArray(FireSpotComputer, model.getComputerHits());
         }
-        else if (Hit(FireSpotComputer, PDestroyer.getStart(), PDestroyer.getEnd())){
+        else if ( Hit(FireSpotComputer, PDestroyer.getStart(), PDestroyer.getEnd() ) ){
             model.addPointtoArray(FireSpotComputer, model.getComputerHits());
         }
-        else if (Hit(FireSpotComputer, PSubmarine.getStart(), PSubmarine.getEnd())){
+        else if ( Hit(FireSpotComputer, PSubmarine.getStart(), PSubmarine.getEnd() ) ){
             model.addPointtoArray(FireSpotComputer, model.getComputerHits());
         }
         else{   // No hits on any ships, adds point to array of misses instead
-            model.addPointtoArray(FireSpotComputer, model.getComputerMisses());
+            model.addPointtoArray( FireSpotComputer, model.getComputerMisses() );
         }
-
 
         Gson gson = new Gson();
         String jsonobject = gson.toJson(model);
@@ -298,75 +360,53 @@ public class Main {
         return false; // points given are not horizontal or vertical and not valid, can't hit diagonally
     }
 
-    private static int ComputerMatchShipPlacement(BattleshipModel model, Point A, Point B){
+    private static boolean ComputerMatchShipPlacement(BattleshipModel model, Point BoatStart, Point BoatEnd, int horizontal){
         Ship CAircraftCarrier = model.getComputerAircraftCarrier();
         Ship CBattleship = model.getComputerBattleship();
         Ship CCruiser = model.getComputerCruiser();
         Ship CDestroyer = model.getComputerDestroyer();
-        Ship CSubmmarine = model.getComputerSubmarine();
+        Ship CSubmarine = model.getComputerSubmarine();
 
-        Point C;
-        Point D;
+        Point cord = BoatStart;
 
-        Ship boat;
+        if(horizontal == 1) {   //  Horizontal
+            for (int i = BoatStart.getAcross(); i < BoatEnd.getAcross(); i++) {
+                cord.setAcross(i);
+                cord.setDown(BoatStart.getDown());
 
-        for(int i = 0;i>5;i++){
-            if(i == 0){
-                boat = model.getComputerAircraftCarrier();
-            }else if(i == 1){
-                boat = model.getComputerBattleship();
-            }else if(i == 2){
-                boat = model.getComputerCruiser();
-            }else if(i == 3){
-                boat = model.getComputerDestroyer();
-            }else{
-                boat = model.getComputerSubmarine();
-            }
-
-            for(int k = 0;k>5;k++) {
-                int startA = boat.getStart().getAcross();
-                int startB = boat.getStart().getDown();
-
-                int checkA = A.getAcross();
-                int checkB = A.getDown();
-
-                if(startA == -1) {
-                    i = 5;
-                    break;
-                }else if(startA == boat.getEnd().getAcross()){ //Horizontal
-                    startB = startB - k;
-
-                    for(int q = 0;q<5;q++){
-                        if(A.getAcross() == B.getAcross()){
-                            checkB = checkB - q;
-                        }else{
-                            checkA = checkA + q;
-                        }
-
-                        if(checkA == startA && checkB == startB){
-                            return 1;
-                        }
-                    }
-                }else{ //   Vertically
-                    startA = startA + k;
-
-                    for(int q = 0; q<5; q++){
-                        if(A.getAcross() == B.getAcross()){
-                            checkB = checkB - q;
-                        }else{
-                            checkA = checkA + q;
-                        }
-
-                        if(checkA == startA && checkB == startB){
-                            return 1;
-                        }
-                    }
+                //if ship lands on another ship then
+                if (Hit(CAircraftCarrier.getStart(), CAircraftCarrier.getEnd(), cord)) {
+                    return false;
+                } else if (Hit(CBattleship.getStart(), CBattleship.getEnd(), cord)) {
+                    return false;
+                } else if (Hit(CCruiser.getStart(), CCruiser.getEnd(), cord)) {
+                    return false;
+                } else if (Hit(CDestroyer.getStart(), CDestroyer.getEnd(), cord)) {
+                    return false;
+                } else if (Hit(CSubmarine.getStart(), CSubmarine.getEnd(), cord)) {
+                    return false;
                 }
+            }
+        }else{  //      Vertical
+            for (int i = BoatStart.getDown(); i < BoatEnd.getDown(); i--) { //vertical and goes down
+                cord.setAcross(BoatStart.getAcross());
+                cord.setDown(i);
 
+                //if ship lands on another ship then
+                if (Hit(CAircraftCarrier.getStart(), CAircraftCarrier.getEnd(), cord)) {
+                    return false;
+                } else if (Hit(CBattleship.getStart(), CBattleship.getEnd(), cord)) {
+                    return false;
+                } else if (Hit(CCruiser.getStart(), CCruiser.getEnd(), cord)) {
+                    return false;
+                } else if (Hit(CDestroyer.getStart(), CDestroyer.getEnd(), cord)) {
+                    return false;
+                } else if (Hit(CSubmarine.getStart(), CSubmarine.getEnd(), cord)) {
+                    return false;
+                }
             }
         }
-
-        return 0;
+        return true;
     }
 
 }
