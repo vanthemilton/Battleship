@@ -93,8 +93,8 @@ public class Main {
                 current.setEnd(rows + size - 1, column);
             }
 
-        } else if (orientation.equals("vertical") && rows < 11 && rows > 0 && column < 11 && column - size + 1 > 0) {
-            for (int k = column; k > (rows - size); k--) {
+        } else if (orientation.equals("vertical") && rows < 11 && rows > 0 && column + size - 1 < 11 && column > 0) {
+            for (int k = column; k < (rows + size); k++) {
                 cord.setAcross(current.getStart().getAcross());
                 cord.setDown(k);
 
@@ -114,8 +114,10 @@ public class Main {
 
             if (stop == 0) {
                 current.setStart(rows, column);
-                current.setEnd(rows, column - size + 1);
+                current.setEnd(rows, column + size - 1);
             }
+        }else{
+            stop = 1;
         }
 
 //        Point computerStart = new Point();
