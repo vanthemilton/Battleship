@@ -161,7 +161,7 @@ public class Main {
         }else if (Hit(FireSpot, CSubmarine.getStart(), CSubmarine.getEnd())){
             model.addPointtoArray(FireSpot, model.getPlayerHits());
         }else{
-            model.addPointtoArray(FireSpot, model.getPLayerMisses());
+            model.addPointtoArray(FireSpot, model.getPlayerMisses();
         }
 
         // EVAN IS HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
