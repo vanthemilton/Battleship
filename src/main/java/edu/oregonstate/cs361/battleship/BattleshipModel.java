@@ -88,46 +88,46 @@ public class BattleshipModel {
         if(id.toLowerCase().contains("computer")) {
 
             if (id.toLowerCase().contains("aircraftcarrier")) {
-                return computerAircraftCarrier;
+                return getComputerAircraftCarrier();
             }
 
             else if (id.toLowerCase().contains("battleship")) {
-                return computerBattleship;
+                return getComputerBattleship();
             }
 
             else if (id.toLowerCase().contains("submarine") ) {
-                return computerSubmarine;
+                return getComputerSubmarine();
             }
 
             else if (id.toLowerCase().contains("cruiser")) {
-                return computerCruiser;
+                return getComputerCruiser();
             }
 
             else if (id.toLowerCase().contains("destroyer")) {
-                return computerDestroyer;
+                return getComputerDestroyer();
             }
         }
 
         else {
 
             if (id.toLowerCase().contains("aircraftcarrier")) {
-                return playerAircraftCarrier;
+                return getPlayerAircraftCarrier();
             }
 
             else if (id.toLowerCase().contains("battleship")) {
-                return playerBattleship;
+                return getPlayerBattleship();
             }
 
             else if (id.toLowerCase().contains("submarine") ) {
-                return playerSubmarine;
+                return getPlayerSubmarine();
             }
 
             else if (id.toLowerCase().contains("cruiser")) {
-                return playerCruiser;
+                return getPlayerCruiser();
             }
 
             else if (id.toLowerCase().contains("destroyer")) {
-                return playerDestroyer;
+                return getPlayerDestroyer();
             }
         }
 
@@ -169,9 +169,7 @@ public class BattleshipModel {
         return playerSubmarine;
     }
 
-    public void setPlayerSubmarine(Ship playerSubmarine) {
-        this.playerSubmarine = playerSubmarine;
-    }
+    //public void setPlayerSubmarine(Ship playerSubmarine) { this.playerSubmarine = playerSubmarine; }
 
     public Ship getComputerAircraftCarrier() {
         return computerAircraftCarrier;
