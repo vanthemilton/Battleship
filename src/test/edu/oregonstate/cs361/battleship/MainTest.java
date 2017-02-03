@@ -24,7 +24,8 @@ class MainTest {
 
     @BeforeAll
     public static void beforeClass() {
-        //Main.main(null);
+
+        Main.main(null);
         //awaitInitialization();
     }
 
@@ -40,7 +41,8 @@ class MainTest {
         BattleshipModel test = new BattleshipModel();
         Gson gson = new Gson();
         String check = gson.toJson(test);
-        //assertEquals(200, res.status);
+
+        assertEquals(200, res.status);
         //assertEquals(check,res.body);
     }
 
