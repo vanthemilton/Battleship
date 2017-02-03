@@ -45,6 +45,7 @@ class BattleshipModelTest {
 
         //      Battleship
         Ship boat = test.getShipByID("playerBattleship");
+
         boat.setEnd(1, 1);
         boat.setStart(1, 1);
 
@@ -240,20 +241,11 @@ class BattleshipModelTest {
 
         BattleshipModel test = new BattleshipModel();
 
-        //      Destroyer
+        //      Unknown ship
         Ship boat = test.getShipByID("PizzaBoat");
-        //boat.setEnd(1, 1);
-        //boat.setStart(1, 1);
 
-        //Point X = boat.getStart();
-        //Point Y = boat.getEnd();
-
-       // assertEquals("computerDestroyer", boat.getName());
-        //assertEquals(0, boat.getLength());
-        //assertEquals(1, X.getDown());
-        //assertEquals(1, X.getAcross());
-        //assertEquals(1, Y.getDown());
-        //assertEquals(1, Y.getAcross());
+        assertEquals("PizzaShip", boat.getName());
+        assertEquals(0, boat.getLength());
 
     }
 
