@@ -249,5 +249,21 @@ class BattleshipModelTest {
 
     }
 
+    @Test
+    public void TestGoodPoint(){
+        BattleshipModel test = new BattleshipModel();
+        Point TestPoint = new Point(5,6);
+
+        assertEquals(true, test.addPointtoArray(TestPoint,test.getPlayerHits()));
+
+        TestPoint = new Point(11,-1);
+        assertEquals(false, test.addPointtoArray(TestPoint,test.getPlayerMisses()));
+        assertEquals(false, test.addPointtoArray(TestPoint,test.getComputerMisses()));
+        assertEquals(false, test.addPointtoArray(TestPoint,test.getComputerHits()));
+
+        assertEquals(5,test.getPlayerHits().get(0).getAcross());
+        assertEquals(6,test.getPlayerHits().get(0).getDown());
+    }
+
 }
 
