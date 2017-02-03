@@ -29,6 +29,22 @@ public class BattleshipModel {
     private List<Point> computerMisses;
 
 
+    public List<Point> getPlayerHits() {
+        return playerHits;
+    }
+
+    public List<Point> getPlayerMisses() {
+        return playerMisses;
+    }
+
+    public List<Point> getComputerHits() {
+        return computerHits;
+    }
+
+    public List<Point> getComputerMisses() {
+        return computerMisses;
+    }
+
     //                  Constructor
     public BattleshipModel () {
 
@@ -54,7 +70,7 @@ public class BattleshipModel {
     //          Add Point object to an array function
     public boolean addPointtoArray(Point somePoint, List someArray) {
 
-        if (somePoint.getAcross() > 10 || somePoint.getAcross() < 0 || somePoint.getDown() > 10 || somePoint.getDown() < 0)
+        if (somePoint.getAcross() > 10 || somePoint.getAcross() < 1 || somePoint.getDown() > 10 || somePoint.getDown() < 1)
 
             return false;
 
@@ -64,14 +80,6 @@ public class BattleshipModel {
             return true;
 
         }
-    }
-
-    public boolean outsideBoard(int a){
-        if(a > 10 || a < 10){
-                return false;
-        }
-
-        return true;
     }
 
     //          Get ship by ID function, assumes user only selects from drop down menu on front end
@@ -137,33 +145,25 @@ public class BattleshipModel {
         return playerAircraftCarrier;
     }
 
-    public void setPlayerAircraftCarrier(Ship playerAircraftCarrier) {
-        this.playerAircraftCarrier = playerAircraftCarrier;
-    }
+    //public void setPlayerAircraftCarrier(Ship playerAircraftCarrier) { this.playerAircraftCarrier = playerAircraftCarrier; }
 
     public Ship getPlayerBattleship() {
         return playerBattleship;
     }
 
-    public void setPlayerBattleship(Ship playerBattleship) {
-        this.playerBattleship = playerBattleship;
-    }
+    //public void setPlayerBattleship(Ship playerBattleship) { this.playerBattleship = playerBattleship; }
 
     public Ship getPlayerCruiser() {
         return playerCruiser;
     }
 
-    public void setPlayerCruiser(Ship playerCruiser) {
-        this.playerCruiser = playerCruiser;
-    }
+    //public void setPlayerCruiser(Ship playerCruiser) { this.playerCruiser = playerCruiser; }
 
     public Ship getPlayerDestroyer() {
         return playerDestroyer;
     }
 
-    public void setPlayerDestroyer(Ship playerDestroyer) {
-        this.playerDestroyer = playerDestroyer;
-    }
+    //public void setPlayerDestroyer(Ship playerDestroyer) { this.playerDestroyer = playerDestroyer; }
 
     public Ship getPlayerSubmarine() {
         return playerSubmarine;
@@ -177,42 +177,30 @@ public class BattleshipModel {
         return computerAircraftCarrier;
     }
 
-    public void setComputerAircraftCarrier(Ship computerAircraftCarrier) {
-        this.computerAircraftCarrier = computerAircraftCarrier;
-    }
+    //public void setComputerAircraftCarrier(Ship computerAircraftCarrier) { this.computerAircraftCarrier = computerAircraftCarrier; }
 
     public Ship getComputerBattleship() {
         return computerBattleship;
     }
 
-    public void setComputerBattleship(Ship computerBattleship) {
-        this.computerBattleship = computerBattleship;
-    }
+    //public void setComputerBattleship(Ship computerBattleship) { this.computerBattleship = computerBattleship; }
 
     public Ship getComputerCruiser() {
         return computerCruiser;
     }
 
-    public void setComputerCruiser(Ship computerCruiser) {
-        this.computerCruiser = computerCruiser;
-    }
+    //public void setComputerCruiser(Ship computerCruiser) { this.computerCruiser = computerCruiser; }
 
     public Ship getComputerDestroyer() {
         return computerDestroyer;
     }
 
-    public void setComputerDestroyer(Ship computerDestroyer) {
-        this.computerDestroyer = computerDestroyer;
-    }
+    //public void setComputerDestroyer(Ship computerDestroyer) { this.computerDestroyer = computerDestroyer; }
 
     public Ship getComputerSubmarine() {
         return computerSubmarine;
     }
 
-    public void setComputerSubmarine(Ship computerSubmarine) {
-        this.computerSubmarine = computerSubmarine;
-    }
-/////////////////////////////////////////////////////////////////////////
-
+    //public void setComputerSubmarine(Ship computerSubmarine) { this.computerSubmarine = computerSubmarine; }
 
 }
