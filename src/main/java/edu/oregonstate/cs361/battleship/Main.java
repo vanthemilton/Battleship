@@ -41,7 +41,7 @@ public class Main {
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
     private static String placeShip(Request req) {
         BattleshipModel model = getModelFromReq(req); //is this correct?
-        /*String id, orientation, row, col;
+        String id, orientation, row, col;
         id = req.params("id");  //name of what ship with which player in front of it
         orientation = req.params("orientation"); //horizontal/vertical
         row = req.params("row");    //row #
@@ -52,75 +52,141 @@ public class Main {
         Ship PBattleship = model.getPlayerBattleship();
         Ship PCruiser = model.getPlayerCruiser();
         Ship PDestroyer = model.getPlayerDestroyer();
-        Ship PSubmmarine = model.getPlayerSubmarine();
+        Ship PSubmarine = model.getPlayerSubmarine();
 
         Ship CAircraftCarrier = model.getComputerAircraftCarrier();
         Ship CBattleship = model.getComputerBattleship();
         Ship CCruiser = model.getComputerCruiser();
         Ship CDestroyer = model.getComputerDestroyer();
-        Ship CSubmmarine = model.getComputerSubmarine();
+        Ship CSubmarine = model.getComputerSubmarine();
 
         int rows = Integer.parseInt(row);
         int column = Integer.parseInt(col);
 
         Ship current = model.getShipByID(id);
-        current.setStart(rows, column);
 
         int size = current.getLength();
-        int shoot_x;
-        int shoot_y;
         int stop = 0;
-        Point cord;
+        Point cord = new Point();
         Point qwer;
 
-        if(orientation.equals("horizontal") || rows < 11 || column - size < 1){
-            current.setEnd(rows, column + size);
+        if (orientation.equals("horizontal") && rows + size < 11 && rows > 0 && column < 11 && column > 0) {
+            for (int i = rows; i < (rows + size); i++) {
+                cord.setAcross(i);
+                cord.setDown(current.getStart().getDown());
 
-            if (id.toLowerCase().contains("aircraftcarrier")) {
-                while (stop == 0) {
-                    shoot_x = (int) (Math.random() * 6 + 1);
-                    shoot_y = (int) (Math.random() * 10 + 5);
-                    cord = new Point(shoot_x, shoot_y);
-                    if(shoot_x > shoot_y){
-                        qwer = new Point(shoot_x,shoot_y);
-                    }
-
-                    if(Hit(cord, CAircraftCarrier.getStart(), CAircraftCarrier.getEnd()) == 0){
-                        stop = 1;
-                    }
+                //if ship lands on another ship then
+                if (Hit(PAircraftCarrier.getStart(), PAircraftCarrier.getEnd(), cord)) {
+                    stop = 1;
+                } else if (Hit(PBattleship.getStart(), PBattleship.getEnd(), cord)) {
+                    stop = 1;
+                } else if (Hit(PCruiser.getStart(), PCruiser.getEnd(), cord)) {
+                    stop = 1;
+                } else if (Hit(PDestroyer.getStart(), PDestroyer.getEnd(), cord)) {
+                    stop = 1;
+                } else if (Hit(PSubmarine.getStart(), PSubmarine.getEnd(), cord)) {
+                    stop = 1;
                 }
-
-            } else if (id.toLowerCase().contains("battleship")) {
-                shoot_x = (int )(Math.random() * 7 + 1);
-                shoot_y = (int )(Math.random() * 10 + 4);
-
-            } else if (id.toLowerCase().contains("submarine") ) {
-                shoot_x = (int )(Math.random() * 8 + 1);
-                shoot_y = (int )(Math.random() * 10 + 3);
-
-            } else if (id.toLowerCase().contains("cruiser")) {
-                shoot_x = (int )(Math.random() * 8 + 1);
-                shoot_y = (int )(Math.random() * 10 + 3);
-
-
-            } else if (id.toLowerCase().contains("destroyer")) {
-                shoot_x = (int )(Math.random() * 9 + 1);
-                shoot_y = (int )(Math.random() * 10 + 2);
-
-
-
             }
-            //place computer ship
 
-        }else if(rows < 11 || column - size > 0){
-            current.setEnd(rows,column - size);
-            //place computer ship
+            if (stop == 0) {
+                current.setStart(rows, column);
+                current.setEnd(rows + size - 1, column);
+            }
 
-        } else {
-            current.setStart(-1,-1);
+        } else if (orientation.equals("vertical") && rows < 11 && rows > 0 && column < 11 && column - size > 0) {
+            for (int k = column; k < (rows - size); k--) {
+                cord.setAcross(current.getStart().getAcross());
+                cord.setDown(k);
+
+                //if ship lands on another ship then
+                if (Hit(PAircraftCarrier.getStart(), PAircraftCarrier.getEnd(), cord)) {
+                    stop = 1;
+                } else if (Hit(PBattleship.getStart(), PBattleship.getEnd(), cord)) {
+                    stop = 1;
+                } else if (Hit(PCruiser.getStart(), PCruiser.getEnd(), cord)) {
+                    stop = 1;
+                } else if (Hit(PDestroyer.getStart(), PDestroyer.getEnd(), cord)) {
+                    stop = 1;
+                } else if (Hit(PSubmarine.getStart(), PSubmarine.getEnd(), cord)) {
+                    stop = 1;
+                }
+            }
+
+            if (stop == 0) {
+                current.setStart(rows, column);
+                current.setEnd(rows, column - size + 1);
+            }
         }
 
-        */
+        int computer_x;
+        int computer_y;
+
+        if (stop == 0) {
+            if (id.toLowerCase().contains("aircraftcarrier")) {
+                while (stop == 0) {
+                    computer_x = (int) (Math.random() * 6 + 1);
+                    computer_y = (int) (Math.random() * 10 + 5);
+                    cord = new Point(computer_x, computer_y);
+
+                    if (computer_x > computer_y) {
+                        qwer = new Point(computer_x, computer_y);
+                    }
+
+                    //Test if it's placed on any other ship and if no then stop = 1
+                    //set starting point and ending point
+                }
+            } else if (id.toLowerCase().contains("battleship")) {
+                while (stop == 0) {
+                    computer_x = (int) (Math.random() * 7 + 1);
+                    computer_y = (int) (Math.random() * 10 + 4);
+
+                    if (computer_x > computer_y) {
+                        qwer = new Point(computer_x, computer_y);
+                    }
+
+                    //Test if it's placed on any other ship and if no then stop = 1
+                    //set starting point and ending point
+                }
+
+            } else if (id.toLowerCase().contains("submarine")) {
+                while (stop == 0) {
+                    computer_x = (int) (Math.random() * 8 + 1);
+                    computer_y = (int) (Math.random() * 10 + 3);
+
+                    if (computer_x > computer_y) {
+                        qwer = new Point(computer_x, computer_y);
+                    }
+
+                    //Test if it's placed on any other ship and if no then stop = 1
+                    //set starting point and ending point
+                }
+            } else if (id.toLowerCase().contains("cruiser")) {
+                while (stop == 0) {
+                    computer_x = (int) (Math.random() * 8 + 1);
+                    computer_y = (int) (Math.random() * 10 + 3);
+
+                    if (computer_x > computer_y) {
+                        qwer = new Point(computer_x, computer_y);
+                    }
+
+                    //Test if it's placed on any other ship and if no then stop = 1
+                    //set starting point and ending point
+                }
+            } else if (id.toLowerCase().contains("destroyer")) {
+                while (stop == 0) {
+                    computer_x = (int) (Math.random() * 9 + 1);
+                    computer_y = (int) (Math.random() * 10 + 2);
+
+                    if (computer_x > computer_y) {
+                        qwer = new Point(computer_x, computer_y);
+                    }
+
+                    //Test if it's placed on any other ship and if no then stop = 1
+                    //set starting point and ending point
+                }
+            }
+        }
 
         Gson gson = new Gson();
         return gson.toJson(model);
