@@ -13,10 +13,10 @@ public class Ship {
 
 
     //          Member Variables
-    String name;
-    int length;
-    Point start;
-    Point end;
+    private String name;
+    private int length;
+    private Point start;
+    private Point end;
 
     //          Constructor
     public Ship (String name) {
@@ -36,12 +36,13 @@ public class Ship {
             setLength(3);
         }
 
-        else if (name.toLowerCase().contains("destroyer"))
+        else if (name.toLowerCase().contains("destroyer")) {
             setLength(2);
+        }
 
-        else
+        else {
             setLength(0);
-
+        }
 
        start = new Point();
        end = new Point();

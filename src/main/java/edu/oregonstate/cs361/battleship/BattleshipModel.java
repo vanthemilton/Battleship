@@ -66,6 +66,13 @@ public class BattleshipModel {
         }
     }
 
+    public boolean outsideBoard(int a){
+        if(a > 10 || a < 10){
+                return false;
+        }
+
+        return true;
+    }
 
     //          Get ship by ID function, assumes user only selects from drop down menu on front end
     public Ship getShipByID(String id) {
@@ -117,10 +124,13 @@ public class BattleshipModel {
         }
 
         // DEFAULTS TO THIS IF ID FORMAT IS INCORRECT:
-        Ship PizzaShip = new Ship();
-        PizzaShip.setName("PizzaShip")
+        Ship PizzaShip = new Ship("PizzaShip");
+        PizzaShip.setName("PizzaShip");
         return PizzaShip;
     }
+
+    /////////////////////////////////////////////////////////////////////////
+    //DOES THIS STAY?
 
     //          Getters and Setters
     public Ship getPlayerAircraftCarrier() {
@@ -202,4 +212,7 @@ public class BattleshipModel {
     public void setComputerSubmarine(Ship computerSubmarine) {
         this.computerSubmarine = computerSubmarine;
     }
+/////////////////////////////////////////////////////////////////////////
+
+
 }
