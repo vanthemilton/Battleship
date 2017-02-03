@@ -4,10 +4,17 @@ var gameModel;
 $( document ).ready(function() {
 
   $.getJSON("model", function( json ) {
-    displayGameState(currModel);
+    displayGameState(json);
     gameModel = json;
-   });
+  });
 });
+//$( document ).ready(function() {
+//
+//  $.getJSON("model", function( json ) {
+//    displayGameState(currModel);
+//    gameModel = json;
+//   });
+//});
 
 function placeShip() {
    // This ajax call will asnychonously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
@@ -59,11 +66,13 @@ function displayGameState(gameModel){
 $( '#MyBoard td'  ).css("background-color", "blue");
 $( '#TheirBoard td'  ).css("background-color", "blue");
 
-displayShip(gameModel.aircraftCarrier);
-displayShip(gameModel.battleship);
-displayShip(gameModel.cruiser);
-displayShip(gameModel.destroyer);
-displayShip(gameModel.submarine);
+// EDITED THIS
+displayShip(gameModel.playerAircraftCarrier);
+displayShip(gameModel.playerBattleship);
+displayShip(gameModel.playerCruiser);
+displayShip(gameModel.playerDestroyer);
+displayShip(gameModel.playerSubmarine);
+// /EDITED THIS
 
 for (var i = 0; i < gameModel.computerMisses.length; i++) {
    $( '#TheirBoard #' + gameModel.computerMisses[i].Across + '_' + gameModel.computerMisses[i].Down ).css("background-color", "green");

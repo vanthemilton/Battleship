@@ -13,8 +13,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static spark.Spark.awaitInitialization;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 /**
@@ -52,6 +52,8 @@ class MainTest {
         assertEquals(200, res.status);
         assertEquals("SHIP",res.body);
     }
+
+
 
     private TestResponse request(String method, String path) {
         try {

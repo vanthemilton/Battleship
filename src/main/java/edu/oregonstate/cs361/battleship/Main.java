@@ -94,7 +94,7 @@ public class Main {
             }
 
         } else if (orientation.equals("vertical") && rows < 11 && rows > 0 && column < 11 && column - size > 0) {
-            for (int k = column; k < (rows - size); k--) {
+            for (int k = column; k > (rows - size); k--) {
                 cord.setAcross(current.getStart().getAcross());
                 cord.setDown(k);
 
