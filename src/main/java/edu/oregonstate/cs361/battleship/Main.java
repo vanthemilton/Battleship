@@ -17,6 +17,8 @@ public class Main {
         post("/fire/:row/:col", (req, res) -> fireAt(req));
         //This will listen to POST requests and expects to receive a game model, as well as location to place the ship
         post("/placeShip/:id/:row/:col/:orientation", (req, res) -> placeShip(req));
+
+        //System.out.print("5");
     }
 
     //This function should return a new model
@@ -269,8 +271,8 @@ public class Main {
 
         String X = req.params("row");
         String Y = req.params("col");
-        int row;
-        int col;
+        int row = Integer.parseInt(X);
+        int col = Integer.parseInt(Y);
         row = Integer.parseInt(X);
         col = Integer.parseInt(Y);
 
