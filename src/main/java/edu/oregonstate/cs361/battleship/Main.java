@@ -26,7 +26,7 @@ public class Main {
         BattleshipModel test = new BattleshipModel();
         Gson gson = new Gson();
         String model = gson.toJson(test);
-        System.out.println(model);
+        //System.out.println(model);
         return model;
     }
 
@@ -365,7 +365,7 @@ public class Main {
         return false; // points given are not horizontal or vertical and not valid, can't hit diagonally
     }
 
-    private static boolean ComputerMatchShipPlacement(BattleshipModel model, Point BoatStart, Point BoatEnd, int horizontal){
+    /*private static boolean ComputerMatchShipPlacement(BattleshipModel model, Point BoatStart, Point BoatEnd, int horizontal){
         Ship CAircraftCarrier = model.getComputerAircraftCarrier();
         Ship CBattleship = model.getComputerBattleship();
         Ship CCruiser = model.getComputerCruiser();
@@ -413,5 +413,5 @@ public class Main {
         }
         return true;
     }
-
+*/
 }

@@ -26,26 +26,60 @@ public class Ship {
         // size is based on name of ship, if unrecognized ship type the function sets size to 0
         if (name.toLowerCase().contains("aircraftcarrier")) {
             setLength(5);
+
+            if(name.toLowerCase().contains("computer")){
+                start = new Point(1,1);
+                end = new Point(1,4);
+            }else{
+                start = new Point();
+                end = new Point();
+            }
         }
 
         else if (name.toLowerCase().contains("battleship")) {
             setLength(4);
+
+            if(name.toLowerCase().contains("computer")){
+                start = new Point(5,2);
+                end = new Point(5,4);
+            }else{
+                start = new Point();
+                end = new Point();
+            }
         }
 
         else if (name.toLowerCase().contains("submarine") || name.toLowerCase().contains("cruiser")) {
             setLength(3);
+
+            if(name.toLowerCase().contains("computer")){
+                start = new Point(6,3);
+                end = new Point(6,4);
+            }else{
+                start = new Point();
+                end = new Point();
+            }
         }
 
         else if (name.toLowerCase().contains("destroyer")) {
             setLength(2);
+
+            if(name.toLowerCase().contains("computer")){
+                start = new Point(9,2);
+                end = new Point(9,3);
+            }else{
+                start = new Point();
+                end = new Point();
+            }
         }
 
         else {
             setLength(0);
+            start = new Point();
+            end = new Point();
         }
 
-       start = new Point();
-       end = new Point();
+       //start = new Point();
+       //end = new Point();
 
     }
 
