@@ -31,7 +31,7 @@ public class Main {
     }
 
     //This function should accept an HTTP request and deseralize it into an actual Java object.
-    private static BattleshipModel getModelFromReq(Request req){
+    public static BattleshipModel getModelFromReq(Request req){
         String data = req.body();
         Gson gson = new Gson();
         BattleshipModel ship = gson.fromJson(data, BattleshipModel.class);
@@ -39,7 +39,7 @@ public class Main {
     }
 
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
-    private static String placeShip(Request req) {
+    public static String placeShip(Request req) {
         BattleshipModel model = getModelFromReq(req); //is this correct?
         String id, orientation, row, col;
         id = req.params("id");  //name of what ship with which player in front of it
@@ -60,8 +60,10 @@ public class Main {
         Ship CDestroyer = model.getComputerDestroyer();
         Ship CSubmarine = model.getComputerSubmarine();
 
-        int rows = Integer.parseInt(row);
-        int column = Integer.parseInt(col);
+        int rows;
+        rows = Integer.parseInt(row);
+        int column;
+        column = Integer.parseInt(col);
 
         Ship current = model.getShipByID(id);
 
@@ -119,8 +121,6 @@ public class Main {
                 current.setStart(rows, column);
                 current.setEnd(rows, column + size - 1);
             }
-        }else{
-            stop = 1;
         }
 
 //        Point computerStart = new Point();
@@ -269,8 +269,10 @@ public class Main {
 
         String X = req.params("row");
         String Y = req.params("col");
-        int row = Integer.parseInt(X);
-        int col = Integer.parseInt(Y);
+        int row;
+        int col;
+        row = Integer.parseInt(X);
+        col = Integer.parseInt(Y);
 
         // Make point object from coordinates
         Point FireSpot = new Point(row,col);
@@ -340,7 +342,7 @@ public class Main {
         return jsonobject;
     }
 
-    private static boolean Hit(Point shipStart, Point shipEnd, Point shotPoint){
+    public static boolean Hit(Point shipStart, Point shipEnd, Point shotPoint){
 
         if(shipStart.getDown() == shipEnd.getDown()){     // if start and end on same y coordinate, ship is horizontal
             int y = shipStart.getDown();
@@ -365,53 +367,53 @@ public class Main {
         return false; // points given are not horizontal or vertical and not valid, can't hit diagonally
     }
 
-    private static boolean ComputerMatchShipPlacement(BattleshipModel model, Point BoatStart, Point BoatEnd, int horizontal){
-        Ship CAircraftCarrier = model.getComputerAircraftCarrier();
-        Ship CBattleship = model.getComputerBattleship();
-        Ship CCruiser = model.getComputerCruiser();
-        Ship CDestroyer = model.getComputerDestroyer();
-        Ship CSubmarine = model.getComputerSubmarine();
-
-        Point cord = BoatStart;
-
-        if(horizontal == 1) {   //  Horizontal
-            for (int i = BoatStart.getAcross(); i < BoatEnd.getAcross(); i++) {
-                cord.setAcross(i);
-                cord.setDown(BoatStart.getDown());
-
-                //if ship lands on another ship then
-                if (Hit(CAircraftCarrier.getStart(), CAircraftCarrier.getEnd(), cord)) {
-                    return false;
-                } else if (Hit(CBattleship.getStart(), CBattleship.getEnd(), cord)) {
-                    return false;
-                } else if (Hit(CCruiser.getStart(), CCruiser.getEnd(), cord)) {
-                    return false;
-                } else if (Hit(CDestroyer.getStart(), CDestroyer.getEnd(), cord)) {
-                    return false;
-                } else if (Hit(CSubmarine.getStart(), CSubmarine.getEnd(), cord)) {
-                    return false;
-                }
-            }
-        }else{  //      Vertical
-            for (int i = BoatStart.getDown(); i < BoatEnd.getDown(); i--) { //vertical and goes down
-                cord.setAcross(BoatStart.getAcross());
-                cord.setDown(i);
-
-                //if ship lands on another ship then
-                if (Hit(CAircraftCarrier.getStart(), CAircraftCarrier.getEnd(), cord)) {
-                    return false;
-                } else if (Hit(CBattleship.getStart(), CBattleship.getEnd(), cord)) {
-                    return false;
-                } else if (Hit(CCruiser.getStart(), CCruiser.getEnd(), cord)) {
-                    return false;
-                } else if (Hit(CDestroyer.getStart(), CDestroyer.getEnd(), cord)) {
-                    return false;
-                } else if (Hit(CSubmarine.getStart(), CSubmarine.getEnd(), cord)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+//    private static boolean ComputerMatchShipPlacement(BattleshipModel model, Point BoatStart, Point BoatEnd, int horizontal){
+//        Ship CAircraftCarrier = model.getComputerAircraftCarrier();
+//        Ship CBattleship = model.getComputerBattleship();
+//        Ship CCruiser = model.getComputerCruiser();
+//        Ship CDestroyer = model.getComputerDestroyer();
+//        Ship CSubmarine = model.getComputerSubmarine();
+//
+//        Point cord = BoatStart;
+//
+//        if(horizontal == 1) {   //  Horizontal
+//            for (int i = BoatStart.getAcross(); i < BoatEnd.getAcross(); i++) {
+//                cord.setAcross(i);
+//                cord.setDown(BoatStart.getDown());
+//
+//                //if ship lands on another ship then
+//                if (Hit(CAircraftCarrier.getStart(), CAircraftCarrier.getEnd(), cord)) {
+//                    return false;
+//                } else if (Hit(CBattleship.getStart(), CBattleship.getEnd(), cord)) {
+//                    return false;
+//                } else if (Hit(CCruiser.getStart(), CCruiser.getEnd(), cord)) {
+//                    return false;
+//                } else if (Hit(CDestroyer.getStart(), CDestroyer.getEnd(), cord)) {
+//                    return false;
+//                } else if (Hit(CSubmarine.getStart(), CSubmarine.getEnd(), cord)) {
+//                    return false;
+//                }
+//            }
+//        }else{  //      Vertical
+//            for (int i = BoatStart.getDown(); i < BoatEnd.getDown(); i--) { //vertical and goes down
+//                cord.setAcross(BoatStart.getAcross());
+//                cord.setDown(i);
+//
+//                //if ship lands on another ship then
+//                if (Hit(CAircraftCarrier.getStart(), CAircraftCarrier.getEnd(), cord)) {
+//                    return false;
+//                } else if (Hit(CBattleship.getStart(), CBattleship.getEnd(), cord)) {
+//                    return false;
+//                } else if (Hit(CCruiser.getStart(), CCruiser.getEnd(), cord)) {
+//                    return false;
+//                } else if (Hit(CDestroyer.getStart(), CDestroyer.getEnd(), cord)) {
+//                    return false;
+//                } else if (Hit(CSubmarine.getStart(), CSubmarine.getEnd(), cord)) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
 
 }
