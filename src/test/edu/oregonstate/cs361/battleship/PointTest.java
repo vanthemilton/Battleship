@@ -21,13 +21,13 @@ class PointTest {
     @Test
     public void testAcross() {
         Point Testing = new Point();
-        assertEquals(-1,Testing.getAcross());
+        assertEquals(0,Testing.getAcross());
     }
 
     @Test
     public void testDown(){
         Point Testing = new Point();
-        assertEquals(-1,Testing.getDown());
+        assertEquals(0,Testing.getDown());
     }
 
     @Test
