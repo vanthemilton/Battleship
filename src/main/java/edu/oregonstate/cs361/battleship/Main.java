@@ -348,7 +348,7 @@ public class Main {
 
         if(shipStart.getDown() == shipEnd.getDown()){     // if start and end on same y coordinate, ship is horizontal
             int y = shipStart.getDown();
-            for (int x = shipStart.getAcross(); x < shipEnd.getAcross(); x++){  // loop from left to right of ship position
+            for (int x = shipStart.getAcross(); x <= shipEnd.getAcross(); x++){  // loop from left to right of ship position
 
                 if(x == shotPoint.getAcross() && y == shotPoint.getDown())
                     return true;   // if the coordinates of current point match shot, you hit!
@@ -358,7 +358,7 @@ public class Main {
 
         else if (shotPoint.getAcross() == shipStart.getAcross()) {      // if start and end on same x coordinate, ship is vertical
             int x = shipStart.getAcross();
-            for (int y = shipStart.getDown(); y < shipEnd.getDown(); y++) {
+            for (int y = shipStart.getDown(); y <= shipEnd.getDown(); y++) {
 
                 if (x == shotPoint.getAcross() && y == shotPoint.getDown())
                     return true;   // if the coordinates of current point match shot, you hit!
