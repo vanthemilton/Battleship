@@ -2,6 +2,8 @@ package edu.oregonstate.cs361.battleship;
 
 import com.google.gson.Gson;
 import spark.Request;
+import java.util.ArrayList;
+import java.util.List;
 
 import static spark.Spark.*;
 
@@ -49,6 +51,14 @@ public class Main {
         row = req.params("row");    //row #
         col = req.params("col");    //col #
 
+        List PlayerFireMiss = model.getPlayerMisses();
+        List PlayerFireHit = model.getPlayerHits();
+
+
+        if(!PlayerFireHit.isEmpty() || !PlayerFireMiss.isEmpty()) {//list isn't empty
+            Gson gson = new Gson();
+            return gson.toJson(model);
+        }
 
         Ship PAircraftCarrier = model.getPlayerAircraftCarrier();
         Ship PBattleship = model.getPlayerBattleship();
@@ -292,6 +302,28 @@ public class Main {
         Ship CDestroyer = model.getComputerDestroyer();
         Ship CSubmarine = model.getComputerSubmarine();
 
+
+        if(PAircraftCarrier.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }else if(PBattleship.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }else if(PCruiser.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }else if(PDestroyer.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }else if(PSubmarine.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }
 
         // The following branch tree checks if a point fired at BY A PLAYER has hit a COMPUTER ship and adds the point to the array of hits if so
         if( Hit( CAircraftCarrier.getStart(), CAircraftCarrier.getEnd(), FireSpot ) ){
