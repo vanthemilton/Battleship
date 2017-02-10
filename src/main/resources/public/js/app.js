@@ -17,6 +17,9 @@ $( document ).ready(function() {
 //});
 
 function placeShip() {
+
+    //Checks if the Computer has fired at all and if so then alert the user that you can't place or move ships
+    //after you have fired a single shot.
     if(gameModel.computerMisses.length > 0 || gameModel.computerHits.length > 0){
         alert("You have started the game.\nYou can't place down or move ships now.");
     }
@@ -46,21 +49,22 @@ function placeShip() {
 
 //Similar to placeShip, but instead it will fire at a location the user selects.
 function fire(){
+    //Checks if each ship has been placed and if not then alert the user that he/she should place
+    //the individual ship before he/she can fire.
     if(gameModel.playerAircraftCarrier.start.Across < 1){
-        alert( "Place Aircraft Carrier!!!");
+        alert( "Place Aircraft Carrier!!!\nBefore you can fire.");
     }
     if(gameModel.playerBattleship.start.Across < 1){
-        alert( "Place Battleship!!!");
+        alert( "Place Battleship!!!\nBefore you can fire.");
     }
-
     if(gameModel.playerCruiser.start.Across < 1){
-        alert( "Place Cruiser!!!");
+        alert( "Place Cruiser!!!\nBefore you can fire.");
     }
     if(gameModel.playerDestroyer.start.Across < 1){
-        alert( "Place Destroyer!!!");
+        alert( "Place Destroyer!!!\nBefore you can fire.");
     }
     if(gameModel.playerSubmarine.start.Across < 1){
-        alert( "Place Submarine!!!");
+        alert( "Place Submarine!!!\nBefore you can fire.");
     }
 
 
@@ -96,8 +100,6 @@ displayShip(gameModel.playerCruiser);
 displayShip(gameModel.playerDestroyer);
 displayShip(gameModel.playerSubmarine);
 // /EDITED THIS
-
-//RIGHT HERE????????????????????????????????????????????????
 
 for (var i = 0; i < gameModel.computerMisses.length; i++) {
    $( '#TheirBoard #' + gameModel.computerMisses[i].Down + '_' + gameModel.computerMisses[i].Across ).css("background-color", "green");
