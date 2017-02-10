@@ -18,10 +18,38 @@ background-color:blue;
 
 table, th, td {
    border: 1px solid black;
+   margin: auto;
 }
 
 #MyBoard .ship{
 background-color: orange;
+}
+
+#footer{
+    margin: auto;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+#header {
+    height: 50px;
+    background-color: black;
+    color: white;
+    width: 100%;
+    list-style-type:none;
+    text-align: center;
+}
+a.special {
+    color: #D3D3D3;
+
+}
+
+#imag{
+    padding: 0px 0px 0px 0px;
+    margin: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 0%;
 }
 
 /*
