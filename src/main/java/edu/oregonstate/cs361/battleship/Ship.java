@@ -29,7 +29,7 @@ public class Ship {
 
             if(name.toLowerCase().contains("computer")){
                 start = new Point(1,1);
-                end = new Point(1,4);
+                end = new Point(1,5);
             }else{
                 start = new Point();
                 end = new Point();
@@ -41,7 +41,7 @@ public class Ship {
 
             if(name.toLowerCase().contains("computer")){
                 start = new Point(5,2);
-                end = new Point(5,4);
+                end = new Point(5,5);
             }else{
                 start = new Point();
                 end = new Point();
@@ -51,9 +51,14 @@ public class Ship {
         else if (name.toLowerCase().contains("submarine") || name.toLowerCase().contains("cruiser")) {
             setLength(3);
 
-            if(name.toLowerCase().contains("computer")){
-                start = new Point(6,3);
-                end = new Point(6,4);
+            if(name.toLowerCase().contains("computer")) {
+                if (name.toLowerCase().contains("cruiser")) {
+                    start = new Point(6, 3);
+                    end = new Point(6, 5);
+                }else{
+                    start = new Point(10, 3);
+                    end = new Point(10, 5);
+                }
             }else{
                 start = new Point();
                 end = new Point();
