@@ -17,6 +17,11 @@ $( document ).ready(function() {
 //});
 
 function placeShip() {
+    if(gameModel.computerMisses.length > 0 || gameModel.computerHits.length > 0){
+        alert("You have started the game.\nYou can't place down or move ships now.");
+    }
+
+
    // This ajax call will asnychonously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
    var request = $.ajax({
      url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val(),
@@ -41,6 +46,24 @@ function placeShip() {
 
 //Similar to placeShip, but instead it will fire at a location the user selects.
 function fire(){
+    if(gameModel.playerAircraftCarrier.start.Across < 1){
+        alert( "Place Aircraft Carrier!!!");
+    }
+    if(gameModel.playerBattleship.start.Across < 1){
+        alert( "Place Battleship!!!");
+    }
+
+    if(gameModel.playerCruiser.start.Across < 1){
+        alert( "Place Cruiser!!!");
+    }
+    if(gameModel.playerDestroyer.start.Across < 1){
+        alert( "Place Destroyer!!!");
+    }
+    if(gameModel.playerSubmarine.start.Across < 1){
+        alert( "Place Submarine!!!");
+    }
+
+
    var request = $.ajax({
      url: "/fire/"+$( "#rowFire" ).val()+"/"+$( "#colFire" ).val(),
      method: "post",
@@ -73,6 +96,8 @@ displayShip(gameModel.playerCruiser);
 displayShip(gameModel.playerDestroyer);
 displayShip(gameModel.playerSubmarine);
 // /EDITED THIS
+
+//RIGHT HERE????????????????????????????????????????????????
 
 for (var i = 0; i < gameModel.computerMisses.length; i++) {
    $( '#TheirBoard #' + gameModel.computerMisses[i].Down + '_' + gameModel.computerMisses[i].Across ).css("background-color", "green");
