@@ -7,8 +7,6 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <script src="/js/vendor/jquery-1.12.4.min.js"></script>
-<script src="/js/app.js"></script>
-
 
 
 <p id="imag"><img src="Battleship.png" align="right"></p>
@@ -391,102 +389,5 @@
 
 </body>
 
-<script>
-    var playerTable =   document.getElementById("PlayerBoard");
-    var computerTable = document.getElementById("ComputerBoard");
-
-    if (playerTable != null) {
-        for (var i = 0; i < playerTable.rows.length; i++) {
-            for (var j = 0; j < playerTable.rows[i].cells.length; j++) {
-                playerTable.rows[i].cells[j].onclick = (function (i, j) {
-
-
-                    return function clickPlace() {
-                        //Checks if the Computer has fired at all and if so then alert the user that you can't place or move ships
-                        //after you have fired a single shot.
-                        if(gameModel.computerMisses.length > 0 || gameModel.computerHits.length > 0){
-                            alert("You have started the game.\nYou can't place down or move ships now.");
-                        }
-
-
-                        // This ajax call will asnychonously call the back end, and tell it where to place the ship,
-                        // then get back a game model with the ship placed, and display the new model.
-                        var request = $.ajax({
-                            url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+(j+1)+"/"+(i+1)+"/"+$( "#orientationSelec" ).val(),
-                            method: "post",
-                            data: JSON.stringify(gameModel),
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json"
-                        });
-
-
-                        //This will be called when the call is returned from the server.
-                        request.done(function( currModel ) {
-                            displayGameState(currModel);
-                            gameModel = currModel;
-
-                        });
-
-                        // if there is a problem, and the back end does not respond, then an alert will be shown.
-                        request.fail(function( jqXHR, textStatus ) {
-                            alert( "Request failed: " + textStatus );
-                        });
-                    };
-
-
-                }(i, j));
-            }
-        }
-    }
-
-    if (computerTable != null) {
-        for (var i = 0; i < computerTable.rows.length; i++) {
-            for (var j = 0; j < computerTable.rows[i].cells.length; j++) {
-                computerTable.rows[i].cells[j].onclick = (function (i, j) {
-
-
-                    return function clickFire() {
-                        if(gameModel.playerAircraftCarrier.start.Across < 1){
-                            alert( "Place Aircraft Carrier!!!\nBefore you can fire.");
-                        }
-                        if(gameModel.playerBattleship.start.Across < 1){
-                            alert( "Place Battleship!!!\nBefore you can fire.");
-                        }
-                        if(gameModel.playerCruiser.start.Across < 1){
-                            alert( "Place Cruiser!!!\nBefore you can fire.");
-                        }
-                        if(gameModel.playerDestroyer.start.Across < 1){
-                            alert( "Place Destroyer!!!\nBefore you can fire.");
-                        }
-                        if(gameModel.playerSubmarine.start.Across < 1){
-                            alert( "Place Submarine!!!\nBefore you can fire.");
-                        }
-
-
-                        var request = $.ajax({
-                            url: "/fire/"+(j+1)+"/"+(i+1),
-                            method: "post",
-                            data: JSON.stringify(gameModel),
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json"
-                        });
-
-                        request.done(function( currModel ) {
-                            displayGameState(currModel);
-                            gameModel = currModel;
-
-                        });
-
-                        request.fail(function( jqXHR, textStatus ) {
-                            alert( "Request failed: " + textStatus );
-                        });
-                    };
-
-
-                }(i, j));
-            }
-        }
-    }
-
-</script>
+<script src="/js/app.js"></script>
 </html>
