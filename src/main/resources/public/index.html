@@ -7,16 +7,16 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <script src="/js/vendor/jquery-1.12.4.min.js"></script>
-<script src="/js/app.js"></script>
 
 
 
-<p id="imag"><img src="Battleship.png" align="right"></p>
+
+<p id="imag"><img id="Lship" src="Battleship.png" align="left"> <img id="Rship" src="Battleship.png" align="right"></p>
 
 <table id="header">
     <tr>
     <td style="background-color:black;width=10%;text-align:center;top-border:10px;">
-        <h3>Battleship</h3>
+        <h1>Battleship</h1>
     </td>
     </tr>
 </table>
@@ -31,7 +31,7 @@
     <!--#parse("/velocity/todoList.vm")-->
     <h1>Your Board</h1>
     <div id="MyBoard" class="gameBoard">
-        <table>
+        <table id="PlayerBoard">
             <tr id="Row_1">
                 <td id="1_1"></td>
                 <td id="1_2"></td>
@@ -161,7 +161,7 @@
     <th>
     <h2>Computer Board</h2>
     <div id="TheirBoard" class="gameBoard">
-        <table>
+        <table id="ComputerBoard">
             <tr id="Row_1">
                 <td id="1_1"></td>
                 <td id="1_2"></td>
@@ -383,7 +383,7 @@
 
 <footer id="footer">
     <br>
-    Group_6_Project_2
+    Group 6 Project 2: For The Children
     <br><br>
 </footer>
 
@@ -391,20 +391,6 @@
 
 </body>
 <script>
-   $('#TheirBoard td').click(function(event) {
-   console.log("CLICK EVENT");
-
-   $.ajax("/fire", {
-      success: function(data) {
-         <!--$('#main').html($(data).find('#main *'));-->
-         <!--$('#notification-bar').text('The page has been successfully loaded');-->
-         console.log("FIRE SUCCESS");
-      },
-      error: function() {
-         <!--$('#notification-bar').text('An error occurred');-->
-         console.log("FIRE FAIL");
-      }
-   });
-});
+   src="/js/app.js"
 </script>
 </html>

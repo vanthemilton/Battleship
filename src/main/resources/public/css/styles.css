@@ -41,7 +41,6 @@ background-color: orange;
 }
 a.special {
     color: #D3D3D3;
-
 }
 
 #imag{
@@ -49,7 +48,22 @@ a.special {
     margin: 0px;
     white-space: nowrap;
     overflow: hidden;
-    height: 0%;
+    border-style: none;
+}
+
+#Rship {
+    border-style: none;
+}
+
+#Lship{
+            /* Flips image horizontally */
+            -moz-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+            filter: FlipH;
+            -ms-filter: "FlipH";
+            border-style: none;
 }
 
 /*
