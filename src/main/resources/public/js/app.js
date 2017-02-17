@@ -12,13 +12,6 @@ if (playerTable != null) {
 
 
                 return function clickPlace() {
-                    //Checks if the Computer has fired at all and if so then alert the user that you can't place or move ships
-                    //after you have fired a single shot.
-                    if(gameModel.computerMisses.length > 0 || gameModel.computerHits.length > 0){
-                        alert("You have started the game.\nYou can't place down or move ships now.");
-                    }
-
-
                     // This ajax call will asnychonously call the back end, and tell it where to place the ship,
                     // then get back a game model with the ship placed, and display the new model.
                     var request = $.ajax({
@@ -29,6 +22,45 @@ if (playerTable != null) {
                         dataType: "json"
                     });
 
+                    //Checks if the Computer has fired at all and if so then alert the user that you can't place or move ships
+                    //after you have fired a single shot.
+                    if(gameModel.computerMisses.length > 0 || gameModel.computerHits.length > 0){
+                        alert("You have started the game.\nYou can't place down or move ships now.");
+
+                    }else if($( "#orientationSelec" ).val() == "horizontal"){
+                        if($( "#shipSelec" ).val() == "aircraftCarrier" && j > 5){
+                            alert("Place ship within the board.")
+
+                        }else if( $( "#shipSelec" ).val() == "battleship" && j > 6){
+                            alert("Place ship within the board.")
+
+                        }else if( $( "#shipSelec" ).val() == "cruiser" && j > 7){
+                            alert("Place ship within the board.")
+
+                        }else if( $( "#shipSelec" ).val() == "destroyer" && j > 8){
+                            alert("Place ship within the board.")
+
+                        }else if( $( "#shipSelec" ).val() == "submarine" && j > 7){
+                            alert("Place ship within the board.")
+                        }
+                    }else if($( "#orientationSelec" ).val() == "vertical"){
+                         if($( "#shipSelec" ).val() == "aircraftCarrier" && i > 5){
+                             alert("Place ship within the board.")
+
+                         }else if( $( "#shipSelec" ).val() == "battleship" && i > 6){
+                             alert("Place ship within the board.")
+
+                         }else if( $( "#shipSelec" ).val() == "cruiser" && i > 7){
+                             alert("Place ship within the board.")
+
+                         }else if( $( "#shipSelec" ).val() == "destroyer" && i > 8){
+                             alert("Place ship within the board.")
+
+                         }else if( $( "#shipSelec" ).val() == "submarine" && i > 7){
+                             alert("Place ship within the board.")
+
+                         }
+                    }
 
                     //This will be called when the call is returned from the server.
                     request.done(function( currModel ) {
@@ -117,12 +149,6 @@ $( document ).ready(function() {
 
 function placeShip() {
 
-    //Checks if the Computer has fired at all and if so then alert the user that you can't place or move ships
-    //after you have fired a single shot.
-    if(gameModel.computerMisses.length > 0 || gameModel.computerHits.length > 0){
-        alert("You have started the game.\nYou can't place down or move ships now.");
-    }
-
 
    // This ajax call will asnychonously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
    var request = $.ajax({
@@ -132,6 +158,48 @@ function placeShip() {
      contentType: "application/json; charset=utf-8",
      dataType: "json"
    });
+
+
+    //Checks if the Computer has fired at all and if so then alert the user that you can't place or move ships
+    //after you have fired a single shot.
+    if(gameModel.computerMisses.length > 0 || gameModel.computerHits.length > 0){
+        alert("You have started the game.\nYou can't place down or move ships now.");
+
+    }else if($( "#orientationSelec" ).val() == "horizontal"){
+        if($( "#shipSelec" ).val() == "aircraftCarrier" && $( "#rowSelec" ).val() > 6){
+            alert("Place ship within the board.")
+
+        }else if( $( "#shipSelec" ).val() == "battleship" && $( "#rowSelec" ).val() > 7){
+            alert("Place ship within the board.")
+
+        }else if( $( "#shipSelec" ).val() == "cruiser" && $( "#rowSelec" ).val() > 7){
+            alert("Place ship within the board.")
+
+        }else if( $( "#shipSelec" ).val() == "destroyer" && $( "#rowSelec" ).val() > 8){
+            alert("Place ship within the board.")
+
+        }else if( $( "#shipSelec" ).val() == "submarine" && $( "#rowSelec" ).val() > 7){
+            alert("Place ship within the board.")
+
+        }
+
+    }else if($( "#orientationSelec" ).val() == "vertical"){
+        if($( "#shipSelec" ).val() == "aircraftCarrier" && $( "#colSelec" ).val() > 5){
+          alert("Place ship within the board.")
+
+        }else if( $( "#shipSelec" ).val() == "battleship" && $( "#colSelec" ).val() > 6){
+          alert("Place ship within the board.")
+
+        }else if( $( "#shipSelec" ).val() == "cruiser" && $( "#colSelec" ).val() > 7){
+          alert("Place ship within the board.")
+
+        }else if( $( "#shipSelec" ).val() == "destroyer" && $( "#colSelec" ).val() > 8){
+          alert("Place ship within the board.")
+
+        }else if( $( "#shipSelec" ).val() == "submarine" && $( "#colSelec" ).val() > 7){
+          alert("Place ship within the board.")
+        }
+    }
 
    //This will be called when the call is returned from the server.
    request.done(function( currModel ) {

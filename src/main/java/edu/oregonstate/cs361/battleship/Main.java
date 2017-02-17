@@ -86,7 +86,7 @@ public class Main {
         int stop = 0;
         Point cord = new Point();
 
-        if (orientation.equals("horizontal") && rows + size < 11 && rows > 0 && column < 11 && column > 0) {
+        if (orientation.equals("horizontal") && (rows + size - 1) < 11 && rows > 0 && column < 11 && column > 0) {
             for (int i = rows; i < (rows + size); i++) {
                 cord.setAcross(i);
                 cord.setDown(column);
