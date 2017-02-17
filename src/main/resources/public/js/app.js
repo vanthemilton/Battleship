@@ -77,6 +77,84 @@ if (playerTable != null) {
 
 
             }(i, j));
+            playerTable.rows[i].cells[j].onmouseover = (function (i, j) {
+                return function onHover() {
+                    if(gameModel.computerMisses.length == 0 && gameModel.computerHits.length == 0) {
+                        var l = 5;
+                        switch ($("#shipSelec").val()) {
+                            case "aircraftCarrier":
+                                l = 5;
+                                break;
+                            case "battleship":
+                                l = 4;
+                                break;
+                            case "submarine":
+                                l = 3;
+                                break;
+                            case "cruiser":
+                                l = 3;
+                                break;
+                            case "destroyer":
+                                l = 2;
+                                break;
+                        }
+                        if ($("#orientationSelec").val() == "horizontal" && ((l + j) > 10)) {
+                            for (var k = 0; k < l; k++) {
+                                $('#MyBoard #' + (i + 1) + '_' + (j + 1 + k)).css("border-color", "red");
+                            }
+                        }
+                        else if ($("#orientationSelec").val() == "horizontal") {
+                            for (var k = 0; k < l; k++) {
+                                $('#MyBoard #' + (i + 1) + '_' + (j + 1 + k)).css("border-color", "yellow");
+                            }
+                        }
+                        if ($("#orientationSelec").val() == "vertical" && ((i + l) > 10)) {
+                            for (var k = 0; k < l; k++) {
+                                $('#MyBoard #' + (i + 1 + k) + '_' + (j + 1)).css("border-color", "red");
+                            }
+                        }
+                        else if ($("#orientationSelec").val() == "vertical") {
+                            for (var k = 0; k < l; k++) {
+                                $('#MyBoard #' + (i + 1 + k) + '_' + (j + 1)).css("border-color", "yellow");
+                            }
+                        }
+                    }
+                };
+            }(i,j));
+            playerTable.rows[i].cells[j].onmouseout = (function (i, j) {
+                return function onRemove() {
+                    if(gameModel.computerMisses.length == 0 && gameModel.computerHits.length == 0) {
+                        var l = 5;
+                        switch ($("#shipSelec").val()) {
+                            case "aircraftCarrier":
+                                l = 5;
+                                break;
+                            case "battleship":
+                                l = 4;
+                                break;
+                            case "submarine":
+                                l = 3;
+                                break;
+                            case "cruiser":
+                                l = 3;
+                                break;
+                            case "destroyer":
+                                l = 2;
+                                break;
+                        }
+                        if ($("#orientationSelec").val() == "horizontal") {
+                            for (var k = 0; k < l; k++) {
+                                $('#MyBoard #' + (i + 1) + '_' + (j + 1 + k)).css("border-color", "black");
+                            }
+                        }
+                        else if ($("#orientationSelec").val() == "vertical") {
+                            for (var k = 0; k < l; k++) {
+                                $('#MyBoard #' + (i + 1 + k) + '_' + (j + 1)).css("border-color", "black");
+                            }
+                        }
+                    }
+                };
+            }(i,j));
         }
     }
 }
@@ -127,6 +205,24 @@ if (computerTable != null) {
 
 
             }(i, j));
+            computerTable.rows[i].cells[j].onmouseover = (function (i, j) {
+                return function onHover() {
+                    if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
+                        gameModel.playerCruiser.start.Across > 0 && gameModel.playerDestroyer.start.Across > 0 &&
+                        gameModel.playerSubmarine.start.Across > 0) {
+                        $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "yellow");
+                    }
+                };
+            }(i,j));
+            computerTable.rows[i].cells[j].onmouseout = (function (i, j) {
+                return function onHover() {
+                    if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
+                        gameModel.playerCruiser.start.Across > 0 && gameModel.playerDestroyer.start.Across > 0 &&
+                        gameModel.playerSubmarine.start.Across > 0) {
+                        $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "black");
+                    }
+                };
+            }(i,j));
         }
     }
 }
