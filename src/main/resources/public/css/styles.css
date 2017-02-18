@@ -17,8 +17,13 @@ background-color:blue;
 }
 
 table, th, td {
-   border: 1px solid black;
+   border: 3px solid white;
    margin: auto;
+}
+
+#header td {
+    border: 0px solid black;
+    margin: auto;
 }
 
 #MyBoard .ship{
