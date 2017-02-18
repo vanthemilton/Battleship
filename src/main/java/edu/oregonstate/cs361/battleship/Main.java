@@ -2,7 +2,7 @@ package edu.oregonstate.cs361.battleship;
 
 import com.google.gson.Gson;
 import spark.Request;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import static spark.Spark.*;
@@ -301,6 +301,8 @@ public class Main {
         Ship CCruiser = model.getComputerCruiser();
         Ship CDestroyer = model.getComputerDestroyer();
         Ship CSubmarine = model.getComputerSubmarine();
+
+
 
 
         if(PAircraftCarrier.getStart().getAcross() < 1){

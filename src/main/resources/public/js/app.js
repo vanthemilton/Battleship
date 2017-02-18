@@ -105,7 +105,7 @@ if (playerTable != null) {
                         }
                         else if ($("#orientationSelec").val() == "horizontal") {
                             for (var k = 0; k < l; k++) {
-                                $('#MyBoard #' + (i + 1) + '_' + (j + 1 + k)).css("border-color", "yellow");
+                                $('#MyBoard #' + (i + 1) + '_' + (j + 1 + k)).css("border-color", "green");
                             }
                         }
                         if ($("#orientationSelec").val() == "vertical" && ((i + l) > 10)) {
@@ -115,7 +115,7 @@ if (playerTable != null) {
                         }
                         else if ($("#orientationSelec").val() == "vertical") {
                             for (var k = 0; k < l; k++) {
-                                $('#MyBoard #' + (i + 1 + k) + '_' + (j + 1)).css("border-color", "yellow");
+                                $('#MyBoard #' + (i + 1 + k) + '_' + (j + 1)).css("border-color", "green");
                             }
                         }
                     }
@@ -144,12 +144,12 @@ if (playerTable != null) {
                         }
                         if ($("#orientationSelec").val() == "horizontal") {
                             for (var k = 0; k < l; k++) {
-                                $('#MyBoard #' + (i + 1) + '_' + (j + 1 + k)).css("border-color", "black");
+                                $('#MyBoard #' + (i + 1) + '_' + (j + 1 + k)).css("border-color", "white");
                             }
                         }
                         else if ($("#orientationSelec").val() == "vertical") {
                             for (var k = 0; k < l; k++) {
-                                $('#MyBoard #' + (i + 1 + k) + '_' + (j + 1)).css("border-color", "black");
+                                $('#MyBoard #' + (i + 1 + k) + '_' + (j + 1)).css("border-color", "white");
                             }
                         }
                     }
@@ -210,7 +210,7 @@ if (computerTable != null) {
                     if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
                         gameModel.playerCruiser.start.Across > 0 && gameModel.playerDestroyer.start.Across > 0 &&
                         gameModel.playerSubmarine.start.Across > 0) {
-                        $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "yellow");
+                        $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "orange");
                     }
                 };
             }(i,j));
@@ -219,7 +219,7 @@ if (computerTable != null) {
                     if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
                         gameModel.playerCruiser.start.Across > 0 && gameModel.playerDestroyer.start.Across > 0 &&
                         gameModel.playerSubmarine.start.Across > 0) {
-                        $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "black");
+                        $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "white");
                     }
                 };
             }(i,j));
