@@ -11,12 +11,12 @@ import static spark.Spark.staticFiles;
  */
 public class Ship {
 
-
     //          Member Variables
     private String name;
-    private int length;
     private Point start;
     private Point end;
+    private int length;
+    private int health;
 
     //          Constructor
     public Ship (String name) {
@@ -26,59 +26,40 @@ public class Ship {
         // size is based on name of ship, if unrecognized ship type the function sets size to 0
         if (name.toLowerCase().contains("aircraftcarrier")) {
             setLength(5);
+            setHealth(5);
 
-            if(name.toLowerCase().contains("computer")){
-                start = new Point(1,1);
-                end = new Point(1,5);
-            }else{
-                start = new Point();
-                end = new Point();
-            }
+            start = new Point();
+            end = new Point();
         }
 
         else if (name.toLowerCase().contains("battleship")) {
             setLength(4);
+            setHealth(4);
 
-            if(name.toLowerCase().contains("computer")){
-                start = new Point(5,2);
-                end = new Point(5,5);
-            }else{
-                start = new Point();
-                end = new Point();
-            }
+            start = new Point();
+            end = new Point();
         }
 
         else if (name.toLowerCase().contains("submarine") || name.toLowerCase().contains("cruiser")) {
             setLength(3);
+            setHealth(3);
 
-            if(name.toLowerCase().contains("computer")) {
-                if (name.toLowerCase().contains("cruiser")) {
-                    start = new Point(6, 3);
-                    end = new Point(6, 5);
-                }else{
-                    start = new Point(10, 3);
-                    end = new Point(10, 5);
-                }
-            }else{
-                start = new Point();
-                end = new Point();
-            }
+            start = new Point();
+            end = new Point();
         }
 
         else if (name.toLowerCase().contains("destroyer")) {
             setLength(2);
+            setHealth(2);
 
-            if(name.toLowerCase().contains("computer")){
-                start = new Point(9,2);
-                end = new Point(9,3);
-            }else{
-                start = new Point();
-                end = new Point();
-            }
+            start = new Point();
+            end = new Point();
         }
 
         else {
             setLength(0);
+            setHealth(0);
+
             start = new Point();
             end = new Point();
         }
@@ -122,9 +103,8 @@ public class Ship {
         this.end = new Point(x, y);
     }
 
-    // RETURN ANY SHIP OBJECT DIRECTLY
-    //public Ship getShip() {
-        //return this;
-    //}
+    public int getHealth() { return health; }
+
+    public void setHealth(int health) { this.health = health; }
 
 }

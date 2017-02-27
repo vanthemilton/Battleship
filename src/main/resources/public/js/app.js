@@ -4,6 +4,8 @@ var gameModel;
 var playerTable =   document.getElementById("PlayerBoard");
 var computerTable = document.getElementById("ComputerBoard");
 
+//hovering.onmouseover = (function displayAllRules)
+
 //If the table exists, iterate to get each square in (j+1,i+1) format and set an onclick
 if (playerTable != null) {
     for (var i = 0; i < playerTable.rows.length; i++) {
@@ -28,6 +30,7 @@ if (playerTable != null) {
                         alert("You have started the game.\nYou can't place down or move ships now.");
 
                     }else if($( "#orientationSelec" ).val() == "horizontal"){
+
                         if($( "#shipSelec" ).val() == "aircraftCarrier" && j > 5){
                             alert("Place ship within the board.")
 
@@ -44,6 +47,7 @@ if (playerTable != null) {
                             alert("Place ship within the board.")
                         }
                     }else if($( "#orientationSelec" ).val() == "vertical"){
+
                          if($( "#shipSelec" ).val() == "aircraftCarrier" && i > 5){
                              alert("Place ship within the board.")
 
@@ -167,20 +171,20 @@ if (computerTable != null) {
 
 
                 return function clickFire() {
-                    if(gameModel.playerAircraftCarrier.start.Across < 1){
-                        alert( "Place Aircraft Carrier!!!\nBefore you can fire.");
+                    if(gameModel.computerAircraftCarrier.start.Across < 1){
+                        alert( "Place computer Aircraft Carrier!!!\nBefore you can fire.");
                     }
-                    if(gameModel.playerBattleship.start.Across < 1){
-                        alert( "Place Battleship!!!\nBefore you can fire.");
+                    if(gameModel.computerBattleship.start.Across < 1){
+                        alert( "Place computer Battleship!!!\nBefore you can fire.");
                     }
-                    if(gameModel.playerCruiser.start.Across < 1){
-                        alert( "Place Cruiser!!!\nBefore you can fire.");
+                    if(gameModel.computerCruiser.start.Across < 1){
+                        alert( "Place computer Cruiser!!!\nBefore you can fire.");
                     }
-                    if(gameModel.playerDestroyer.start.Across < 1){
-                        alert( "Place Destroyer!!!\nBefore you can fire.");
+                    if(gameModel.computerDestroyer.start.Across < 1){
+                        alert( "Place computer Destroyer!!!\nBefore you can fire.");
                     }
-                    if(gameModel.playerSubmarine.start.Across < 1){
-                        alert( "Place Submarine!!!\nBefore you can fire.");
+                    if(gameModel.computerSubmarine.start.Across < 1){
+                        alert( "Place computer Submarine!!!\nBefore you can fire.");
                     }
 
 
@@ -196,11 +200,14 @@ if (computerTable != null) {
                         displayGameState(currModel);
                         gameModel = currModel;
 
+                        SunkShipsAlert(gameModel);
                     });
 
                     request.fail(function( jqXHR, textStatus ) {
                         alert( "Request failed: " + textStatus );
                     });
+
+
                 };
 
 
@@ -312,21 +319,18 @@ function placeShip() {
 
 //Similar to placeShip, but instead it will fire at a location the user selects.
 function fire(){
+
     //Checks if each ship has been placed and if not then alert the user that he/she should place
     //the individual ship before he/she can fire.
     if(gameModel.playerAircraftCarrier.start.Across < 1){
         alert( "Place Aircraft Carrier!!!\nBefore you can fire.");
-    }
-    if(gameModel.playerBattleship.start.Across < 1){
+    }else if(gameModel.playerBattleship.start.Across < 1){
         alert( "Place Battleship!!!\nBefore you can fire.");
-    }
-    if(gameModel.playerCruiser.start.Across < 1){
+    }else if(gameModel.playerCruiser.start.Across < 1){
         alert( "Place Cruiser!!!\nBefore you can fire.");
-    }
-    if(gameModel.playerDestroyer.start.Across < 1){
+    }else if(gameModel.playerDestroyer.start.Across < 1){
         alert( "Place Destroyer!!!\nBefore you can fire.");
-    }
-    if(gameModel.playerSubmarine.start.Across < 1){
+    }else if(gameModel.playerSubmarine.start.Across < 1){
         alert( "Place Submarine!!!\nBefore you can fire.");
     }
 
@@ -353,51 +357,151 @@ function fire(){
 
 //This function will display the game model.  It displays the ships on the users board, and then shows where there have been hits and misses on both boards.
 function displayGameState(gameModel){
-$( '#MyBoard td'  ).css("background-color", "blue");
-$( '#TheirBoard td'  ).css("background-color", "blue");
 
-// EDITED THIS
-displayShip(gameModel.playerAircraftCarrier);
-displayShip(gameModel.playerBattleship);
-displayShip(gameModel.playerCruiser);
-displayShip(gameModel.playerDestroyer);
-displayShip(gameModel.playerSubmarine);
-// /EDITED THIS
+    if(countDownedShipsPlayer(gameModel) == 5){
+        $( '#lost' ).css( "display", "none" );
 
-for (var i = 0; i < gameModel.computerMisses.length; i++) {
-   $( '#TheirBoard #' + gameModel.computerMisses[i].Down + '_' + gameModel.computerMisses[i].Across ).css("background-color", "green");
+        $( '#computerWin' ).css( "display", "inline" );
+        $( '#computerWin' ).css( "float", "middle" );
+
+        alert("Computer has won!");
+
+    }else if(countDownedShipsComputer(gameModel) == 5){
+        $( '#lost' ).css( "display", "none" );
+
+        $( '#playerWin' ).css( "display", "inline" );
+        $( '#playerWin' ).css( "float", "middle" );
+
+        alert("Player has won!");
+
+    }else{
+        $( '#MyBoard td'  ).css("background-color", "blue");
+        $( '#TheirBoard td'  ).css("background-color", "blue");
+
+
+        displayShip(gameModel.playerAircraftCarrier);
+        displayShip(gameModel.playerBattleship);
+        displayShip(gameModel.playerCruiser);
+        displayShip(gameModel.playerDestroyer);
+        displayShip(gameModel.playerSubmarine);
+
+
+        for (var i = 0; i < gameModel.computerMisses.length; i++) {
+            $( '#TheirBoard #' + gameModel.computerMisses[i].Down + '_' + gameModel.computerMisses[i].Across ).css("background-color", "green");
+        }
+
+        for (var i = 0; i < gameModel.computerHits.length; i++) {
+            $( '#TheirBoard #' + gameModel.computerHits[i].Down + '_' + gameModel.computerHits[i].Across ).css("background-color", "red");
+        }
+
+        for (var i = 0; i < gameModel.playerMisses.length; i++) {
+            $( '#MyBoard #' + gameModel.playerMisses[i].Down + '_' + gameModel.playerMisses[i].Across ).css("background-color", "green");
+        }
+
+        for (var i = 0; i < gameModel.playerHits.length; i++) {
+            $( '#MyBoard #' + gameModel.playerHits[i].Down + '_' + gameModel.playerHits[i].Across ).css("background-color", "red");
+        }
+    }
 }
-for (var i = 0; i < gameModel.computerHits.length; i++) {
-   $( '#TheirBoard #' + gameModel.computerHits[i].Down + '_' + gameModel.computerHits[i].Across ).css("background-color", "red");
+
+function SunkShipsAlert(gameModel){
+
+    if(gameModel.playerAircraftCarrier.health == 0){
+        alert("Player AircraftCarrier has sunk.");
+    }else if(gameModel.playerSubmarine.health == 0){
+        alert("Player Submarine has sunk.");
+    }else if(gameModel.playerDestroyer.health == 0){
+        alert("Player Destroyer has sunk.");
+    }else if(gameModel.playerBattleship.health == 0){
+        alert("Player Battleship has sunk.");
+    }else if(gameModel.playerCruiser.health == 0){
+        alert("Player Cruiser has sunk.");
+    }
+
+    if(gameModel.computerAircraftCarrier.health == 0){
+        alert("Computer AircraftCarrier has sunk.");
+    }else if(gameModel.computerSubmarine.health == 0){
+        alert("Computer Submarine has sunk.");
+    }else if(gameModel.computerDestroyer.health == 0){
+        alert("Computer Destroyer has sunk.");
+    }else if(gameModel.computerBattleship.health == 0){
+        alert("Computer Battleship has sunk.");
+    }else if(gameModel.computerCruiser.health == 0){
+        alert("Computer Cruiser has sunk.");
+    }
+
 }
 
-for (var i = 0; i < gameModel.playerMisses.length; i++) {
-   $( '#MyBoard #' + gameModel.playerMisses[i].Down + '_' + gameModel.playerMisses[i].Across ).css("background-color", "green");
+function countDownedShipsPlayer(gameModel){
+    var downedShips = 0;
+
+    if(gameModel.playerAircraftCarrier.health <= 0){
+        downedShips += 1;
+    }
+
+    if(gameModel.playerSubmarine.health <= 0){
+        downedShips += 1;
+    }
+
+    if(gameModel.playerDestroyer.health <= 0){
+        downedShips += 1;
+    }
+
+    if(gameModel.playerBattleship.health <= 0){
+        downedShips += 1;
+    }
+
+    if(gameModel.playerCruiser.health <= 0){
+        downedShips += 1;
+    }
+
+    return downedShips;
 }
-for (var i = 0; i < gameModel.playerHits.length; i++) {
-   $( '#MyBoard #' + gameModel.playerHits[i].Down + '_' + gameModel.playerHits[i].Across ).css("background-color", "red");
+
+function countDownedShipsComputer(gameModel){
+    var downedShips = 0;
+
+    if(gameModel.computerAircraftCarrier.health <= 0){
+        downedShips += 1;
+    }
+
+    if(gameModel.computerSubmarine.health <= 0){
+        downedShips += 1;
+    }
+
+    if(gameModel.computerDestroyer.health <= 0){
+        downedShips += 1;
+    }
+
+    if(gameModel.computerBattleship.health <= 0){
+        downedShips += 1;
+    }
+
+    if(gameModel.computerCruiser.health <= 0){
+        downedShips += 1;
+    }
+
+    return downedShips;
 }
-
-
-
-}
-
 
 //This function will display a ship given a ship object in JSON
 function displayShip(ship){
- startCoordAcross = ship.start.Across;
- startCoordDown = ship.start.Down;
- endCoordAcross = ship.end.Across;
- endCoordDown = ship.end.Down;
- if(startCoordAcross > 0){
-    if(startCoordAcross == endCoordAcross){
-        for (i = startCoordDown; i <= endCoordDown; i++) {
-            $( '#MyBoard #'+i+'_'+startCoordAcross  ).css("background-color", "yellow");
+    startCoordAcross = ship.start.Across;
+    startCoordDown = ship.start.Down;
+    endCoordAcross = ship.end.Across;
+    endCoordDown = ship.end.Down;
+    if(startCoordAcross > 0){
+
+        if(startCoordAcross == endCoordAcross){
+            for (i = startCoordDown; i <= endCoordDown; i++) {
+                $( '#MyBoard #'+i+'_'+startCoordAcross  ).css("background-color", "yellow");
+            }
+
+        } else {
+            for (i = startCoordAcross; i <= endCoordAcross; i++) {
+                $( '#MyBoard #'+startCoordDown+'_'+i  ).css("background-color", "yellow");
+            }
         }
-    } else {
-        for (i = startCoordAcross; i <= endCoordAcross; i++) {
-            $( '#MyBoard #'+startCoordDown+'_'+i  ).css("background-color", "yellow");
-        }
+
     }
- }
 }
