@@ -16,18 +16,43 @@ height:40px;
 background-color:blue;
 }
 
+#header {
+    border: 0px solid white;
+    padding: 0px 0px 0px 0px;
+    margin: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-style: none;
+    /*margin: auto;*/
+}
+
 table, th, td {
    border: 3px solid white;
    margin: auto;
 }
 
-#header td {
-    border: 0px solid black;
-    margin: auto;
+.dropdown {
+    position: relative;
+    display: inline-block;
 }
 
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
 #MyBoard .ship{
-background-color: orange;
+    background-color: orange;
 }
 
 #footer{
@@ -36,6 +61,7 @@ background-color: orange;
     color: white;
     text-align: center;
 }
+
 #header {
     height: 50px;
     background-color: black;
@@ -61,14 +87,27 @@ a.special {
 }
 
 #Lship{
-            /* Flips image horizontally */
-            -moz-transform: scaleX(-1);
-            -o-transform: scaleX(-1);
-            -webkit-transform: scaleX(-1);
-            transform: scaleX(-1);
-            filter: FlipH;
-            -ms-filter: "FlipH";
-            border-style: none;
+    /* Flips image horizontally */
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+    border-style: none;
+}
+
+#playerWin {
+    display: none;
+}
+
+#computerWin{
+    display: none;
+}
+
+a {
+    color: white;
+    text-decoration: none;
 }
 
 /*
