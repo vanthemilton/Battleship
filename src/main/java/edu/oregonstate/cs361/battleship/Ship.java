@@ -56,6 +56,22 @@ public class Ship {
             end = new Point();
         }
 
+        else if (name.toLowerCase().contains("clipper")) {
+            setLength(3);
+            setHealth(3);
+
+            start = new Point();
+            end = new Point();
+        }
+
+        else if (name.toLowerCase().contains("dinghy")) {
+            setLength(1);
+            setHealth(1);
+
+            start = new Point();
+            end = new Point();
+        }
+
         else {
             setLength(0);
             setHealth(0);
@@ -64,11 +80,7 @@ public class Ship {
             end = new Point();
         }
 
-       //start = new Point();
-       //end = new Point();
-
     }
-
 
     //          Setters and Getters
     public String getName() {
