@@ -4,21 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class BattleshipModel {
+public class BattleshipModelUpdated extends BattleshipModel {
 
 
     //                  Member variables
     private Ship playerAircraftCarrier;
-    private Ship playerBattleship;
-    private Ship playerCruiser;
-    private Ship playerDestroyer;
-    private Ship playerSubmarine;
+    private Ship_Stealth playerBattleship;
+    private Ship_Stealth playerSubmarine;
+    private Ship_Civilian playerClipper;
+    private Ship_Civilian playerDinghy;
+
 
     private Ship computerAircraftCarrier;
-    private Ship computerBattleship;
-    private Ship computerCruiser;
-    private Ship computerDestroyer;
-    private Ship computerSubmarine;
+    private Ship_Stealth computerBattleship;
+    private Ship_Stealth computerSubmarine;
+    private Ship_Civilian computerClipper;
+    private Ship_Civilian computerDinghy;
 
     // all ships for player or computer are collected in these lists
     private List<Ship> playerShips;
@@ -30,36 +31,21 @@ public class BattleshipModel {
     private List<Point> computerMisses;
 
 
-    public List<Point> getPlayerHits() {
-        return playerHits;
-    }
-
-    public List<Point> getPlayerMisses() {
-        return playerMisses;
-    }
-
-    public List<Point> getComputerHits() {
-        return computerHits;
-    }
-
-    public List<Point> getComputerMisses() {
-        return computerMisses;
-    }
-
     //                  Constructor
-    public BattleshipModel () {
+    public BattleshipModelUpdated() {
 
         playerAircraftCarrier = new Ship("playerAircraftCarrier");
-        playerBattleship = new Ship("playerBattleship");
-        playerCruiser = new Ship("playerCruiser");
-        playerDestroyer = new Ship("playerDestroyer");
-        playerSubmarine = new Ship("playerSubmarine");
+        playerBattleship = new Ship_Stealth("playerBattleship");
+        playerSubmarine = new Ship_Stealth("playerSubmarine");
+        playerClipper = new Ship_Civilian("playerCruiser");
+        playerDinghy = new Ship_Civilian("playerDestroyer");
 
-        computerAircraftCarrier = new Ship("computerAircraftCarrier");
-        computerBattleship = new Ship("computerBattleship");
-        computerCruiser = new Ship("computerCruiser");
-        computerDestroyer = new Ship("computerDestroyer");
-        computerSubmarine = new Ship("computerSubmarine");
+
+        computerAircraftCarrier = new Ship("playerAircraftCarrier");
+        computerBattleship = new Ship_Stealth("playerBattleship");
+        computerSubmarine = new Ship_Stealth("playerSubmarine");
+        computerClipper = new Ship_Civilian("playerCruiser");
+        computerDinghy = new Ship_Civilian("playerDestroyer");
 
         playerHits = new ArrayList<Point>();
         playerMisses = new ArrayList<Point>();
@@ -69,17 +55,16 @@ public class BattleshipModel {
         playerShips = new ArrayList<Ship>();
         playerShips.add(playerAircraftCarrier);
         playerShips.add(playerBattleship);
-        playerShips.add(playerCruiser);
-        playerShips.add(playerDestroyer);
+        playerShips.add(playerClipper);
+        playerShips.add(playerDinghy);
         playerShips.add(playerSubmarine);
 
         computerShips = new ArrayList<Ship>();
         computerShips.add(computerAircraftCarrier);
         computerShips.add(computerBattleship);
-        computerShips.add(computerCruiser);
-        computerShips.add(computerDestroyer);
+        computerShips.add(computerClipper);
+        computerShips.add(computerDinghy);
         computerShips.add(computerSubmarine);
-
     }
 
 
@@ -115,12 +100,12 @@ public class BattleshipModel {
                 return getComputerSubmarine();
             }
 
-            else if (id.toLowerCase().contains("cruiser")) {
-                return getComputerCruiser();
+            else if (id.toLowerCase().contains("clipper")) {
+                return getComputerClipper();
             }
 
-            else if (id.toLowerCase().contains("destroyer")) {
-                return getComputerDestroyer();
+            else if (id.toLowerCase().contains("dinghy")) {
+                return getComputerDinghy();
             }
         }
 
@@ -138,12 +123,12 @@ public class BattleshipModel {
                 return getPlayerSubmarine();
             }
 
-            else if (id.toLowerCase().contains("cruiser")) {
-                return getPlayerCruiser();
+            else if (id.toLowerCase().contains("clipper")) {
+                return getPlayerClipper();
             }
 
-            else if (id.toLowerCase().contains("destroyer")) {
-                return getPlayerDestroyer();
+            else if (id.toLowerCase().contains("dinghy")) {
+                return getPlayerDinghy();
             }
         }
 
@@ -155,54 +140,37 @@ public class BattleshipModel {
 
 
     //          Getters and Setters
-    public Ship getPlayerAircraftCarrier() {
-        return playerAircraftCarrier;
+
+
+    public Ship_Civilian getPlayerClipper() {
+        return playerClipper;
     }
 
-
-    public Ship getPlayerBattleship() {
-        return playerBattleship;
+    public void setPlayerClipper(Ship_Civilian playerClipper) {
+        this.playerClipper = playerClipper;
     }
 
-
-    public Ship getPlayerCruiser() {
-        return playerCruiser;
+    public Ship_Civilian getPlayerDinghy() {
+        return playerDinghy;
     }
 
-
-    public Ship getPlayerDestroyer() {
-        return playerDestroyer;
+    public void setPlayerDinghy(Ship_Civilian playerDinghy) {
+        this.playerDinghy = playerDinghy;
     }
 
-
-    public Ship getPlayerSubmarine() {
-        return playerSubmarine;
+    public Ship_Civilian getComputerClipper() {
+        return computerClipper;
     }
 
-
-    public Ship getComputerAircraftCarrier() {
-        return computerAircraftCarrier;
+    public void setComputerClipper(Ship_Civilian computerClipper) {
+        this.computerClipper = computerClipper;
     }
 
-
-    public Ship getComputerBattleship() {
-        return computerBattleship;
+    public Ship_Civilian getComputerDinghy() {
+        return computerDinghy;
     }
 
-
-    public Ship getComputerCruiser() {
-        return computerCruiser;
+    public void setComputerDinghy(Ship_Civilian computerDinghy) {
+        this.computerDinghy = computerDinghy;
     }
-
-
-    public Ship getComputerDestroyer() {
-        return computerDestroyer;
-    }
-
-
-    public Ship getComputerSubmarine() {
-        return computerSubmarine;
-    }
-
-
 }
