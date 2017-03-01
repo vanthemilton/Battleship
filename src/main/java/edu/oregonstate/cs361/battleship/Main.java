@@ -25,6 +25,7 @@ public class Main {
 
     //This function should return a new model
     static String newModel() {
+        String num;
 
         // make new model, make gson object, convert model to json using gson
         BattleshipModel test = new BattleshipModel();
