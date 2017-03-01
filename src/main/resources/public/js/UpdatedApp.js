@@ -17,7 +17,7 @@ if (playerTable != null) {
                     // This ajax call will asnychonously call the back end, and tell it where to place the ship,
                     // then get back a game model with the ship placed, and display the new model.
                     var request = $.ajax({
-                        url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+(j+1)+"/"+(i+1)+"/"+$( "#orientationSelec" ).val()+"/"+(0),
+                        url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+(j+1)+"/"+(i+1)+"/"+$( "#orientationSelec" ).val()+"/"+(1),
                         method: "post",
                         data: JSON.stringify(gameModel),
                         contentType: "application/json; charset=utf-8",
@@ -37,10 +37,10 @@ if (playerTable != null) {
                         }else if( $( "#shipSelec" ).val() == "battleship" && j > 6){
                             alert("Place ship within the board.")
 
-                        }else if( $( "#shipSelec" ).val() == "cruiser" && j > 7){
+                        }else if( $( "#shipSelec" ).val() == "clipper" && j > 7){
                             alert("Place ship within the board.")
 
-                        }else if( $( "#shipSelec" ).val() == "destroyer" && j > 8){
+                        }else if( $( "#shipSelec" ).val() == "dinghy" && j > 8){
                             alert("Place ship within the board.")
 
                         }else if( $( "#shipSelec" ).val() == "submarine" && j > 7){
@@ -54,10 +54,10 @@ if (playerTable != null) {
                          }else if( $( "#shipSelec" ).val() == "battleship" && i > 6){
                              alert("Place ship within the board.")
 
-                         }else if( $( "#shipSelec" ).val() == "cruiser" && i > 7){
+                         }else if( $( "#shipSelec" ).val() == "clipper" && i > 7){
                              alert("Place ship within the board.")
 
-                         }else if( $( "#shipSelec" ).val() == "destroyer" && i > 8){
+                         }else if( $( "#shipSelec" ).val() == "dinghy" && i > 8){
                              alert("Place ship within the board.")
 
                          }else if( $( "#shipSelec" ).val() == "submarine" && i > 7){
@@ -95,10 +95,10 @@ if (playerTable != null) {
                             case "submarine":
                                 l = 3;
                                 break;
-                            case "cruiser":
+                            case "clipper":
                                 l = 3;
                                 break;
-                            case "destroyer":
+                            case "dinghy":
                                 l = 2;
                                 break;
                         }
@@ -139,10 +139,10 @@ if (playerTable != null) {
                             case "submarine":
                                 l = 3;
                                 break;
-                            case "cruiser":
+                            case "clipper":
                                 l = 3;
                                 break;
-                            case "destroyer":
+                            case "dinghy":
                                 l = 2;
                                 break;
                         }
@@ -171,25 +171,25 @@ if (computerTable != null) {
 
 
                 return function clickFire() {
-                    if(gameModel.computerAircraftCarrier.start.Across < 1){
+                    if(gameModel.playerAircraftCarrier.start.Across < 1){
                         alert( "Place Aircraft Carrier!!!\nBefore you can fire.");
                     }
-                    if(gameModel.computerBattleship.start.Across < 1){
+                    if(gameModel.playerBattleship.start.Across < 1){
                         alert( "Place Battleship!!!\nBefore you can fire.");
                     }
-                    if(gameModel.computerCruiser.start.Across < 1){
-                        alert( "Place Cruiser!!!\nBefore you can fire.");
+                    if(gameModel.playerClipper.start.Across < 1){
+                        alert( "Place Clipper!!!\nBefore you can fire.");
                     }
-                    if(gameModel.computerDestroyer.start.Across < 1){
-                        alert( "Place Destroyer!!!\nBefore you can fire.");
+                    if(gameModel.playerDinghy.start.Across < 1){
+                        alert( "Place Dinghy!!!\nBefore you can fire.");
                     }
-                    if(gameModel.computerSubmarine.start.Across < 1){
+                    if(gameModel.playerSubmarine.start.Across < 1){
                         alert( "Place Submarine!!!\nBefore you can fire.");
                     }
 
 
                     var request = $.ajax({
-                        url: "/fire/"+(j+1)+"/"+(i+1)+"/"+(0),
+                        url: "/fire/"+(j+1)+"/"+(i+1),
                         method: "post",
                         data: JSON.stringify(gameModel),
                         contentType: "application/json; charset=utf-8",
@@ -215,7 +215,7 @@ if (computerTable != null) {
             computerTable.rows[i].cells[j].onmouseover = (function (i, j) {
                 return function onHover() {
                     if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
-                        gameModel.playerCruiser.start.Across > 0 && gameModel.playerDestroyer.start.Across > 0 &&
+                        gameModel.playerClipper.start.Across > 0 && gameModel.playerDinghy.start.Across > 0 &&
                         gameModel.playerSubmarine.start.Across > 0) {
                         $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "orange");
                     }
@@ -224,7 +224,7 @@ if (computerTable != null) {
             computerTable.rows[i].cells[j].onmouseout = (function (i, j) {
                 return function onHover() {
                     if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
-                        gameModel.playerCruiser.start.Across > 0 && gameModel.playerDestroyer.start.Across > 0 &&
+                        gameModel.playerClipper.start.Across > 0 && gameModel.playerDinghy.start.Across > 0 &&
                         gameModel.playerSubmarine.start.Across > 0) {
                         $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "white");
                     }
@@ -255,7 +255,7 @@ function placeShip() {
 
    // This ajax call will asnychonously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
    var request = $.ajax({
-     url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val()+"/"+(0),
+     url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val()+"/"+(1),
      method: "post",
      data: JSON.stringify(gameModel),
      contentType: "application/json; charset=utf-8",
@@ -275,7 +275,7 @@ function placeShip() {
         }else if( $( "#shipSelec" ).val() == "battleship" && $( "#rowSelec" ).val() > 7){
             alert("Place ship within the board.")
 
-        }else if( $( "#shipSelec" ).val() == "cruiser" && $( "#rowSelec" ).val() > 7){
+        }else if( $( "#shipSelec" ).val() == "clipper" && $( "#rowSelec" ).val() > 7){
             alert("Place ship within the board.")
 
         }else if( $( "#shipSelec" ).val() == "destroyer" && $( "#rowSelec" ).val() > 8){
@@ -293,7 +293,7 @@ function placeShip() {
         }else if( $( "#shipSelec" ).val() == "battleship" && $( "#colSelec" ).val() > 6){
           alert("Place ship within the board.")
 
-        }else if( $( "#shipSelec" ).val() == "cruiser" && $( "#colSelec" ).val() > 7){
+        }else if( $( "#shipSelec" ).val() == "clipper" && $( "#colSelec" ).val() > 7){
           alert("Place ship within the board.")
 
         }else if( $( "#shipSelec" ).val() == "destroyer" && $( "#colSelec" ).val() > 8){
@@ -326,17 +326,17 @@ function fire(){
         alert( "Place Aircraft Carrier!!!\nBefore you can fire.");
     }else if(gameModel.playerBattleship.start.Across < 1){
         alert( "Place Battleship!!!\nBefore you can fire.");
-    }else if(gameModel.playerCruiser.start.Across < 1){
-        alert( "Place Cruiser!!!\nBefore you can fire.");
-    }else if(gameModel.playerDestroyer.start.Across < 1){
-        alert( "Place Destroyer!!!\nBefore you can fire.");
+    }else if(gameModel.playerClipper.start.Across < 1){
+        alert( "Place Clipper!!!\nBefore you can fire.");
+    }else if(gameModel.playerDinghy.start.Across < 1){
+        alert( "Place Dinghy!!!\nBefore you can fire.");
     }else if(gameModel.playerSubmarine.start.Across < 1){
         alert( "Place Submarine!!!\nBefore you can fire.");
     }
 
 
    var request = $.ajax({
-     url: "/fire/"+$( "#rowFire" ).val()+"/"+$( "#colFire" ).val()+"/"+(0),
+     url: "/fire/"+$( "#rowFire" ).val()+"/"+$( "#colFire" ).val(),
      method: "post",
      data: JSON.stringify(gameModel),
      contentType: "application/json; charset=utf-8",
@@ -381,8 +381,8 @@ function displayGameState(gameModel){
 
         displayShip(gameModel.playerAircraftCarrier);
         displayShip(gameModel.playerBattleship);
-        displayShip(gameModel.playerCruiser);
-        displayShip(gameModel.playerDestroyer);
+        displayShip(gameModel.playerClipper);
+        displayShip(gameModel.playerDinghy);
         displayShip(gameModel.playerSubmarine);
 
 
@@ -410,24 +410,24 @@ function SunkShipsAlert(gameModel){
         alert("Player AircraftCarrier has sunk.");
     }else if(gameModel.playerSubmarine.health == 0){
         alert("Player Submarine has sunk.");
-    }else if(gameModel.playerDestroyer.health == 0){
-        alert("Player Destroyer has sunk.");
+    }else if(gameModel.playerDinghy.health == 0){
+        alert("Player Dinghy has sunk.");
     }else if(gameModel.playerBattleship.health == 0){
         alert("Player Battleship has sunk.");
-    }else if(gameModel.playerCruiser.health == 0){
-        alert("Player Cruiser has sunk.");
+    }else if(gameModel.playerClipper.health == 0){
+        alert("Player Clipper has sunk.");
     }
 
     if(gameModel.computerAircraftCarrier.health == 0){
         alert("Computer AircraftCarrier has sunk.");
     }else if(gameModel.computerSubmarine.health == 0){
         alert("Computer Submarine has sunk.");
-    }else if(gameModel.computerDestroyer.health == 0){
-        alert("Computer Destroyer has sunk.");
+    }else if(gameModel.computerDinghy.health == 0){
+        alert("Computer Dinghy has sunk.");
     }else if(gameModel.computerBattleship.health == 0){
         alert("Computer Battleship has sunk.");
-    }else if(gameModel.computerCruiser.health == 0){
-        alert("Computer Cruiser has sunk.");
+    }else if(gameModel.computerClipper.health == 0){
+        alert("Computer Clipper has sunk.");
     }
 
 }
@@ -443,7 +443,7 @@ function countDownedShipsPlayer(gameModel){
         downedShips += 1;
     }
 
-    if(gameModel.playerDestroyer.health <= 0){
+    if(gameModel.playerDinghy.health <= 0){
         downedShips += 1;
     }
 
@@ -451,7 +451,7 @@ function countDownedShipsPlayer(gameModel){
         downedShips += 1;
     }
 
-    if(gameModel.playerCruiser.health <= 0){
+    if(gameModel.playerClipper.health <= 0){
         downedShips += 1;
     }
 
@@ -469,7 +469,7 @@ function countDownedShipsComputer(gameModel){
         downedShips += 1;
     }
 
-    if(gameModel.computerDestroyer.health <= 0){
+    if(gameModel.computerDinghy.health <= 0){
         downedShips += 1;
     }
 
@@ -477,7 +477,7 @@ function countDownedShipsComputer(gameModel){
         downedShips += 1;
     }
 
-    if(gameModel.computerCruiser.health <= 0){
+    if(gameModel.computerClipper.health <= 0){
         downedShips += 1;
     }
 
