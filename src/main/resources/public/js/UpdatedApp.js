@@ -278,7 +278,7 @@ function placeShip() {
         }else if( $( "#shipSelec" ).val() == "clipper" && $( "#rowSelec" ).val() > 7){
             alert("Place ship within the board.")
 
-        }else if( $( "#shipSelec" ).val() == "destroyer" && $( "#rowSelec" ).val() > 8){
+        }else if( $( "#shipSelec" ).val() == "dinghy" && $( "#rowSelec" ).val() > 8){
             alert("Place ship within the board.")
 
         }else if( $( "#shipSelec" ).val() == "submarine" && $( "#rowSelec" ).val() > 7){
@@ -293,10 +293,10 @@ function placeShip() {
         }else if( $( "#shipSelec" ).val() == "battleship" && $( "#colSelec" ).val() > 6){
           alert("Place ship within the board.")
 
-        }else if( $( "#shipSelec" ).val() == "clipper" && $( "#colSelec" ).val() > 7){
+        }else if( $( "#shipSelec" ).val() == "clipper" && $( "#colSelec" ).val() > 9){
           alert("Place ship within the board.")
 
-        }else if( $( "#shipSelec" ).val() == "destroyer" && $( "#colSelec" ).val() > 8){
+        }else if( $( "#shipSelec" ).val() == "dinghy" && $( "#colSelec" ).val() > 8){
           alert("Place ship within the board.")
 
         }else if( $( "#shipSelec" ).val() == "submarine" && $( "#colSelec" ).val() > 7){
