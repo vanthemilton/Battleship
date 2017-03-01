@@ -10,7 +10,7 @@
 
 <p id="imag"><img id="Lship" src="Battleship.png" align="left"> <img id="Rship" src="Battleship.png" align="right"></p>
 
-<table id='header' style="boarder:none;">
+<table id='header' style="border:none;">
     <tr>
         <td style='background-color:black;width=10%;text-align:center;'>
             <h3><a href="index.html">Home</a></h3>
@@ -309,8 +309,8 @@
                 <select name="shipSelec" id="shipSelec">
                     <option value="aircraftCarrier">Aircraft Carrier (5)</option>
                     <option value="battleship">Battleship (4)</option>
-                    <option value="cruiser">Cruiser (3)</option>
-                    <option value="destroyer">Destroyer (2)</option>
+                    <option value="clipper">Clipper (3)</option>
+                    <option value="dinghy">Dinghy (1)</option>
                     <option value="submarine">Submarine (3)</option>
                 </select>
                 <br>
@@ -363,8 +363,10 @@
 
         <th>
             <!--<h3>Scan:</h3>-->
-            <input type="radio" name="shipSelec" value="battleship"> Fire<br>
-            <input type="radio" name="shipSelec" value="cruiser"> Scan<br>
+            <form>
+                <input type="radio" name="fire" value="Fire">Fire<br>
+                <input type="radio" name="fire" value="Scan">Scan<br>
+            </form>
             <!---<div id="AircraftcarrierDiv">
                 Row:
                 <select name="rowFire" id="colFire">
@@ -413,12 +415,12 @@
 <br><br>
 
 </body>
-<script src="/js/app.js"></script>
+<script src="/js/UpdatedApp.js"></script>
 </html>
 
 <script>
     $(window).load(function () {
-        alert("To place a ship on your board just click on the space you want to place the start of the ship.");
-        alert("To fire on the computer, you must place all your ships.\n Then just click on the computer board");
+        alert("To place a ship on your bord just click on the space you want to place the start of the ship.");
+        alert("To fire on the computer, you must place all your ships.\n Then just click on the computer bord");
     });
 </script>

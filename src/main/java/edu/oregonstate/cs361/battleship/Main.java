@@ -16,9 +16,9 @@ public class Main {
         //This will listen to GET requests to /model and return a clean new model
         get("/model", (req, res) -> newModel());
         //This will listen to POST requests and expects to receive a game model, as well as location to fire to
-        post("/fire/:row/:col", (req, res) -> fireAt(req));
+        post("/fire/:row/:col/:num", (req, res) -> fireAt(req));
         //This will listen to POST requests and expects to receive a game model, as well as location to place the ship
-        post("/placeShip/:id/:row/:col/:orientation", (req, res) -> placeShip(req));
+        post("/placeShip/:id/:row/:col/:orientation/:num", (req, res) -> placeShip(req));
 
         //System.out.print("5");
     }
@@ -45,11 +45,12 @@ public class Main {
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
     public static String placeShip(Request req) {
         BattleshipModel model = getModelFromReq(req); //is this correct?
-        String id, orientation, row, col;
+        String id, orientation, row, col, num;
         id = req.params("id");  //name of what ship with which player in front of it
         orientation = req.params("orientation"); //horizontal/vertical
         row = req.params("row");    //row #
         col = req.params("col");    //col #
+        num = req.params("num");    //num #
 
         List PlayerFireMiss = model.getPlayerMisses();
         List PlayerFireHit = model.getPlayerHits();
@@ -65,15 +66,20 @@ public class Main {
         Ship PCruiser = model.getPlayerCruiser();
         Ship PDestroyer = model.getPlayerDestroyer();
         Ship PSubmarine = model.getPlayerSubmarine();
+        //Ship PDinghy = model.getPlayerDinghy();
+        //Ship PClipper = model.getPlayerClipper();
 
         Ship CAircraftCarrier = model.getComputerAircraftCarrier();
         Ship CBattleship = model.getComputerBattleship();
         Ship CCruiser = model.getComputerCruiser();
         Ship CDestroyer = model.getComputerDestroyer();
         Ship CSubmarine = model.getComputerSubmarine();
+       // Ship CDinghy = model.getComputerDinghy();
+       // Ship CClipper = model.getComputerClipper();
 
         int rows = Integer.parseInt(row);
         int column = Integer.parseInt(col);
+        int number = Integer.parseInt(num);
 
         Ship current = model.getShipByID(id);
 
@@ -101,6 +107,11 @@ public class Main {
                     stop = 1;
                 } else if (Hit(PSubmarine.getStart(), PSubmarine.getEnd(), cord)) {
                     stop = 1;
+              /*  } else if (Hit(PDinghy.getStart(), PDinghy.getEnd(), cord)) {
+                    stop = 1;
+                } else if (Hit(PClipper.getStart(), PClipper.getEnd(), cord)) {
+                    stop = 1;
+                }*/
                 }
             }
 
@@ -125,7 +136,11 @@ public class Main {
                     stop = 1;
                 } else if (Hit(PSubmarine.getStart(), PSubmarine.getEnd(), cord)) {
                     stop = 1;
-                }
+                } /*else if (Hit(CDinghy.getStart(), CDinghy.getEnd(), cord)) {
+                    stop = 1;
+                } else if (Hit(CClipper.getStart(), CClipper.getEnd(), cord)) {
+                    stop = 1;
+                }*/
             }
 
             if (stop == 0) {
@@ -169,7 +184,17 @@ public class Main {
             CDestroyer.setEnd(0, 0);
             CDestroyer.setHealth(2);
 
-        }
+        } /*else if (id.toLowerCase().contains("clipper")) {
+            CClipper.setStart(0, 0);
+            CClipper.setEnd(0, 0);
+            CClipper.setHealth(3);
+
+        } else if (id.toLowerCase().contains("dinghy")) {
+            CDinghy.setStart(0, 0);
+            CDinghy.setEnd(0, 0);
+            CDinghy.setHealth(1);
+
+        }*/
 
         int movingPoint = 0, stoppedPoint = 0;
 
@@ -223,7 +248,11 @@ public class Main {
                         stop = 0;
                     } else if (Hit(CSubmarine.getStart(), CSubmarine.getEnd(), cord)) {
                         stop = 0;
-                    }
+                    } /*else if (Hit(CClipper.getStart(), CClipper.getEnd(), cord)) {
+                        stop = 0;
+                    } else if (Hit(CDinghy.getStart(), CDinghy.getEnd(), cord)) {
+                        stop = 0;
+                    }*/
                 }
 
                 if(stop == 1) {
@@ -246,7 +275,15 @@ public class Main {
                     } else if (id.toLowerCase().contains("destroyer")) {
                         CDestroyer.setStart(computerStart.getAcross(), computerStart.getDown());
                         CDestroyer.setEnd(computerEnd.getAcross(), computerEnd.getDown());
-                    }
+
+                    } /*else if (id.toLowerCase().contains("dinghy")) {
+                        CDinghy.setStart(computerStart.getAcross(), computerStart.getDown());
+                        CDinghy.setEnd(computerEnd.getAcross(), computerEnd.getDown());
+
+                    } else if (id.toLowerCase().contains("clipper")) {
+                        CClipper.setStart(computerStart.getAcross(), computerStart.getDown());
+                        CClipper.setEnd(computerEnd.getAcross(), computerEnd.getDown());
+                    }*/
                 }
             }
         }
@@ -256,6 +293,13 @@ public class Main {
 
     }
 
+    //--------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------
+
+
     //Similar to placeShip, but with firing.
     private static String fireAt(Request req) {
 
@@ -264,6 +308,8 @@ public class Main {
 
         String X = req.params("row");
         String Y = req.params("col");
+        String Classic = req.params("num");
+
         int row = Integer.parseInt(X);
         int col = Integer.parseInt(Y);
 
@@ -415,6 +461,14 @@ public class Main {
         String jsonobject = gson.toJson(model);
         return jsonobject;
     }
+
+    //--------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------
+
+
 
     public static boolean alreadyShot(Point shotPoint, BattleshipModel model, boolean player){
         List<Point> checkHits;
