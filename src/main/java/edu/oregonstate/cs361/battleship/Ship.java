@@ -1,11 +1,5 @@
 package edu.oregonstate.cs361.battleship;
 
-import com.google.gson.Gson;
-import spark.Request;
-import static spark.Spark.get;
-import static spark.Spark.post;
-import static spark.Spark.staticFiles;
-
 /**
  * Created by dudeman on 1/31/17.
  */
@@ -18,7 +12,16 @@ public class Ship {
     private int length;
     private int health;
 
-    //          Constructor
+    //          Constructors
+    public Ship() {
+        setName("dummy");
+        setLength(-1);
+        setHealth(-1);
+        start = new Point();
+        end = new Point();
+    }
+
+
     public Ship (String name) {
 
         setName(name);
