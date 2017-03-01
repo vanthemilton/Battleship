@@ -6,11 +6,11 @@ package edu.oregonstate.cs361.battleship;
 public class Ship_Civilian extends Ship {
 
     //          Member Variables
-    private String name;
+  /*  private String name;
     private Point start;
     private Point end;
     private int length;
-    private int health;
+    private int health;*/
 
     //          Constructor
     public Ship_Civilian (String name) {

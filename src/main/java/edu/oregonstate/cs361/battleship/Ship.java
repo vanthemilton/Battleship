@@ -6,11 +6,11 @@ package edu.oregonstate.cs361.battleship;
 public class Ship {
 
     //          Member Variables
-    private String name;
-    private Point start;
-    private Point end;
-    private int length;
-    private int health;
+    public String name;
+    public Point start;
+    public Point end;
+    public int length;
+    public int health;
 
     //          Constructors
     public Ship() {
@@ -57,9 +57,10 @@ public class Ship {
 
             start = new Point();
             end = new Point();
+            System.out.println("HELLO");
         }
 
-        else if (name.toLowerCase().contains("clipper")) {
+        /*else if (name.toLowerCase().contains("clipper")) {
             setLength(3);
             setHealth(3);
 
@@ -73,7 +74,7 @@ public class Ship {
 
             start = new Point();
             end = new Point();
-        }
+        }*/
 
         else {
             setLength(0);
