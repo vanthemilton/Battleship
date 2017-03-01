@@ -38,8 +38,8 @@ public class Main {
     public static BattleshipModel getModelFromReq(Request req){
         String data = req.body();
         Gson gson = new Gson();
-        BattleshipModel ship = gson.fromJson(data, BattleshipModel.class);
-        return ship;
+        BattleshipModel game = gson.fromJson(data, BattleshipModel.class);
+        return game;
     }
 
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
