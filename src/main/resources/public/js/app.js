@@ -197,10 +197,12 @@ if (computerTable != null) {
                     });
 
                     request.done(function( currModel ) {
-                        displayGameState(currModel);
-                        gameModel = currModel;
 
+                        gameModel = currModel;
                         SunkShipsAlert(gameModel);
+                        displayGameState(currModel);
+
+
                     });
 
                     request.fail(function( jqXHR, textStatus ) {

@@ -8,28 +8,18 @@ public class BattleshipModelUpdated extends BattleshipModel {
 
 
     //                  Member variables
-    private Ship playerAircraftCarrier;
+    //private Ship playerAircraftCarrier;
     private Ship_Stealth playerBattleship;
     private Ship_Stealth playerSubmarine;
     private Ship_Civilian playerClipper;
     private Ship_Civilian playerDinghy;
 
 
-    private Ship computerAircraftCarrier;
+    //private Ship computerAircraftCarrier;
     private Ship_Stealth computerBattleship;
     private Ship_Stealth computerSubmarine;
     private Ship_Civilian computerClipper;
     private Ship_Civilian computerDinghy;
-
-    // all ships for player or computer are collected in these lists
-    private List<Ship> playerShips;
-    private List<Ship> computerShips;
-
-    private List<Point> playerHits;
-    private List<Point> playerMisses;
-    private List<Point> computerHits;
-    private List<Point> computerMisses;
-
 
     //                  Constructor
     public BattleshipModelUpdated() {
@@ -37,15 +27,15 @@ public class BattleshipModelUpdated extends BattleshipModel {
         playerAircraftCarrier = new Ship("playerAircraftCarrier");
         playerBattleship = new Ship_Stealth("playerBattleship");
         playerSubmarine = new Ship_Stealth("playerSubmarine");
-        playerClipper = new Ship_Civilian("playerCruiser");
-        playerDinghy = new Ship_Civilian("playerDestroyer");
+        playerClipper = new Ship_Civilian("playerClipper");
+        playerDinghy = new Ship_Civilian("playerDinghy");
 
 
-        computerAircraftCarrier = new Ship("playerAircraftCarrier");
-        computerBattleship = new Ship_Stealth("playerBattleship");
-        computerSubmarine = new Ship_Stealth("playerSubmarine");
-        computerClipper = new Ship_Civilian("playerCruiser");
-        computerDinghy = new Ship_Civilian("playerDestroyer");
+        computerAircraftCarrier = new Ship("computerAircraftCarrier");
+        computerBattleship = new Ship_Stealth("computerBattleship");
+        computerSubmarine = new Ship_Stealth("computerSubmarine");
+        computerClipper = new Ship_Civilian("computerClipper");
+        computerDinghy = new Ship_Civilian("computerDinghy");
 
         playerHits = new ArrayList<Point>();
         playerMisses = new ArrayList<Point>();
@@ -67,22 +57,6 @@ public class BattleshipModelUpdated extends BattleshipModel {
         computerShips.add(computerSubmarine);
     }
 
-
-    //          Add Point object to an array function
-    public boolean addPointtoArray(Point somePoint, List someArray) {
-
-        if (somePoint.getAcross() > 10 || somePoint.getAcross() < 1 || somePoint.getDown() > 10 || somePoint.getDown() < 1)
-
-            return false;
-
-        else {
-
-            someArray.add(somePoint);
-            return true;
-
-        }
-    }
-
     //          Get ship by ID function, assumes user only selects from drop down menu on front end
     public Ship getShipByID(String id) {
 
@@ -90,17 +64,53 @@ public class BattleshipModelUpdated extends BattleshipModel {
 
             if (id.toLowerCase().contains("aircraftcarrier")) {
                 return getComputerAircraftCarrier();
-            }
 
-            else if (id.toLowerCase().contains("battleship")) {
+            } else if (id.toLowerCase().contains("clipper")) {
+                return getComputerClipper();
+
+            } else if (id.toLowerCase().contains("dinghy")) {
+                return getComputerDinghy();
+
+            } else if (id.toLowerCase().contains("battleship")) {
                 return getComputerBattleship();
-            }
 
-            else if (id.toLowerCase().contains("submarine") ) {
+            } else if (id.toLowerCase().contains("submarine") ) {
                 return getComputerSubmarine();
+
             }
 
-            else if (id.toLowerCase().contains("clipper")) {
+        } else {
+
+            if (id.toLowerCase().contains("aircraftcarrier")) {
+                return getPlayerAircraftCarrier();
+
+            } else if (id.toLowerCase().contains("clipper")) {
+                return getPlayerClipper();
+
+            } else if (id.toLowerCase().contains("dinghy")) {
+                return getPlayerDinghy();
+
+            } else if (id.toLowerCase().contains("battleship")) {
+                return getPlayerBattleship();
+
+            } else if (id.toLowerCase().contains("submarine") ) {
+                return getPlayerSubmarine();
+
+            }
+
+        }
+
+        // DEFAULTS TO THIS IF ID FORMAT IS INCORRECT:
+        Ship PizzaShip = new Ship("PizzaShip");
+        PizzaShip.setName("PizzaShip");
+        return PizzaShip;
+    }
+
+    public Ship_Civilian getCivilianShipByID(String id) {
+
+        if(id.toLowerCase().contains("computer")) {
+
+            if (id.toLowerCase().contains("clipper")) {
                 return getComputerClipper();
             }
 
@@ -111,19 +121,7 @@ public class BattleshipModelUpdated extends BattleshipModel {
 
         else {
 
-            if (id.toLowerCase().contains("aircraftcarrier")) {
-                return getPlayerAircraftCarrier();
-            }
-
-            else if (id.toLowerCase().contains("battleship")) {
-                return getPlayerBattleship();
-            }
-
-            else if (id.toLowerCase().contains("submarine") ) {
-                return getPlayerSubmarine();
-            }
-
-            else if (id.toLowerCase().contains("clipper")) {
+            if (id.toLowerCase().contains("clipper")) {
                 return getPlayerClipper();
             }
 
@@ -133,44 +131,72 @@ public class BattleshipModelUpdated extends BattleshipModel {
         }
 
         // DEFAULTS TO THIS IF ID FORMAT IS INCORRECT:
-        Ship PizzaShip = new Ship("PizzaShip");
+        Ship_Civilian PizzaShip = new Ship_Civilian("PizzaShip");
         PizzaShip.setName("PizzaShip");
         return PizzaShip;
     }
 
+    public Ship_Stealth getStealthShipByID(String id) {
 
-    //          Getters and Setters
+        if(id.toLowerCase().contains("computer")) {
 
+            if (id.toLowerCase().contains("battleship")) {
+                return getComputerBattleship();
+            }
+
+            else if (id.toLowerCase().contains("submarine") ) {
+                return getComputerSubmarine();
+            }
+
+        }
+
+        else {
+
+            if (id.toLowerCase().contains("battleship")) {
+                return getPlayerBattleship();
+            }
+
+            else if (id.toLowerCase().contains("submarine") ) {
+                return getPlayerSubmarine();
+            }
+
+        }
+
+        // DEFAULTS TO THIS IF ID FORMAT IS INCORRECT:
+        Ship_Stealth PizzaShip = new Ship_Stealth("PizzaShip");
+        PizzaShip.setName("PizzaShip");
+        return PizzaShip;
+    }
+
+    public Ship_Stealth getPlayerBattleship() {
+        return playerBattleship;
+    }
+
+    public Ship_Stealth getPlayerSubmarine() {
+        return playerSubmarine;
+    }
 
     public Ship_Civilian getPlayerClipper() {
         return playerClipper;
-    }
-
-    public void setPlayerClipper(Ship_Civilian playerClipper) {
-        this.playerClipper = playerClipper;
     }
 
     public Ship_Civilian getPlayerDinghy() {
         return playerDinghy;
     }
 
-    public void setPlayerDinghy(Ship_Civilian playerDinghy) {
-        this.playerDinghy = playerDinghy;
+    public Ship_Stealth getComputerBattleship() {
+        return computerBattleship;
+    }
+
+    public Ship_Stealth getComputerSubmarine() {
+        return computerSubmarine;
     }
 
     public Ship_Civilian getComputerClipper() {
         return computerClipper;
     }
 
-    public void setComputerClipper(Ship_Civilian computerClipper) {
-        this.computerClipper = computerClipper;
-    }
-
     public Ship_Civilian getComputerDinghy() {
         return computerDinghy;
-    }
-
-    public void setComputerDinghy(Ship_Civilian computerDinghy) {
-        this.computerDinghy = computerDinghy;
     }
 }

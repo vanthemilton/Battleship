@@ -42,9 +42,6 @@ public class Ship_Stealth extends Ship {
             end = new Point();
         }
 
-        //start = new Point();
-        //end = new Point();
-
     }
 }
 

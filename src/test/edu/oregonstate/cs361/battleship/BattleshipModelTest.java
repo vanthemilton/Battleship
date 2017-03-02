@@ -20,7 +20,7 @@ class BattleshipModelTest {
     @Test
     public void TestPlayerAircraftCarrier() {
 
-        BattleshipModel test = new BattleshipModel();
+        BattleshipModelNormal test = new BattleshipModelNormal();
 
         //      Aircraft Carrier
         Ship boat = test.getShipByID("playerAircraftCarrier");
@@ -41,7 +41,7 @@ class BattleshipModelTest {
     @Test
     public void TestPlayerBattleship() {
 
-        BattleshipModel test = new BattleshipModel();
+        BattleshipModelNormal test = new BattleshipModelNormal();
 
         //      Battleship
         Ship boat = test.getShipByID("playerBattleship");
@@ -64,7 +64,7 @@ class BattleshipModelTest {
     @Test
     public void TestPlayerSubmarine() {
 
-        BattleshipModel test = new BattleshipModel();
+        BattleshipModelNormal test = new BattleshipModelNormal();
 
         //      Submarine
         Ship boat = test.getShipByID("playerSubmarine");
@@ -86,7 +86,7 @@ class BattleshipModelTest {
     @Test
     public void TestPlayerCruiser() {
 
-        BattleshipModel test = new BattleshipModel();
+        BattleshipModelNormal test = new BattleshipModelNormal();
 
         //      Cruiser
         Ship boat = test.getShipByID("playerCruiser");
@@ -108,7 +108,7 @@ class BattleshipModelTest {
     @Test
     public void TestPlayerDestroyer() {
 
-        BattleshipModel test = new BattleshipModel();
+        BattleshipModelNormal test = new BattleshipModelNormal();
 
         //      Destroyer
         Ship boat = test.getShipByID("playerDestroyer");
@@ -130,7 +130,7 @@ class BattleshipModelTest {
     @Test
     public void TestComputerAircraftCarrier() {
 
-        BattleshipModel test = new BattleshipModel();
+        BattleshipModelNormal test = new BattleshipModelNormal();
 
         //      Aircraft Carrier
         Ship boat = test.getShipByID("computerAircraftCarrier");
@@ -151,7 +151,7 @@ class BattleshipModelTest {
     @Test
     public void TestComputerBattleship() {
 
-        BattleshipModel test = new BattleshipModel();
+        BattleshipModelNormal test = new BattleshipModelNormal();
 
         //      Battleship
         Ship boat = test.getShipByID("computerBattleship");
@@ -173,7 +173,7 @@ class BattleshipModelTest {
     @Test
     public void TestComputerSubmarine() {
 
-        BattleshipModel test = new BattleshipModel();
+        BattleshipModelNormal test = new BattleshipModelNormal();
 
         //      Submarine
         Ship boat = test.getShipByID("computerSubmarine");
@@ -195,7 +195,7 @@ class BattleshipModelTest {
     @Test
     public void TestComputerCruiser() {
 
-        BattleshipModel test = new BattleshipModel();
+        BattleshipModelNormal test = new BattleshipModelNormal();
 
         //      Cruiser
         Ship boat = test.getShipByID("computerCruiser");
@@ -217,7 +217,7 @@ class BattleshipModelTest {
     @Test
     public void TestComputerDestroyer() {
 
-        BattleshipModel test = new BattleshipModel();
+        BattleshipModelNormal test = new BattleshipModelNormal();
 
         //      Destroyer
         Ship boat = test.getShipByID("computerDestroyer");
@@ -239,7 +239,7 @@ class BattleshipModelTest {
     @Test
     public void TestUnknownShip(){
 
-        BattleshipModel test = new BattleshipModel();
+        BattleshipModelNormal test = new BattleshipModelNormal();
 
         //      Unknown ship
         Ship boat = test.getShipByID("PizzaBoat");

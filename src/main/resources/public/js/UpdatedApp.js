@@ -17,7 +17,7 @@ if (playerTable != null) {
                     // This ajax call will asnychonously call the back end, and tell it where to place the ship,
                     // then get back a game model with the ship placed, and display the new model.
                     var request = $.ajax({
-                        url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+(j+1)+"/"+(i+1)+"/"+$( "#orientationSelec" ).val()+"/"+(1),
+                        url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+(j+1)+"/"+(i+1)+"/"+$( "#orientationSelec" ).val(),
                         method: "post",
                         data: JSON.stringify(gameModel),
                         contentType: "application/json; charset=utf-8",
@@ -99,7 +99,7 @@ if (playerTable != null) {
                                 l = 3;
                                 break;
                             case "dinghy":
-                                l = 2;
+                                l = 1;
                                 break;
                         }
                         if ($("#orientationSelec").val() == "horizontal" && ((l + j) > 10)) {
@@ -143,7 +143,7 @@ if (playerTable != null) {
                                 l = 3;
                                 break;
                             case "dinghy":
-                                l = 2;
+                                l = 1;
                                 break;
                         }
                         if ($("#orientationSelec").val() == "horizontal") {
@@ -197,10 +197,11 @@ if (computerTable != null) {
                     });
 
                     request.done(function( currModel ) {
-                        displayGameState(currModel);
-                        gameModel = currModel;
 
+                        gameModel = currModel;
                         SunkShipsAlert(gameModel);
+                        displayGameState(currModel);
+
                     });
 
                     request.fail(function( jqXHR, textStatus ) {
@@ -237,7 +238,7 @@ if (computerTable != null) {
 //This function will be called once the page is loaded.  It will get a new game model from the back end, and display it.
 $( document ).ready(function() {
 
-  $.getJSON("model", function( json ) {
+  $.getJSON("modelUpdated", function( json ) {
     displayGameState(json);
     gameModel = json;
   });
@@ -255,7 +256,7 @@ function placeShip() {
 
    // This ajax call will asnychonously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
    var request = $.ajax({
-     url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val()+"/"+(1),
+     url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val(),
      method: "post",
      data: JSON.stringify(gameModel),
      contentType: "application/json; charset=utf-8",
