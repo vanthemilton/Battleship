@@ -43,7 +43,7 @@ class MainTest {
     public void testGetModel() {
         TestResponse res = request("GET", "/model", null);
 
-        BattleshipModel test = new BattleshipModel();
+        BattleshipModelNormal test = new BattleshipModelNormal();
         Gson gson = new Gson();
         String check = gson.toJson(test);
 
@@ -53,35 +53,35 @@ class MainTest {
 
     @Test
     public void testPlaceBattleshipH() {
-        BattleshipModel model = new BattleshipModel();
+        BattleshipModelNormal model = new BattleshipModelNormal();
         Gson gson = new Gson();
         String jason = gson.toJson(model);
-        TestResponse res = request("POST", "/placeShip/battleship/1/1/horizontal", jason);
+        TestResponse res = request("POST", "/placeShip/battleship/1/1/horizontal/0", jason);
         assertEquals(res.status, 200);
 
     }
 
     @Test
     public void testPlaceBattleshipV() {
-        BattleshipModel model = new BattleshipModel();
+        BattleshipModelNormal model = new BattleshipModelNormal();
         Gson gson = new Gson();
         String jason = gson.toJson(model);
-        TestResponse res = request("POST", "/placeShip/battleShip/1/1/vertical", jason);
+        TestResponse res = request("POST", "/placeShip/battleShip/1/1/vertical/0", jason);
         assertEquals(res.status, 200);
 
-        TestResponse res2 = request("POST", "/placeShip/AircraftCarrier/2/1/vertical", jason);
+        TestResponse res2 = request("POST", "/placeShip/AircraftCarrier/2/1/vertical/0", jason);
         assertEquals(res2.status, 200);
 
-        TestResponse res3 = request("POST", "/placeShip/Cruiser/1/1/vertical", jason);
+        TestResponse res3 = request("POST", "/placeShip/Cruiser/1/1/vertical/0", jason);
         assertEquals(res3.status, 200);
     }
 
     @Test
     public void testPlaceBattleshipVWrong() {
-        BattleshipModel model = new BattleshipModel();
+        BattleshipModelNormal model = new BattleshipModelNormal();
         Gson gson = new Gson();
         String jason = gson.toJson(model);
-        TestResponse res = request("POST", "/placeShip/battleShip/11/1/vertical", jason);
+        TestResponse res = request("POST", "/placeShip/battleShip/11/1/vertical/0", jason);
         assertEquals(res.status, 200);
 
     }
@@ -89,7 +89,7 @@ class MainTest {
 
     @Test
     public void testFireAt() {
-        BattleshipModel model = new BattleshipModel();
+        BattleshipModelNormal model = new BattleshipModelNormal();
         model.getPlayerAircraftCarrier().setStart(1,1);
         model.getPlayerAircraftCarrier().setEnd(1,5);
         model.getPlayerBattleship().setStart(2,1);
@@ -116,17 +116,17 @@ class MainTest {
         String jason = gson.toJson(model);
 
         for(int i = 0;i<100;i++) {
-            TestResponse res = request("POST", "/fire/1/1", jason);
+            TestResponse res = request("POST", "/fire/1/1/0", jason);
             assertEquals(res.status, 200);
         }
 
-        TestResponse res1 = request("POST", "/fire/2/2", jason);
+        TestResponse res1 = request("POST", "/fire/2/2/0", jason);
         assertEquals(res1.status, 200);
 
-        TestResponse res2 = request("POST", "/fire/4/4", jason);
+        TestResponse res2 = request("POST", "/fire/4/4/0", jason);
         assertEquals(res2.status, 200);
 
-        TestResponse res3 = request("POST", "/fire/6/6", jason);
+        TestResponse res3 = request("POST", "/fire/6/6/0", jason);
         assertEquals(res3.status, 200);
     }
 

@@ -57,10 +57,9 @@ public class Ship {
 
             start = new Point();
             end = new Point();
-            System.out.println("HELLO");
         }
 
-        /*else if (name.toLowerCase().contains("clipper")) {
+        else if (name.toLowerCase().contains("clipper")) {
             setLength(3);
             setHealth(3);
 
@@ -74,7 +73,7 @@ public class Ship {
 
             start = new Point();
             end = new Point();
-        }*/
+        }
 
         else {
             setLength(0);
