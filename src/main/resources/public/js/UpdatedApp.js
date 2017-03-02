@@ -40,12 +40,10 @@ if (playerTable != null) {
                         }else if( $( "#shipSelec" ).val() == "clipper" && j > 7){
                             alert("Place ship within the board.")
 
-                        }else if( $( "#shipSelec" ).val() == "dinghy" && j > 8){
-                            alert("Place ship within the board.")
-
                         }else if( $( "#shipSelec" ).val() == "submarine" && j > 7){
                             alert("Place ship within the board.")
                         }
+
                     }else if($( "#orientationSelec" ).val() == "vertical"){
 
                          if($( "#shipSelec" ).val() == "aircraftCarrier" && i > 5){
@@ -55,9 +53,6 @@ if (playerTable != null) {
                              alert("Place ship within the board.")
 
                          }else if( $( "#shipSelec" ).val() == "clipper" && i > 7){
-                             alert("Place ship within the board.")
-
-                         }else if( $( "#shipSelec" ).val() == "dinghy" && i > 8){
                              alert("Place ship within the board.")
 
                          }else if( $( "#shipSelec" ).val() == "submarine" && i > 7){
@@ -279,9 +274,6 @@ function placeShip() {
         }else if( $( "#shipSelec" ).val() == "clipper" && $( "#rowSelec" ).val() > 7){
             alert("Place ship within the board.")
 
-        }else if( $( "#shipSelec" ).val() == "dinghy" && $( "#rowSelec" ).val() > 8){
-            alert("Place ship within the board.")
-
         }else if( $( "#shipSelec" ).val() == "submarine" && $( "#rowSelec" ).val() > 7){
             alert("Place ship within the board.")
 
@@ -295,9 +287,6 @@ function placeShip() {
           alert("Place ship within the board.")
 
         }else if( $( "#shipSelec" ).val() == "clipper" && $( "#colSelec" ).val() > 9){
-          alert("Place ship within the board.")
-
-        }else if( $( "#shipSelec" ).val() == "dinghy" && $( "#colSelec" ).val() > 8){
           alert("Place ship within the board.")
 
         }else if( $( "#shipSelec" ).val() == "submarine" && $( "#colSelec" ).val() > 7){
