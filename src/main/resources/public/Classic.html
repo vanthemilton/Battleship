@@ -10,26 +10,31 @@
 
 <p id="imag"><img id="Lship" src="Battleship.png" align="left"> <img id="Rship" src="Battleship.png" align="right"></p>
 
-<table id='header' style="border:none;">
-    <tr>
-        <td style='background-color:black;width=10%;text-align:center;'>
-            <h3><a href="index.html">Home</a></h3>
-        </td>
-        <td style='background-color:black;width=10%;text-align:center;'>
-            <h3><a href="Classic.html">Classic</a></h3>
-        </td>
-        <td style='background-color:black;width=10%;text-align:center;'>
-            <h1>Battleship</h1>
-        </td>
-        <td style='background-color:black;width=10%;text-align:center;'>
-            <h3><a href="Updated.html" style="color:white;">Updated</a></h3>
-        </td>
-        <td style='background-color:black;width=10%;text-align:center;'>
-            <h3>Rules</h3>
-        </td>
-    </tr>
-</table>
-<br>
+<header>
+    <ul class="navbar-list">
+        <li class="navbar-item header">Battleship</li>
+        <li class="navbar-item navbar-right"><a href="/">Home</a></li>
+        <li class="navbar-item navbar-right" id="myBtn"><a href="#">Rules</a></li>
+    </ul>
+
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1>Welcome To Battleship!</h1>
+            <p>To play, simply press the play button on one of the following game modes below!</p>
+            <h3>Classic</h3>
+            Your standard battleship game. You get five ships to place. After placing them, you may start firing on your enemy's board
+            <br>
+            To win, sink your enemy's ships before they sink yours!
+            <h3>Redux</h3>
+            Somewhat similar to Classic but with the following changes:<br>
+            The Dinghy and Clipper are civilian ships that replace the Cruiser and Destroyer and sink after only one hit<br>
+            You may scan instead of firing. Doing so will tell you if there is a ship located in a one block radius ( a "+" formation) around where you select<br>
+            Your battleship and submarine are able to evade scans<br>
+        </div>
+    </div>
+</header>
 
 
 <h1 id="playerWin" style="float:middle;">
