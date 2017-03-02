@@ -189,6 +189,100 @@ class MainTest {
         }
     }
 
+    //--------------------------------------------------------------------------
+    @Test
+    public void testGetUpdatedModel() {
+        TestResponse res = request("GET", "/modelUpdated", null);
+
+        BattleshipModelUpdated test = new BattleshipModelUpdated();
+        Gson gson = new Gson();
+        String check = gson.toJson(test);
+
+        assertEquals(200, res.status);
+        assertEquals(check,res.body);
+    }
+
+    @Test
+    public void testUpdatedPlaceBattleshipH() {
+        BattleshipModelUpdated model = new BattleshipModelUpdated();
+        Gson gson = new Gson();
+        String jason = gson.toJson(model);
+        TestResponse res = request("POST", "/placeShip/battleship/1/1/horizontal", jason);
+        assertEquals(res.status, 200);
+
+    }
+
+    @Test
+    public void testUpdatedPlaceBattleshipV() {
+        BattleshipModelUpdated model = new BattleshipModelUpdated();
+        Gson gson = new Gson();
+        String jason = gson.toJson(model);
+        TestResponse res = request("POST", "/placeShip/battleShip/1/1/vertical", jason);
+        assertEquals(res.status, 200);
+
+        TestResponse res2 = request("POST", "/placeShip/AircraftCarrier/2/1/vertical", jason);
+        assertEquals(res2.status, 200);
+
+        TestResponse res3 = request("POST", "/placeShip/Cruiser/1/1/vertical", jason);
+        assertEquals(res3.status, 200);
+    }
+
+    @Test
+    public void testUpdatedPlaceBattleshipVWrong() {
+        BattleshipModelUpdated model = new BattleshipModelUpdated();
+        Gson gson = new Gson();
+        String jason = gson.toJson(model);
+        TestResponse res = request("POST", "/placeShip/battleShip/11/1/vertical", jason);
+        assertEquals(res.status, 200);
+
+    }
+
+
+    @Test
+    public void testUpdatedFireAt() {
+        BattleshipModelUpdated model = new BattleshipModelUpdated();
+
+        model.getPlayerAircraftCarrier().setStart(1,1);
+        model.getPlayerAircraftCarrier().setEnd(1,5);
+        model.getPlayerBattleship().setStart(2,1);
+        model.getPlayerBattleship().setEnd(2,4);
+        model.getPlayerClipper().setStart(3,1);
+        model.getPlayerClipper().setEnd(3,3);
+        model.getPlayerDinghy().setStart(4,1);
+        model.getPlayerDinghy().setEnd(4,1);
+        model.getPlayerSubmarine().setStart(5,1);
+        model.getPlayerSubmarine().setEnd(5,3);
+
+        model.getComputerAircraftCarrier().setStart(1,1);
+        model.getComputerAircraftCarrier().setEnd(1,4);
+        model.getComputerBattleship().setStart(2,1);
+        model.getComputerBattleship().setEnd(2,4);
+        model.getComputerClipper().setStart(3,1);
+        model.getComputerClipper().setEnd(3,3);
+        model.getComputerDinghy().setStart(4,1);
+        model.getComputerDinghy().setEnd(4,1);
+        model.getComputerSubmarine().setStart(5,1);
+        model.getComputerSubmarine().setEnd(5,3);
+
+        Gson gson = new Gson();
+        String jason = gson.toJson(model);
+
+        for(int i = 0;i<100;i++) {
+            TestResponse res = request("POST", "/fire/1/1", jason);
+            assertEquals(res.status, 200);
+        }
+
+        TestResponse res1 = request("POST", "/fire/2/2", jason);
+        assertEquals(res1.status, 200);
+
+        TestResponse res2 = request("POST", "/fire/4/4", jason);
+        assertEquals(res2.status, 200);
+
+        TestResponse res3 = request("POST", "/fire/6/6", jason);
+        assertEquals(res3.status, 200);
+    }
+
+
     private static class TestResponse {
 
         public final String body;
