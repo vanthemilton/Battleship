@@ -21,6 +21,8 @@ public class BattleshipModelUpdated extends BattleshipModel {
     private Ship_Civilian computerClipper;
     private Ship_Civilian computerDinghy;
 
+    private boolean scanned;
+
     //                  Constructor
     public BattleshipModelUpdated() {
 
@@ -55,6 +57,8 @@ public class BattleshipModelUpdated extends BattleshipModel {
         computerShips.add(computerClipper);
         computerShips.add(computerDinghy);
         computerShips.add(computerSubmarine);
+
+        scanned = false;
     }
 
     //          Get ship by ID function, assumes user only selects from drop down menu on front end
@@ -198,5 +202,14 @@ public class BattleshipModelUpdated extends BattleshipModel {
 
     public Ship_Civilian getComputerDinghy() {
         return computerDinghy;
+    }
+
+
+    public boolean isScanned() {
+        return scanned;
+    }
+
+    public void setScanned(boolean scanned) {
+        this.scanned = scanned;
     }
 }

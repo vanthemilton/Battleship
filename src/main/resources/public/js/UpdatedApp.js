@@ -189,7 +189,7 @@ if (computerTable != null) {
 
 
                     var request = $.ajax({
-                        url: "/fire/"+(j+1)+"/"+(i+1),
+                        url: "/"+$('input:radio[name=fire]:checked').val() +"/"+(j+1)+"/"+(i+1),
                         method: "post",
                         data: JSON.stringify(gameModel),
                         contentType: "application/json; charset=utf-8",
@@ -201,6 +201,16 @@ if (computerTable != null) {
                         gameModel = currModel;
                         SunkShipsAlert(gameModel);
                         displayGameState(currModel);
+                        if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
+                            gameModel.playerClipper.start.Across > 0 && gameModel.playerDinghy.start.Across > 0 &&
+                            gameModel.playerSubmarine.start.Across > 0 && $('input:radio[name=fire]:checked').val() == "scan") {
+                            if(gameModel.scanned){
+                                alert("Scanned a ship.");
+                                gameModel.scanned = false;
+                            }
+                            else
+                                alert("Didn't scan a ship.");
+                        }
 
                     });
 
@@ -217,8 +227,17 @@ if (computerTable != null) {
                 return function onHover() {
                     if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
                         gameModel.playerClipper.start.Across > 0 && gameModel.playerDinghy.start.Across > 0 &&
-                        gameModel.playerSubmarine.start.Across > 0) {
+                        gameModel.playerSubmarine.start.Across > 0 && $('input:radio[name=fire]:checked').val()  == "fire") {
                         $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "orange");
+                    }
+                    else if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
+                        gameModel.playerClipper.start.Across > 0 && gameModel.playerDinghy.start.Across > 0 &&
+                        gameModel.playerSubmarine.start.Across > 0 && $('input:radio[name=fire]:checked').val()  == "scan") {
+                        $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "orange");
+                        $('#TheirBoard #' + (i + 2) + '_' + (j + 1)).css("border-color", "orange");
+                        $('#TheirBoard #' + (i) + '_' + (j + 1)).css("border-color", "orange");
+                        $('#TheirBoard #' + (i + 1) + '_' + (j + 2)).css("border-color", "orange");
+                        $('#TheirBoard #' + (i + 1) + '_' + (j)).css("border-color", "orange");
                     }
                 };
             }(i,j));
@@ -226,8 +245,17 @@ if (computerTable != null) {
                 return function onHover() {
                     if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
                         gameModel.playerClipper.start.Across > 0 && gameModel.playerDinghy.start.Across > 0 &&
-                        gameModel.playerSubmarine.start.Across > 0) {
+                        gameModel.playerSubmarine.start.Across > 0 && $('input:radio[name=fire]:checked').val()  == "fire") {
                         $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "white");
+                    }
+                    else if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
+                        gameModel.playerClipper.start.Across > 0 && gameModel.playerDinghy.start.Across > 0 &&
+                        gameModel.playerSubmarine.start.Across > 0 && $('input:radio[name=fire]:checked').val()  == "scan") {
+                        $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "white");
+                        $('#TheirBoard #' + (i + 2) + '_' + (j + 1)).css("border-color", "white");
+                        $('#TheirBoard #' + (i) + '_' + (j + 1)).css("border-color", "white");
+                        $('#TheirBoard #' + (i + 1) + '_' + (j + 2)).css("border-color", "white");
+                        $('#TheirBoard #' + (i + 1) + '_' + (j)).css("border-color", "white");
                     }
                 };
             }(i,j));

@@ -21,6 +21,9 @@ public class Main {
         post("/fire/:row/:col/:num", (req, res) -> fireAt(req));
         //This will listen to POST requests and expects to receive a game model, as well as location to fire to
         post("/fire/:row/:col", (req, res) -> fireAtNew(req));
+        //This will handle the scan feature
+        post("/scan/:row/:col", (req, res) -> scan(req));
+
         //This will listen to POST requests and expects to receive a game model, as well as location to place the ship
         post("/placeShip/:id/:row/:col/:orientation/:num", (req, res) -> placeShip(req));
         //This will listen to POST requests and expects to receive a game model, as well as location to place the ship
@@ -405,30 +408,10 @@ public class Main {
             CBattleship.setHealth(CBattleship.getHealth()-1);
 
         } else if ( Hit( CClipper.getStart(), CClipper.getEnd(), FireSpot  ) ) {
-
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            //--------------------NICK RIGHT HERE------------------------
-            
-
-            //for (i = 0;i < 3; i++){
-                model.addPointtoArray(FireSpot, model.getComputerHits());
-            //}
-
+            Point midPoint = new Point((CClipper.getStart().getAcross() + CClipper.getEnd().getAcross()) / 2,(CClipper.getStart().getDown() + CClipper.getEnd().getDown()) / 2);
+            model.addPointtoArray(midPoint, model.getComputerHits());
+            model.addPointtoArray(CClipper.getStart(), model.getComputerHits());
+            model.addPointtoArray(CClipper.getEnd(), model.getComputerHits());
             CClipper.setHealth(CClipper.getHealth()-1);
 
 
@@ -466,7 +449,163 @@ public class Main {
             PBattleship.setHealth(PBattleship.getHealth()-1);
 
         } else if ( Hit( PClipper.getStart(), PClipper.getEnd(), FireSpotComputer  ) ){
+            Point midPoint2 = new Point((PClipper.getStart().getAcross() + PClipper.getEnd().getAcross()) / 2,(PClipper.getStart().getDown() + PClipper.getEnd().getDown()) / 2);
+            model.addPointtoArray(midPoint2, model.getPlayerHits());
+            model.addPointtoArray(PClipper.getStart(), model.getPlayerHits());
+            model.addPointtoArray(PClipper.getEnd(), model.getPlayerHits());
+            PClipper.setHealth(PClipper.getHealth()-1);
+
+        } else if ( Hit( PDinghy.getStart(), PDinghy.getEnd(), FireSpotComputer  ) ){
             model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
+            PDinghy.setHealth(PDinghy.getHealth()-1);
+
+        } else if ( Hit( PSubmarine.getStart(), PSubmarine.getEnd(), FireSpotComputer  ) ){
+            model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
+            PSubmarine.setHealth(PSubmarine.getHealth()-1);
+
+        } else{   // No hits on any ships, adds point to array of misses instead
+            model.addPointtoArray(FireSpotComputer, model.getPlayerMisses());
+        }
+
+        Gson gson = new Gson();
+        String jsonobject = gson.toJson(model);
+        return jsonobject;
+    }
+
+
+
+
+
+
+
+    private static String scan(Request req) {
+
+        // Generate model from json, get coordinates from fire request
+        BattleshipModelUpdated model = (BattleshipModelUpdated) getModelUpdatedFromReq(req);
+
+        String X = req.params("row");
+        String Y = req.params("col");
+
+        int row = Integer.parseInt(X);
+        int col = Integer.parseInt(Y);
+        int i = 0;
+
+        // Make point object from coordinates
+        Point[] FireSpot = new Point[] {new Point(row, col), new Point((row-1), col), new Point((row+1), col), new Point(row,(col-1)), new Point(row, (col+1))};
+
+        // Grab player and computer ships from current model
+        Ship PAircraftCarrier = model.getPlayerAircraftCarrier();
+        Ship_Stealth PBattleship = model.getPlayerBattleship();
+        Ship_Stealth PSubmarine = model.getPlayerSubmarine();
+        Ship_Civilian PClipper = model.getPlayerClipper();
+        Ship_Civilian PDinghy = model.getPlayerDinghy();
+
+
+        Ship CAircraftCarrier = model.getComputerAircraftCarrier();
+        Ship_Stealth CBattleship = model.getComputerBattleship();
+        Ship_Stealth CSubmarine = model.getComputerSubmarine();
+        Ship_Civilian CClipper = model.getComputerClipper();
+        Ship_Civilian CDinghy = model.getComputerDinghy();
+
+
+
+        //Won't fire unless all ships are placed down
+        if(PAircraftCarrier.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }else if(PBattleship.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }else if(PClipper.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }else if(PDinghy.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }else if(PSubmarine.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }
+
+
+        if(PAircraftCarrier.getHealth() == 0){
+            PAircraftCarrier.setHealth(-1);
+
+        }else if(PBattleship.getHealth() == 0){
+            PBattleship.setHealth(-1);
+
+        }else if(PClipper.getHealth() == 0){
+            PClipper.setHealth(-1);
+
+        }else if(PDinghy.getHealth() == 0){
+            PDinghy.setHealth(-1);
+
+        }else if(PSubmarine.getHealth() == 0){
+            PSubmarine.setHealth(-1);
+        }
+
+        if(CAircraftCarrier.getHealth() == 0){
+            CAircraftCarrier.setHealth(-1);
+
+        }else if(CBattleship.getHealth() == 0){
+            CBattleship.setHealth(-1);
+
+        }else if(CClipper.getHealth() == 0){
+            CClipper.setHealth(-1);
+
+        }else if(CDinghy.getHealth() == 0){
+            CDinghy.setHealth(-1);
+
+        }else if(CSubmarine.getHealth() == 0){
+            CSubmarine.setHealth(-1);
+        }
+
+        // The following branch tree checks if a point fired at
+        // BY A PLAYER has hit a COMPUTER ship and adds the point to the array of hits if so
+        for(int j=0; j < 5; j++) {
+            if (Hit(CAircraftCarrier.getStart(), CAircraftCarrier.getEnd(), FireSpot[j])) {
+                model.setScanned(true);
+
+            } else if (Hit(CClipper.getStart(), CClipper.getEnd(), FireSpot[j])) {
+                model.setScanned(true);
+
+            } else if (Hit(CDinghy.getStart(), CDinghy.getEnd(), FireSpot[j])) {
+                model.setScanned(true);
+
+            }
+        }
+
+        // Create two random coordinates for computer to shoot at and make a point object of them
+        int shootX = (int )(Math.random() * 10 + 1);
+        int shootY = (int )(Math.random() * 10 + 1);
+        Point FireSpotComputer = new Point(shootX, shootY);
+
+        while( alreadyShot( FireSpotComputer, model,false) ){
+            shootX = (int )(Math.random() * 10 + 1);
+            shootY = (int )(Math.random() * 10 + 1);
+            FireSpotComputer = new Point(shootX, shootY);
+        }
+
+        // Following branch tree checks if a point fired at BY THE COMPUTER has hit a PLAYER ship
+        // And adds the point to the array of hits if so
+        if( Hit( PAircraftCarrier.getStart(), PAircraftCarrier.getEnd(), FireSpotComputer ) ){
+            model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
+            PAircraftCarrier.setHealth(PAircraftCarrier.getHealth()-1);
+
+        } else if ( Hit( PBattleship.getStart(), PBattleship.getEnd(), FireSpotComputer  ) ){
+            model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
+            PBattleship.setHealth(PBattleship.getHealth()-1);
+
+        } else if ( Hit( PClipper.getStart(), PClipper.getEnd(), FireSpotComputer  ) ){
+            Point midPoint2 = new Point((PClipper.getStart().getAcross() + PClipper.getEnd().getAcross()) / 2,(PClipper.getStart().getDown() + PClipper.getEnd().getDown()) / 2);
+            model.addPointtoArray(midPoint2, model.getPlayerHits());
+            model.addPointtoArray(PClipper.getStart(), model.getPlayerHits());
+            model.addPointtoArray(PClipper.getEnd(), model.getPlayerHits());
             PClipper.setHealth(PClipper.getHealth()-1);
 
         } else if ( Hit( PDinghy.getStart(), PDinghy.getEnd(), FireSpotComputer  ) ){
