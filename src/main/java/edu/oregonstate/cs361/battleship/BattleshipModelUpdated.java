@@ -110,7 +110,7 @@ public class BattleshipModelUpdated extends BattleshipModel {
         return PizzaShip;
     }
 
-    public Ship_Civilian getCivilianShipByID(String id) {
+    /*public Ship_Civilian getCivilianShipByID(String id) {
 
         if(id.toLowerCase().contains("computer")) {
 
@@ -170,7 +170,7 @@ public class BattleshipModelUpdated extends BattleshipModel {
         Ship_Stealth PizzaShip = new Ship_Stealth("PizzaShip");
         PizzaShip.setName("PizzaShip");
         return PizzaShip;
-    }
+    }*/
 
     public Ship_Stealth getPlayerBattleship() {
         return playerBattleship;
@@ -205,11 +205,11 @@ public class BattleshipModelUpdated extends BattleshipModel {
     }
 
 
-    public boolean isScanned() {
+    /*public boolean isScanned() {
         return scanned;
-    }
+    }*/
 
     public void setScanned(boolean scanned) {
-        this.scanned = scanned;
+            this.scanned = scanned;
     }
 }

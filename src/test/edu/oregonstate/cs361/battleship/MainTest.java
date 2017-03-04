@@ -139,15 +139,16 @@ class MainTest {
 
     @Test
     public void testFireAtFail() {
-        BattleshipModelNormal model = new BattleshipModelNormal();
+        BattleshipModelUpdated model = new BattleshipModelUpdated();
+
         model.getPlayerAircraftCarrier().setStart(1,1);
         model.getPlayerAircraftCarrier().setEnd(1,5);
         model.getPlayerBattleship().setStart(2,1);
         model.getPlayerBattleship().setEnd(2,4);
-        model.getPlayerCruiser().setStart(3,1);
-        model.getPlayerCruiser().setEnd(3,3);
-        model.getPlayerDestroyer().setStart(4,1);
-        model.getPlayerDestroyer().setEnd(4,2);
+        model.getPlayerClipper().setStart(3,1);
+        model.getPlayerClipper().setEnd(3,3);
+        model.getPlayerDinghy().setStart(4,1);
+        model.getPlayerDinghy().setEnd(4,1);
         model.getPlayerSubmarine().setStart(5,1);
         model.getPlayerSubmarine().setEnd(5,3);
 
@@ -155,38 +156,31 @@ class MainTest {
         model.getComputerAircraftCarrier().setEnd(1,4);
         model.getComputerBattleship().setStart(2,1);
         model.getComputerBattleship().setEnd(2,4);
-        model.getComputerCruiser().setStart(3,1);
-        model.getComputerCruiser().setEnd(3,3);
-        model.getComputerDestroyer().setStart(4,1);
-        model.getComputerDestroyer().setEnd(4,2);
+        model.getComputerClipper().setStart(3,1);
+        model.getComputerClipper().setEnd(3,3);
+        model.getComputerDinghy().setStart(4,1);
+        model.getComputerDinghy().setEnd(4,1);
         model.getComputerSubmarine().setStart(5,1);
         model.getComputerSubmarine().setEnd(5,3);
 
-        model.getComputerSubmarine().setHealth(0);
+        model.getShipByID("Pizza");
 
         Gson gson = new Gson();
         String jason = gson.toJson(model);
 
-        /*for(int i = 0;i<100;i++) {
-            TestResponse res = request("POST", "/fire/1/1/0", jason);
-            assertEquals(res.status, 200);
-        }*/
+        //for(int i = 0;i<100;i++) {
+          //  TestResponse res = request("POST", "/fire/1/1/0", jason);
+          //  assertEquals(res.status, 200);
+        //}
+        //scan/:row/:col
 
         for(int j = 1;j < 11; j++){
             for(int i = 1;i < 11; i++) {
-                TestResponse res = request("POST", "/fire/" + i + "/" + j + "/0", jason);
+
+                TestResponse res = request("POST", "/scan/" + i + "/" + j + "", jason);
                 assertEquals(res.status, 200);
             }
         }
-
-        TestResponse res1 = request("POST", "/fire/2/2/0", jason);
-        assertEquals(res1.status, 200);
-
-        TestResponse res2 = request("POST", "/fire/4/4/0", jason);
-        assertEquals(res2.status, 200);
-
-        TestResponse res3 = request("POST", "/fire/6/6/0", jason);
-        assertEquals(res3.status, 200);
     }
 
 
