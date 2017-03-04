@@ -115,9 +115,16 @@ class MainTest {
         Gson gson = new Gson();
         String jason = gson.toJson(model);
 
-        for(int i = 0;i<100;i++) {
+        /*for(int i = 0;i<100;i++) {
             TestResponse res = request("POST", "/fire/1/1/0", jason);
             assertEquals(res.status, 200);
+        }*/
+
+        for(int j = 1;j < 11; j++){
+            for(int i = 1;i < 11; i++) {
+                TestResponse res = request("POST", "/fire/" + i + "/" + j + "/0", jason);
+                assertEquals(res.status, 200);
+            }
         }
 
         TestResponse res1 = request("POST", "/fire/2/2/0", jason);
@@ -129,6 +136,59 @@ class MainTest {
         TestResponse res3 = request("POST", "/fire/6/6/0", jason);
         assertEquals(res3.status, 200);
     }
+
+    @Test
+    public void testFireAtFail() {
+        BattleshipModelNormal model = new BattleshipModelNormal();
+        model.getPlayerAircraftCarrier().setStart(1,1);
+        model.getPlayerAircraftCarrier().setEnd(1,5);
+        model.getPlayerBattleship().setStart(2,1);
+        model.getPlayerBattleship().setEnd(2,4);
+        model.getPlayerCruiser().setStart(3,1);
+        model.getPlayerCruiser().setEnd(3,3);
+        model.getPlayerDestroyer().setStart(4,1);
+        model.getPlayerDestroyer().setEnd(4,2);
+        model.getPlayerSubmarine().setStart(5,1);
+        model.getPlayerSubmarine().setEnd(5,3);
+
+        model.getComputerAircraftCarrier().setStart(1,1);
+        model.getComputerAircraftCarrier().setEnd(1,4);
+        model.getComputerBattleship().setStart(2,1);
+        model.getComputerBattleship().setEnd(2,4);
+        model.getComputerCruiser().setStart(3,1);
+        model.getComputerCruiser().setEnd(3,3);
+        model.getComputerDestroyer().setStart(4,1);
+        model.getComputerDestroyer().setEnd(4,2);
+        model.getComputerSubmarine().setStart(5,1);
+        model.getComputerSubmarine().setEnd(5,3);
+
+        model.getComputerSubmarine().setHealth(0);
+
+        Gson gson = new Gson();
+        String jason = gson.toJson(model);
+
+        /*for(int i = 0;i<100;i++) {
+            TestResponse res = request("POST", "/fire/1/1/0", jason);
+            assertEquals(res.status, 200);
+        }*/
+
+        for(int j = 1;j < 11; j++){
+            for(int i = 1;i < 11; i++) {
+                TestResponse res = request("POST", "/fire/" + i + "/" + j + "/0", jason);
+                assertEquals(res.status, 200);
+            }
+        }
+
+        TestResponse res1 = request("POST", "/fire/2/2/0", jason);
+        assertEquals(res1.status, 200);
+
+        TestResponse res2 = request("POST", "/fire/4/4/0", jason);
+        assertEquals(res2.status, 200);
+
+        TestResponse res3 = request("POST", "/fire/6/6/0", jason);
+        assertEquals(res3.status, 200);
+    }
+
 
     @Test
     public void testHitH() {
@@ -217,13 +277,13 @@ class MainTest {
         BattleshipModelUpdated model = new BattleshipModelUpdated();
         Gson gson = new Gson();
         String jason = gson.toJson(model);
-        TestResponse res = request("POST", "/placeShip/battleShip/1/1/vertical", jason);
+        TestResponse res = request("POST", "/placeShip/Battleship/1/1/vertical", jason);
         assertEquals(res.status, 200);
 
         TestResponse res2 = request("POST", "/placeShip/AircraftCarrier/2/1/vertical", jason);
         assertEquals(res2.status, 200);
 
-        TestResponse res3 = request("POST", "/placeShip/Cruiser/1/1/vertical", jason);
+        TestResponse res3 = request("POST", "/placeShip/Clipper/1/1/vertical", jason);
         assertEquals(res3.status, 200);
     }
 
@@ -236,6 +296,7 @@ class MainTest {
         assertEquals(res.status, 200);
 
     }
+
 
 
     @Test
@@ -264,12 +325,32 @@ class MainTest {
         model.getComputerSubmarine().setStart(5,1);
         model.getComputerSubmarine().setEnd(5,3);
 
+        Ship_Stealth computer = new Ship_Stealth("Pizza");
+        Ship_Civilian comp = new Ship_Civilian("Pizza");
+        Ship co = new Ship_Stealth("Pizza");
+        Ship covb = new Ship("Dinghy");
+        Ship coqw = new Ship("Clipper");
+
+        model.getShipByID("AircraftCarrier");
+        model.getShipByID("Battleship");
+        model.getShipByID("Clipper");
+        model.getShipByID("Dinghy");
+        model.getShipByID("Submarine");
+
+        model.getShipByID("computerAircraftCarrier");
+        model.getShipByID("computerBattleship");
+        model.getShipByID("computerClipper");
+        model.getShipByID("computerDinghy");
+        model.getShipByID("computerSubmarine");
+
         Gson gson = new Gson();
         String jason = gson.toJson(model);
 
-        for(int i = 0;i<100;i++) {
-            TestResponse res = request("POST", "/fire/1/1", jason);
-            assertEquals(res.status, 200);
+        for(int j = 0;j < 10; j++){
+            for(int i = 0;i < 10; i++) {
+                TestResponse res = request("POST", "/fire/"+i+"/"+j+"", jason);
+                assertEquals(res.status, 200);
+            }
         }
 
         TestResponse res1 = request("POST", "/fire/2/2", jason);
