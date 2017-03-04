@@ -117,7 +117,7 @@ public class Main {
         int rows = Integer.parseInt(row);
         int column = Integer.parseInt(col);
 
-        System.out.println(id);
+        //System.out.println(id);
 
         model.getShipByID(id).setEnd(0, 0);
         model.getShipByID(id).setStart(0, 0);
@@ -132,6 +132,11 @@ public class Main {
                 cord.setDown(column);
 
                 //if ship lands on another ship then
+                if (Hit(PAircraftCarrier.getStart(), PAircraftCarrier.getEnd(), cord) || Hit(PBattleship.getStart(), PBattleship.getEnd(), cord) || Hit(PSubmarine.getStart(), PSubmarine.getEnd(), cord) || Hit(PDinghy.getStart(), PDinghy.getEnd(), cord) || Hit(PClipper.getStart(), PClipper.getEnd(), cord)) {
+                    stop = 1;
+                }
+
+                /*
                 if (Hit(PAircraftCarrier.getStart(), PAircraftCarrier.getEnd(), cord)) {
                     stop = 1;
                 } else if (Hit(PBattleship.getStart(), PBattleship.getEnd(), cord)) {
@@ -143,6 +148,7 @@ public class Main {
                 } else if (Hit(PClipper.getStart(), PClipper.getEnd(), cord)) {
                     stop = 1;
                 }
+                 */
             }
 
             if (stop == 0) {
@@ -255,6 +261,10 @@ public class Main {
 
 
                     //if ship lands on another ship then
+                    if (Hit(CAircraftCarrier.getStart(), CAircraftCarrier.getEnd(), cord) || Hit(CBattleship.getStart(), CBattleship.getEnd(), cord) || Hit(CSubmarine.getStart(), CSubmarine.getEnd(), cord) || Hit(CClipper.getStart(), CClipper.getEnd(), cord) || Hit(CDinghy.getStart(), CDinghy.getEnd(), cord)) {
+                        stop = 0;
+                    }
+                    /*
                     if (Hit(CAircraftCarrier.getStart(), CAircraftCarrier.getEnd(), cord)) {
                         stop = 0;
                     } else if (Hit(CBattleship.getStart(), CBattleship.getEnd(), cord)) {
@@ -265,7 +275,8 @@ public class Main {
                         stop = 0;
                     } else if (Hit(CDinghy.getStart(), CDinghy.getEnd(), cord)) {
                         stop = 0;
-                    }
+                    }*/
+
                 }
 
                 if (stop == 1) {
@@ -374,7 +385,13 @@ public class Main {
         }
 
         //Won't fire unless all ships are placed down
-        if(PAircraftCarrier.getStart().getAcross() < 1){
+        if(PAircraftCarrier.getStart().getAcross() < 1 || PBattleship.getStart().getAcross() < 1 || PClipper.getStart().getAcross() < 1|| PDinghy.getStart().getAcross() < 1 || PSubmarine.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }
+
+        /*if(PAircraftCarrier.getStart().getAcross() < 1){
             Gson gson = new Gson();
             String jsonobject = gson.toJson(model);
             return jsonobject;
@@ -394,7 +411,7 @@ public class Main {
             Gson gson = new Gson();
             String jsonobject = gson.toJson(model);
             return jsonobject;
-        }
+        }*/
 
 
         // The following branch tree checks if a point fired at
@@ -510,6 +527,12 @@ public class Main {
 
 
         //Won't fire unless all ships are placed down
+        if(PAircraftCarrier.getStart().getAcross() < 1 || PBattleship.getStart().getAcross() < 1 || PClipper.getStart().getAcross() < 1 || PDinghy.getStart().getAcross() < 1 || PSubmarine.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }
+        /*
         if(PAircraftCarrier.getStart().getAcross() < 1){
             Gson gson = new Gson();
             String jsonobject = gson.toJson(model);
@@ -531,6 +554,8 @@ public class Main {
             String jsonobject = gson.toJson(model);
             return jsonobject;
         }
+
+         */
 
 
         if(PAircraftCarrier.getHealth() == 0){
@@ -678,6 +703,11 @@ public class Main {
                 cord.setDown(column);
 
                 //if ship lands on another ship then
+                if (Hit(PAircraftCarrier.getStart(), PAircraftCarrier.getEnd(), cord) || Hit(PBattleship.getStart(), PBattleship.getEnd(), cord) || Hit(PCruiser.getStart(), PCruiser.getEnd(), cord) || Hit(PDestroyer.getStart(), PDestroyer.getEnd(), cord) || Hit(PSubmarine.getStart(), PSubmarine.getEnd(), cord)) {
+                    stop = 1;
+                }
+
+                /*
                 if (Hit(PAircraftCarrier.getStart(), PAircraftCarrier.getEnd(), cord)) {
                     stop = 1;
                 } else if (Hit(PBattleship.getStart(), PBattleship.getEnd(), cord)) {
@@ -689,6 +719,7 @@ public class Main {
                 } else if (Hit(PSubmarine.getStart(), PSubmarine.getEnd(), cord)) {
                     stop = 1;
                 }
+                 */
             }
 
             if (stop == 0) {
@@ -918,6 +949,13 @@ public class Main {
         }
 
         //Won't fire unless all ships are placed down
+        if(PAircraftCarrier.getStart().getAcross() < 1 || PBattleship.getStart().getAcross() < 1 || PCruiser.getStart().getAcross() < 1 || PDestroyer.getStart().getAcross() < 1 || PSubmarine.getStart().getAcross() < 1){
+            Gson gson = new Gson();
+            String jsonobject = gson.toJson(model);
+            return jsonobject;
+        }
+
+        /*
         if(PAircraftCarrier.getStart().getAcross() < 1){
             Gson gson = new Gson();
             String jsonobject = gson.toJson(model);
@@ -939,6 +977,7 @@ public class Main {
             String jsonobject = gson.toJson(model);
             return jsonobject;
         }
+         */
 
 
         // The following branch tree checks if a point fired at

@@ -74,6 +74,12 @@ class MainTest {
 
         TestResponse res3 = request("POST", "/placeShip/Cruiser/1/1/vertical/0", jason);
         assertEquals(res3.status, 200);
+
+        TestResponse res4 = request("POST", "/placeShip/Submarine/1/1/vertical/0", jason);
+        assertEquals(res4.status, 200);
+
+        TestResponse res5 = request("POST", "/placeShip/Destroyer/1/1/vertical/0", jason);
+        assertEquals(res5.status, 200);
     }
 
     @Test
@@ -279,6 +285,12 @@ class MainTest {
 
         TestResponse res3 = request("POST", "/placeShip/Clipper/1/1/vertical", jason);
         assertEquals(res3.status, 200);
+
+        TestResponse res4 = request("POST", "/placeShip/Dinghy/1/1/vertical", jason);
+        assertEquals(res4.status, 200);
+
+        TestResponse res5 = request("POST", "/placeShip/Submarine/1/1/vertical", jason);
+        assertEquals(res5.status, 200);
     }
 
     @Test
