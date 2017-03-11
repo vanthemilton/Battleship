@@ -6,23 +6,18 @@ import java.util.List;
 
 public class BattleshipModel {
 
-
     //                  Member variables
+    protected Ship[] playerArray;
     protected Ship playerAircraftCarrier;
 
+    protected Ship[] computerArray;
     protected Ship computerAircraftCarrier;
 
     // all ships for player or computer are collected in these lists
-    protected List<Ship> playerShips;
-    protected List<Ship> computerShips;
-
     protected List<Point> playerHits;
     protected List<Point> playerMisses;
     protected List<Point> computerHits;
     protected List<Point> computerMisses;
-
-
-
 
     //                  Constructor
     public BattleshipModel () {
@@ -36,12 +31,11 @@ public class BattleshipModel {
         computerHits = new ArrayList<Point>();
         computerMisses = new ArrayList<Point>();
 
-        playerShips = new ArrayList<Ship>();
-        playerShips.add(playerAircraftCarrier);
+        playerArray = new Ship[5];
+        playerArray[0] = playerAircraftCarrier;
 
-        computerShips = new ArrayList<Ship>();
-        computerShips.add(computerAircraftCarrier);
-
+        computerArray = new Ship[5];
+        computerArray[0] = computerAircraftCarrier;
     }
 
 
@@ -60,32 +54,6 @@ public class BattleshipModel {
         }
     }
 
-    //          Get ship by ID function, assumes user only selects from drop down menu on front end
-    /*public Ship getShipByID(String id) {
-
-        if(id.toLowerCase().contains("computer")) {
-
-            if (id.toLowerCase().contains("aircraftcarrier")) {
-                return getComputerAircraftCarrier();
-            }
-
-        }
-
-        else {
-
-            if (id.toLowerCase().contains("aircraftcarrier")) {
-                return getPlayerAircraftCarrier();
-            }
-
-        }
-
-        // DEFAULTS TO THIS IF ID FORMAT IS INCORRECT:
-        Ship PizzaShip = new Ship("PizzaShip");
-        PizzaShip.setName("PizzaShip");
-        return PizzaShip;
-    }*/
-
-
     //          Getters
     protected Ship getPlayerAircraftCarrier() {
         return playerAircraftCarrier;
@@ -94,6 +62,14 @@ public class BattleshipModel {
     protected Ship getComputerAircraftCarrier() {
         return computerAircraftCarrier;
     }
+
+    /*
+    protected Ship[] getPlayerArray() { return playerArray; }
+
+    protected Ship[] getComputerArray() {
+        return computerArray;
+    }
+*/
 
     public List<Point> getPlayerHits() {
         return playerHits;

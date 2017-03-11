@@ -44,19 +44,15 @@ public class BattleshipModelUpdated extends BattleshipModel {
         computerHits = new ArrayList<Point>();
         computerMisses = new ArrayList<Point>();
 
-        playerShips = new ArrayList<Ship>();
-        playerShips.add(playerAircraftCarrier);
-        playerShips.add(playerBattleship);
-        playerShips.add(playerClipper);
-        playerShips.add(playerDinghy);
-        playerShips.add(playerSubmarine);
+        playerArray[1] = playerBattleship;
+        playerArray[2] = playerSubmarine;
+        playerArray[3] = playerClipper;
+        playerArray[4] = playerDinghy;
 
-        computerShips = new ArrayList<Ship>();
-        computerShips.add(computerAircraftCarrier);
-        computerShips.add(computerBattleship);
-        computerShips.add(computerClipper);
-        computerShips.add(computerDinghy);
-        computerShips.add(computerSubmarine);
+        computerArray[1] = computerBattleship;
+        computerArray[2] = computerSubmarine;
+        computerArray[3] = computerClipper;
+        computerArray[4] = computerDinghy;
 
         scanned = false;
     }
@@ -110,68 +106,6 @@ public class BattleshipModelUpdated extends BattleshipModel {
         return PizzaShip;
     }
 
-    /*public Ship_Civilian getCivilianShipByID(String id) {
-
-        if(id.toLowerCase().contains("computer")) {
-
-            if (id.toLowerCase().contains("clipper")) {
-                return getComputerClipper();
-            }
-
-            else if (id.toLowerCase().contains("dinghy")) {
-                return getComputerDinghy();
-            }
-        }
-
-        else {
-
-            if (id.toLowerCase().contains("clipper")) {
-                return getPlayerClipper();
-            }
-
-            else if (id.toLowerCase().contains("dinghy")) {
-                return getPlayerDinghy();
-            }
-        }
-
-        // DEFAULTS TO THIS IF ID FORMAT IS INCORRECT:
-        Ship_Civilian PizzaShip = new Ship_Civilian("PizzaShip");
-        PizzaShip.setName("PizzaShip");
-        return PizzaShip;
-    }
-
-    public Ship_Stealth getStealthShipByID(String id) {
-
-        if(id.toLowerCase().contains("computer")) {
-
-            if (id.toLowerCase().contains("battleship")) {
-                return getComputerBattleship();
-            }
-
-            else if (id.toLowerCase().contains("submarine") ) {
-                return getComputerSubmarine();
-            }
-
-        }
-
-        else {
-
-            if (id.toLowerCase().contains("battleship")) {
-                return getPlayerBattleship();
-            }
-
-            else if (id.toLowerCase().contains("submarine") ) {
-                return getPlayerSubmarine();
-            }
-
-        }
-
-        // DEFAULTS TO THIS IF ID FORMAT IS INCORRECT:
-        Ship_Stealth PizzaShip = new Ship_Stealth("PizzaShip");
-        PizzaShip.setName("PizzaShip");
-        return PizzaShip;
-    }*/
-
     public Ship_Stealth getPlayerBattleship() {
         return playerBattleship;
     }
@@ -204,12 +138,28 @@ public class BattleshipModelUpdated extends BattleshipModel {
         return computerDinghy;
     }
 
-
-    /*public boolean isScanned() {
-        return scanned;
-    }*/
-
     public void setScanned(boolean scanned) {
             this.scanned = scanned;
+    }
+
+    public static Ship[] resetArrayUpdated(BattleshipModelUpdated model, boolean player) {
+        Ship[] array = new Ship[5];
+
+        if(player){
+            array[0] = model.getPlayerAircraftCarrier();
+            array[1] = model.getPlayerBattleship();
+            array[2] = model.getPlayerSubmarine();
+            array[3] = model.getPlayerClipper();
+            array[4] = model.getPlayerDinghy();
+
+        } else {
+            array[0] = model.getComputerAircraftCarrier();
+            array[1] = model.getComputerBattleship();
+            array[2] = model.getComputerSubmarine();
+            array[3] = model.getComputerClipper();
+            array[4] = model.getComputerDinghy();
+        }
+
+        return array;
     }
 }

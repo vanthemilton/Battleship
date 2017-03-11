@@ -98,9 +98,7 @@ public class Ship {
         return length;
     }
 
-    public void setLength(int length) {
-        this.length = length;               // shouldn't need to resize an existing ship, but here it is
-    }
+    public void setLength(int length) { this.length = length; }
 
     public Point getStart() {
         return start;

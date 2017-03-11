@@ -9,7 +9,6 @@ public class Point {
     int Across;
     int Down;
 
-
     //              Constructor
     public Point() {
         setAcross(0);
