@@ -17,7 +17,7 @@ if (playerTable != null) {
                     // This ajax call will asnychonously call the back end, and tell it where to place the ship,
                     // then get back a game model with the ship placed, and display the new model.
                     var request = $.ajax({
-                        url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+(j+1)+"/"+(i+1)+"/"+$( "#orientationSelec" ).val(),
+                        url: "/placeShipUpdated/"+$( "#shipSelec" ).val()+"/"+(j+1)+"/"+(i+1)+"/"+$( "#orientationSelec" ).val()+"/0",
                         method: "post",
                         data: JSON.stringify(gameModel),
                         contentType: "application/json; charset=utf-8",
@@ -184,7 +184,7 @@ if (computerTable != null) {
 
 
                     var request = $.ajax({
-                        url: "/"+$('input:radio[name=fire]:checked').val() +"/"+(j+1)+"/"+(i+1),
+                        url: "/"+$('input:radio[name=fire]:checked').val() +"/"+(j+1)+"/"+(i+1)+"/0",
                         method: "post",
                         data: JSON.stringify(gameModel),
                         contentType: "application/json; charset=utf-8",
@@ -222,7 +222,7 @@ if (computerTable != null) {
                 return function onHover() {
                     if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
                         gameModel.playerClipper.start.Across > 0 && gameModel.playerDinghy.start.Across > 0 &&
-                        gameModel.playerSubmarine.start.Across > 0 && $('input:radio[name=fire]:checked').val()  == "fire") {
+                        gameModel.playerSubmarine.start.Across > 0 && $('input:radio[name=fire]:checked').val()  == "fireUpdated") {
                         $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "orange");
                     }
                     else if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
@@ -240,7 +240,7 @@ if (computerTable != null) {
                 return function onHover() {
                     if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
                         gameModel.playerClipper.start.Across > 0 && gameModel.playerDinghy.start.Across > 0 &&
-                        gameModel.playerSubmarine.start.Across > 0 && $('input:radio[name=fire]:checked').val()  == "fire") {
+                        gameModel.playerSubmarine.start.Across > 0 && $('input:radio[name=fire]:checked').val()  == "fireUpdated") {
                         $('#TheirBoard #' + (i + 1) + '_' + (j + 1)).css("border-color", "white");
                     }
                     else if(gameModel.playerAircraftCarrier.start.Across > 0 && gameModel.playerBattleship.start.Across > 0 &&
@@ -260,26 +260,18 @@ if (computerTable != null) {
 
 //This function will be called once the page is loaded.  It will get a new game model from the back end, and display it.
 $( document ).ready(function() {
-
   $.getJSON("modelUpdated", function( json ) {
     displayGameState(json);
     gameModel = json;
   });
 });
-//$( document ).ready(function() {
-//
-//  $.getJSON("model", function( json ) {
-//    displayGameState(currModel);
-//    gameModel = json;
-//   });
-//});
+
 
 function placeShip() {
 
-
    // This ajax call will asnychonously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
    var request = $.ajax({
-     url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val(),
+     url: "/placeShipUpdated/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val()+"/0",
      method: "post",
      data: JSON.stringify(gameModel),
      contentType: "application/json; charset=utf-8",
@@ -354,7 +346,7 @@ function fire(){
 
 
    var request = $.ajax({
-     url: "/fire/"+$( "#rowFire" ).val()+"/"+$( "#colFire" ).val(),
+     url: "/fireUpdated/"+$( "#rowFire" ).val()+"/"+$( "#colFire" ).val()+"/0",
      method: "post",
      data: JSON.stringify(gameModel),
      contentType: "application/json; charset=utf-8",

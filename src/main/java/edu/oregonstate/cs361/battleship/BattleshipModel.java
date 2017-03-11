@@ -13,6 +13,8 @@ public class BattleshipModel {
     protected Ship[] computerArray;
     protected Ship computerAircraftCarrier;
 
+    protected boolean hard;
+
     // all ships for player or computer are collected in these lists
     protected List<Point> playerHits;
     protected List<Point> playerMisses;
@@ -36,6 +38,8 @@ public class BattleshipModel {
 
         computerArray = new Ship[5];
         computerArray[0] = computerAircraftCarrier;
+
+        setHard(true);
     }
 
 
@@ -85,5 +89,13 @@ public class BattleshipModel {
 
     public List<Point> getComputerMisses() {
         return computerMisses;
+    }
+
+    public boolean isHard() {
+        return hard;
+    }
+
+    public void setHard(boolean hard) {
+        this.hard = hard;
     }
 }

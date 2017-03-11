@@ -15,17 +15,19 @@ public class Main {
         get("/model", (req, res) -> newModel());
         //This will listen to GET requests to /model and return a clean new model
         get("/modelUpdated", (req, res) -> newModelUpdated());
+
         //This will listen to POST requests and expects to receive a game model, as well as location to fire to
-        post("/fire/:row/:col/:num", (req, res) -> fireAt(req));
+        post("/fire/:row/:col/:hard", (req, res) -> fireAt(req));
+
         //This will listen to POST requests and expects to receive a game model, as well as location to fire to
-        post("/fire/:row/:col", (req, res) -> fireAtNew(req));
+        post("/fireUpdated/:row/:col/:hard", (req, res) -> fireAtNew(req));
         //This will handle the scan feature
-        post("/scan/:row/:col", (req, res) -> scan(req));
+        post("/scan/:row/:col/:hard", (req, res) -> scan(req));
 
         //This will listen to POST requests and expects to receive a game model, as well as location to place the ship
-        post("/placeShip/:id/:row/:col/:orientation/:num", (req, res) -> placeShip(req));
+        post("/placeShip/:id/:row/:col/:orientation/:hard", (req, res) -> placeShip(req));
         //This will listen to POST requests and expects to receive a game model, as well as location to place the ship
-        post("/placeShip/:id/:row/:col/:orientation", (req, res) -> placeShipUpdated(req));
+        post("/placeShipUpdated/:id/:row/:col/:orientation/:hard", (req, res) -> placeShipUpdated(req));
     }
 
     //This function should return a new model
@@ -70,11 +72,18 @@ public class Main {
     public static String placeShipUpdated(Request req) {
 
         BattleshipModelUpdated model = (BattleshipModelUpdated) getModelUpdatedFromReq(req);
-        String id, orientation, row, col, num;
+        String id, orientation, row, col;
         id = req.params("id");  //name of what ship with which player in front of it
         orientation = req.params("orientation"); //horizontal/vertical
         row = req.params("row");    //row #
         col = req.params("col");    //col #
+        String hard = req.params("hard");
+
+        if (hard.equals("0")){
+            model.setHard(true);
+        }else{
+            model.setHard(false);
+        }
 
         List PlayerFireMiss = model.getPlayerMisses();
         List PlayerFireHit = model.getPlayerHits();
@@ -91,7 +100,7 @@ public class Main {
         model.getShipByID(id).setEnd(0, 0);
         model.getShipByID(id).setStart(0, 0);
 
-        Ship[] PArray = model.resetArrayUpdated( model, true);
+        Ship[] PArray = model.resetArrayUpdated(model, true);
 
         int size = model.getShipByID(id).getLength();
         int stop = 0;
@@ -103,8 +112,8 @@ public class Main {
                 cord.setDown(column);
 
                 //if ship lands on another ship then
-                for(int l = 0; l < 5; l++) {
-                    if(Hit(PArray[l].getStart(), PArray[l].getEnd(), cord)) {
+                for (int l = 0; l < 5; l++) {
+                    if (Hit(PArray[l].getStart(), PArray[l].getEnd(), cord)) {
                         stop = 1;
                     }
                 }
@@ -121,91 +130,125 @@ public class Main {
                 cord.setDown(k);
 
                 //if ship lands on another ship then
-                for(int l = 0; l < 5; l++) {
-                    if(Hit(PArray[l].getStart(), PArray[l].getEnd(), cord)) {
+                for (int l = 0; l < 5; l++) {
+                    if (Hit(PArray[l].getStart(), PArray[l].getEnd(), cord)) {
                         stop = 1;
                     }
                 }
             }
 
             if (stop == 0) {
-                model.getShipByID(id).setStart(rows , column);
-                model.getShipByID(id).setEnd(rows , column + size - 1);
+                model.getShipByID(id).setStart(rows, column);
+                model.getShipByID(id).setEnd(rows, column + size - 1);
             }
         }
 
-        //If the player sets down a ship the computer sets down the same ship
-        Point computerStart;
-        Point computerEnd;
-        int computer_x = 0;
-        int computer_y = 0;
-        int horizontal = 0;
-        int computer_length_increase = 0;
-        int computerLength = model.getShipByID(id).getLength() - 1;
-
-        model.getShipByID("computer" + id).setStart( 0, 0);
-        model.getShipByID("computer" + id).setEnd( 0, 0);
-        Ship[] CArray = model.resetArrayUpdated( model, false);
-
-
-        int movingPoint = 0, stoppedPoint = 0;
-
-        while (stop == 0) {
-            computer_x = (int) (Math.random() * 10 + 1);
-            computer_y = (int) (Math.random() * 10 + 1);
-            horizontal = (int) (Math.random() * 2 + 1);
-
-            computerStart = new Point(computer_x, computer_y);
-            computerEnd = new Point(0, 0);
-            stop = 1;
-
-            if (horizontal == 1 && computer_x + computerLength < 11) { //horizontal
-                computerEnd = new Point(computer_x + computerLength, computer_y);
-                computer_length_increase = computerEnd.getAcross();
-
-                movingPoint = computer_x;
-                stoppedPoint = computer_y;
-
-            } else if (horizontal == 2 && computer_y + computerLength < 11) { //vertical
-                computerEnd = new Point(computer_x, computer_y + computerLength);
-                computer_length_increase = computerEnd.getDown();
-
-                movingPoint = computer_y;
-                stoppedPoint = computer_x;
-
-            } else {
-                stop = 0;
-            }
-
-
-            if (stop == 1) {
-                for (movingPoint = movingPoint - 1; movingPoint < (computer_length_increase + 2); movingPoint++) {
-                    if (horizontal == 1) {
-                        cord.setAcross(movingPoint);
-                        cord.setDown(stoppedPoint);
-
-                    } else {
-                        cord.setAcross(stoppedPoint);
-                        cord.setDown(movingPoint);
-                    }
-
-                    //if ship lands on another ship then
-                    for(int i = 0; i < 5; i++){
-                        if( Hit(CArray[i].getStart(), CArray[i].getEnd(), cord)){
-                            stop = 0;
-                        }
-                    }
-                }
-
-                if (stop == 1) {
-                    model.getShipByID("computer" + id).setStart( computerStart.getAcross(), computerStart.getDown());
-                    model.getShipByID("computer" + id).setEnd( computerEnd.getAcross(), computerEnd.getDown());
-                }
+        if(stop == 0) {
+            if (model.isHard()) {
+                model = placeShipUpdatedHard(model);
+            } else{
+                model = placeShipUpdatedEasy(model);
             }
         }
 
         Gson gson = new Gson();
         return gson.toJson(model);
+    }
+
+    public static BattleshipModelUpdated placeShipUpdatedHard(BattleshipModelUpdated model) {
+
+        Ship[] CArray = model.resetArrayUpdated(model, false);
+        Point computerStart;
+        Point computerEnd;
+        Point cord = new Point(0,0);
+
+        int computer_x = 0;
+        int computer_y = 0;
+        int horizontal = 0;
+
+        for(int id = 0; id < 5; id++) {
+            int stop = 0;
+
+            int computer_length_increase = 0;
+            int computerLength = model.getShipByID(CArray[id].getName()).getLength() - 1;
+
+            model.getShipByID(CArray[id].getName()).setStart(0, 0);
+            model.getShipByID(CArray[id].getName()).setEnd(0, 0);
+            CArray = model.resetArrayUpdated(model, false);
+
+            int movingPoint = 0, stoppedPoint = 0;
+
+            while (stop == 0) {
+                computer_x = (int) (Math.random() * 10 + 1);
+                computer_y = (int) (Math.random() * 10 + 1);
+                horizontal = (int) (Math.random() * 2 + 1);
+
+                computerStart = new Point(computer_x, computer_y);
+                computerEnd = new Point(0, 0);
+                stop = 1;
+
+                if (horizontal == 1 && computer_x + computerLength < 11) { //horizontal
+                    computerEnd = new Point(computer_x + computerLength, computer_y);
+                    computer_length_increase = computerEnd.getAcross();
+
+                    movingPoint = computer_x;
+                    stoppedPoint = computer_y;
+
+                } else if (horizontal == 2 && computer_y + computerLength < 11) { //vertical
+                    computerEnd = new Point(computer_x, computer_y + computerLength);
+                    computer_length_increase = computerEnd.getDown();
+
+                    movingPoint = computer_y;
+                    stoppedPoint = computer_x;
+
+                } else {
+                    stop = 0;
+                }
+
+
+                if (stop == 1) {
+                    for (movingPoint = movingPoint - 1; movingPoint < (computer_length_increase + 2); movingPoint++) {
+                        if (horizontal == 1) {
+                            cord.setAcross(movingPoint);
+                            cord.setDown(stoppedPoint);
+
+                        } else {
+                            cord.setAcross(stoppedPoint);
+                            cord.setDown(movingPoint);
+                        }
+
+                        //if ship lands on another ship then
+                        for (int i = 0; i < 5; i++) {
+                            if (Hit(CArray[i].getStart(), CArray[i].getEnd(), cord)) {
+                                stop = 0;
+                            }
+                        }
+                    }
+
+                    if (stop == 1) {
+                        model.getShipByID(CArray[id].getName()).setStart(computerStart.getAcross(), computerStart.getDown());
+                        model.getShipByID(CArray[id].getName()).setEnd(computerEnd.getAcross(), computerEnd.getDown());
+                        CArray = model.resetArrayUpdated(model, false);
+                    }
+                }
+            }
+        }
+
+        return model;
+
+    }
+
+    public static BattleshipModelUpdated placeShipUpdatedEasy(BattleshipModelUpdated model) {
+
+        for(int id = 0; id < 5; id++) {
+            Ship[] CArray = model.resetArrayUpdated(model, false);
+            int computerLength = model.getShipByID(CArray[id].getName()).getLength() - 1;
+
+            model.getShipByID(CArray[id].getName()).setStart(id, id);
+            model.getShipByID(CArray[id].getName()).setEnd(id + computerLength, id);
+        }
+
+        return model;
 
     }
 
@@ -217,6 +260,13 @@ public class Main {
 
         String X = req.params("row");
         String Y = req.params("col");
+        String hard = req.params("hard");
+
+        if (hard.equals("0")){
+            model.setHard(true);
+        }else{
+            model.setHard(false);
+        }
 
         int row = Integer.parseInt(X);
         int col = Integer.parseInt(Y);
@@ -277,13 +327,18 @@ public class Main {
             model.addPointtoArray(FireSpot, model.getComputerMisses());
         }
 
-        model = computerFire(model);
+        //returns the model with computer having fired
+        if(model.isHard() == true) {
+            model = computerFireHard(model);
+        }else{
+            model = computerFireEasy(model);
+        }
 
         Gson gson = new Gson();
         return gson.toJson(model);
     }
 
-    private static BattleshipModelUpdated computerFire(BattleshipModelUpdated model) {
+    private static BattleshipModelUpdated computerFireHard(BattleshipModelUpdated model) {
 
         // Create two random coordinates for computer to shoot at and make a point object of them
         Ship[] PArray = model.resetArrayUpdated( model, true);
@@ -324,6 +379,54 @@ public class Main {
         return model;
     }
 
+    private static BattleshipModelUpdated computerFireEasy(BattleshipModelUpdated model) {
+
+        // Create two random coordinates for computer to shoot at and make a point object of them
+        Ship[] PArray = model.resetArrayUpdated( model, true);
+        Point FireSpotComputer = new Point( 0, 0);
+        int shootX, shootY, j;
+
+        // Keeps getting random location until it hasn't fired at that spot
+        for(int x = 1; x < 11; x++){
+            for(int y = 1; y < 11; y++){
+                shootX = x;
+                shootY = y;
+                FireSpotComputer = new Point(shootX, shootY);
+
+                if(alreadyShot( FireSpotComputer, model,false)){
+                    break;
+                }
+            }
+        }
+
+        j = model.getPlayerHits().size();
+        Point Clipper = new Point((PArray[3].getStart().getAcross() + PArray[3].getEnd().getAcross())/2,(PArray[3].getStart().getDown() + PArray[3].getEnd().getDown())/2);
+
+
+        // The following branch tree checks if a point fired at
+        // BY A PLAYER has hit a COMPUTER ship and adds the point to the array of hits if so
+        for (int i = 0; i < 5; i++) {
+            if (Hit(PArray[i].getStart(), PArray[i].getEnd(), FireSpotComputer)) {
+                /*if(i == 2){
+                    model.addPointtoArray(PArray[i].getStart(), model.getPlayerHits());
+                    model.addPointtoArray(PArray[i].getEnd(), model.getPlayerHits());
+                    model.addPointtoArray(Clipper, model.getPlayerHits());
+
+                }else {*/
+                model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
+                //}
+
+                model.getShipByID(PArray[i].getName()).setHealth(PArray[i].getHealth() - 1);
+            }
+        }
+
+        if(j == model.getPlayerHits().size()){
+            model.addPointtoArray(FireSpotComputer, model.getPlayerMisses());
+        }
+
+        return model;
+    }
+
     //Scans the area for ships
     private static String scan(Request req) {
 
@@ -332,6 +435,13 @@ public class Main {
 
         String X = req.params("row");
         String Y = req.params("col");
+        String hard = req.params("hard");
+
+        if (hard.equals("0")){
+            model.setHard(true);
+        }else{
+            model.setHard(false);
+        }
 
         int row = Integer.parseInt(X);
         int col = Integer.parseInt(Y);
@@ -343,7 +453,7 @@ public class Main {
         Ship[] PArray = model.resetArrayUpdated( model, true);
         Ship[] CArray = model.resetArrayUpdated( model, false);
 
-        //Won't fire unless all ships are placed down
+        //Won't scan unless all ships are placed down
         for(int i = 0; i < 5; i++){
             if(PArray[i].getStart().getAcross() < 1){
                 Gson gson = new Gson();
@@ -376,7 +486,11 @@ public class Main {
         }
 
         //returns the model with computer having fired
-        model = computerFire(model);
+        if(model.isHard() == true) {
+            model = computerFireHard(model);
+        }else{
+            model = computerFireEasy(model);
+        }
 
         Gson gson = new Gson();
         return gson.toJson(model);
@@ -385,7 +499,7 @@ public class Main {
     public static String placeShip(Request req) {
 
         BattleshipModelNormal model = (BattleshipModelNormal) getModelFromReq(req);
-        String id, orientation, row, col, num;
+        String id, orientation, row, col;
         orientation = req.params("orientation"); //horizontal/vertical
         id = req.params("id");  //name of what ship with which player in front of it
         row = req.params("row");    //row #
