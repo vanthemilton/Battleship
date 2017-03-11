@@ -108,8 +108,8 @@ class  MainTest {
         model.getPlayerSubmarine().setStart(5,1);
         model.getPlayerSubmarine().setEnd(5,3);
 
-        model.getComputerAircraftCarrier().setStart(0,0);
-        model.getComputerAircraftCarrier().setEnd(0,0);
+        model.getComputerAircraftCarrier().setStart(1,1);
+        model.getComputerAircraftCarrier().setEnd(1,4);
         model.getComputerBattleship().setStart(2,1);
         model.getComputerBattleship().setEnd(2,4);
         model.getComputerCruiser().setStart(3,1);
@@ -118,119 +118,6 @@ class  MainTest {
         model.getComputerDestroyer().setEnd(4,2);
         model.getComputerSubmarine().setStart(5,1);
         model.getComputerSubmarine().setEnd(5,3);
-
-
-
-        for(int j = 1;j < 11; j++){
-            /*for(int i = 1;i < 11; i++) {
-                Gson gson = new Gson();
-                String jason = gson.toJson(model);
-                TestResponse res = request("POST", "/fire/" + i + "/" + j + "/0", jason);
-                assertEquals(res.status, 200);
-            }
-
-            for(int i = 1;i < 11; i++) {
-                Gson gson = new Gson();
-                String jason = gson.toJson(model);
-                TestResponse res = request("POST", "/fire/" + i + "/" + j + "/0", jason);
-                assertEquals(res.status, 200);
-            }*/
-
-            /*for(int i = 1;i < 11; i++) {
-                Gson gson = new Gson();
-                String jason = gson.toJson(model);
-                TestResponse res = request("POST", "/fire/"+i+"/"+j+"/0", jason);
-                Point testPoint = new Point(j,i);
-                model.addPointtoArray(testPoint, model.getComputerHits());
-                assertEquals(res.status, 200);
-            }
-            for(int i = 1;i < 11; i++) {
-                Gson gson = new Gson();
-                String jason = gson.toJson(model);
-                TestResponse res = request("POST", "/scan/"+i+"/"+j+"/0", jason);
-                Point testPoint = new Point(j,i);
-                model.addPointtoArray(testPoint, model.getComputerHits());
-                assertEquals(res.status, 200);
-            }*/
-        }
-
-        model.getComputerAircraftCarrier().setStart(1,1);
-        model.getComputerAircraftCarrier().setEnd(1,4);
-
-
-        /*for(int j = 0;j < 10; j++){
-            for(int i = 0;i < 10; i++) {
-                Gson gson = new Gson();
-                String jason = gson.toJson(model);
-                TestResponse res = request("POST", "/fire/"+i+"/"+j+"/0", jason);
-                Point testPoint = new Point(j,i);
-                model.addPointtoArray(testPoint, model.getComputerHits());
-                assertEquals(res.status, 200);
-            }
-
-            for(int i = 0;i < 10; i++) {
-                Gson gson = new Gson();
-                String jason = gson.toJson(model);
-                TestResponse res = request("POST", "/fire/"+i+"/"+j+"/0", jason);
-                Point testPoint = new Point(j,i);
-                model.addPointtoArray(testPoint, model.getComputerMisses());
-                assertEquals(res.status, 200);
-            }
-
-            for(int i = 0;i < 10; i++) {
-                Gson gson = new Gson();
-                String jason = gson.toJson(model);
-                TestResponse res = request("POST", "/fire/"+i+"/"+j+"/0", jason);
-                Point testPoint = new Point(j,i);
-                model.addPointtoArray(testPoint, model.getComputerHits());
-                assertEquals(res.status, 200);
-            }
-
-            for(int i = 0;i < 10; i++) {
-                Gson gson = new Gson();
-                String jason = gson.toJson(model);
-                TestResponse res = request("POST", "/fire/"+i+"/"+j+"/0", jason);
-                Point testPoint = new Point(j,i);
-                model.addPointtoArray(testPoint, model.getPlayerMisses());
-                assertEquals(res.status, 200);
-            }
-
-            for(int i = 0;i < 10; i++) {
-                Gson gson = new Gson();
-                String jason = gson.toJson(model);
-                TestResponse res = request("POST", "/fire/"+i+"/"+j+"/0", jason);
-                Point testPoint = new Point(j,i);
-                model.addPointtoArray(testPoint, model.getPlayerHits());
-                assertEquals(res.status, 200);
-            }
-
-            for(int i = 0;i < 10; i++) {
-                Gson gson = new Gson();
-                String jason = gson.toJson(model);
-                TestResponse res = request("POST", "/fire/"+i+"/"+j+"/0", jason);
-                Point testPoint = new Point(j,i);
-                model.addPointtoArray(testPoint, model.getPlayerMisses());
-                assertEquals(res.status, 200);
-            }
-
-            for(int i = 0;i < 10; i++) {
-                Gson gson = new Gson();
-                String jason = gson.toJson(model);
-                TestResponse res = request("POST", "/fire/"+i+"/"+j+"/0", jason);
-                Point testPoint = new Point(j,i);
-                model.addPointtoArray(testPoint, model.getPlayerHits());
-                assertEquals(res.status, 200);
-            }
-
-            for(int i = 0;i < 10; i++) {
-                Gson gson = new Gson();
-                String jason = gson.toJson(model);
-                TestResponse res = request("POST", "/fire/"+i+"/"+j+"/0", jason);
-                Point testPoint = new Point(j,i);
-                model.addPointtoArray(testPoint, model.getPlayerMisses());
-                assertEquals(res.status, 200);
-            }
-        }*/
 
         Gson gson = new Gson();
         String jason = gson.toJson(model);
