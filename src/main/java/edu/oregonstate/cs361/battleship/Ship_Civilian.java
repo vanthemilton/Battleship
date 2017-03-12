@@ -5,14 +5,6 @@ package edu.oregonstate.cs361.battleship;
  */
 public class Ship_Civilian extends Ship {
 
-    //          Member Variables
-  /*  private String name;
-    private Point start;
-    private Point end;
-    private int length;
-    private int health;*/
-  //protected String Type_of_ship;
-
     //          Constructor
     public Ship_Civilian (String name) {
 
@@ -44,12 +36,4 @@ public class Ship_Civilian extends Ship {
         }
 
     }
-
-    /*public String getType_of_ship() {
-        return Type_of_ship;
-    }
-
-    public void setType_of_ship(String type_of_ship) {
-        Type_of_ship = type_of_ship;
-    }*/
 }

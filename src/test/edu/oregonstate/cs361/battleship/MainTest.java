@@ -25,7 +25,7 @@ import static spark.Spark.awaitInitialization;
 /**
  * Created by michaelhilton on 1/26/17.
  */
-class MainTest {
+class  MainTest {
 
     @BeforeAll
     public static void beforeClass() {
@@ -96,6 +96,7 @@ class MainTest {
     @Test
     public void testFireAt() {
         BattleshipModelNormal model = new BattleshipModelNormal();
+
         model.getPlayerAircraftCarrier().setStart(1,1);
         model.getPlayerAircraftCarrier().setEnd(1,5);
         model.getPlayerBattleship().setStart(2,1);
@@ -120,18 +121,6 @@ class MainTest {
 
         Gson gson = new Gson();
         String jason = gson.toJson(model);
-
-        /*for(int i = 0;i<100;i++) {
-            TestResponse res = request("POST", "/fire/1/1/0", jason);
-            assertEquals(res.status, 200);
-        }*/
-
-        for(int j = 1;j < 11; j++){
-            for(int i = 1;i < 11; i++) {
-                TestResponse res = request("POST", "/fire/" + i + "/" + j + "/0", jason);
-                assertEquals(res.status, 200);
-            }
-        }
 
         TestResponse res1 = request("POST", "/fire/2/2/0", jason);
         assertEquals(res1.status, 200);
@@ -174,19 +163,15 @@ class MainTest {
         Gson gson = new Gson();
         String jason = gson.toJson(model);
 
-        //for(int i = 0;i<100;i++) {
-          //  TestResponse res = request("POST", "/fire/1/1/0", jason);
-          //  assertEquals(res.status, 200);
-        //}
-        //scan/:row/:col
-
         for(int j = 1;j < 11; j++){
             for(int i = 1;i < 11; i++) {
 
-                TestResponse res = request("POST", "/scan/" + i + "/" + j + "", jason);
+                TestResponse res = request("POST", "/scan/" + i + "/" + j + "/0", jason);
                 assertEquals(res.status, 200);
             }
         }
+
+
     }
 
 
@@ -267,7 +252,7 @@ class MainTest {
         BattleshipModelUpdated model = new BattleshipModelUpdated();
         Gson gson = new Gson();
         String jason = gson.toJson(model);
-        TestResponse res = request("POST", "/placeShip/battleship/1/1/horizontal", jason);
+        TestResponse res = request("POST", "/placeShipUpdated/battleship/1/1/horizontal/0", jason);
         assertEquals(res.status, 200);
 
     }
@@ -277,20 +262,26 @@ class MainTest {
         BattleshipModelUpdated model = new BattleshipModelUpdated();
         Gson gson = new Gson();
         String jason = gson.toJson(model);
-        TestResponse res = request("POST", "/placeShip/Battleship/1/1/vertical", jason);
+        TestResponse res = request("POST", "/placeShipUpdated/Battleship/1/1/vertical/0", jason);
         assertEquals(res.status, 200);
 
-        TestResponse res2 = request("POST", "/placeShip/AircraftCarrier/2/1/vertical", jason);
+        TestResponse res2 = request("POST", "/placeShipUpdated/AircraftCarrier/2/1/vertical/0", jason);
         assertEquals(res2.status, 200);
 
-        TestResponse res3 = request("POST", "/placeShip/Clipper/1/1/vertical", jason);
+        TestResponse res3 = request("POST", "/placeShipUpdated/Clipper/1/1/vertical/0", jason);
         assertEquals(res3.status, 200);
 
-        TestResponse res4 = request("POST", "/placeShip/Dinghy/1/1/vertical", jason);
+        TestResponse res4 = request("POST", "/placeShipUpdated/Dinghy/1/1/vertical/0", jason);
         assertEquals(res4.status, 200);
 
-        TestResponse res5 = request("POST", "/placeShip/Submarine/1/1/vertical", jason);
+        TestResponse res5 = request("POST", "/placeShipUpdated/Submarine/1/1/vertical/0", jason);
         assertEquals(res5.status, 200);
+
+        Point testPoint = new Point(1,1);
+        model.addPointtoArray(testPoint, model.getPlayerHits());
+        jason = gson.toJson(model);
+        TestResponse res6 = request("POST", "/placeShipUpdated/Submarine/1/1/vertical/0", jason);
+        assertEquals(res6.status, 200);
     }
 
     @Test
@@ -298,7 +289,7 @@ class MainTest {
         BattleshipModelUpdated model = new BattleshipModelUpdated();
         Gson gson = new Gson();
         String jason = gson.toJson(model);
-        TestResponse res = request("POST", "/placeShip/battleShip/11/1/vertical", jason);
+        TestResponse res = request("POST", "/placeShipUpdated/battleShip/11/1/vertical/0", jason);
         assertEquals(res.status, 200);
 
     }
@@ -320,8 +311,8 @@ class MainTest {
         model.getPlayerSubmarine().setStart(5,1);
         model.getPlayerSubmarine().setEnd(5,3);
 
-        model.getComputerAircraftCarrier().setStart(1,1);
-        model.getComputerAircraftCarrier().setEnd(1,4);
+        model.getComputerAircraftCarrier().setStart(0,0);
+        model.getComputerAircraftCarrier().setEnd(0,0);
         model.getComputerBattleship().setStart(2,1);
         model.getComputerBattleship().setEnd(2,4);
         model.getComputerClipper().setStart(3,1);
@@ -349,23 +340,200 @@ class MainTest {
         model.getShipByID("computerDinghy");
         model.getShipByID("computerSubmarine");
 
-        Gson gson = new Gson();
-        String jason = gson.toJson(model);
-
         for(int j = 0;j < 10; j++){
             for(int i = 0;i < 10; i++) {
-                TestResponse res = request("POST", "/fire/"+i+"/"+j+"", jason);
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/0", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getComputerHits());
+                assertEquals(res.status, 200);
+            }
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/scan/"+i+"/"+j+"/0", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getComputerHits());
+                assertEquals(res.status, 200);
+            }
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/1", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getComputerHits());
+                assertEquals(res.status, 200);
+            }
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/scan/"+i+"/"+j+"/1", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getComputerHits());
                 assertEquals(res.status, 200);
             }
         }
 
-        TestResponse res1 = request("POST", "/fire/2/2", jason);
+        model.getComputerAircraftCarrier().setStart(1,1);
+        model.getComputerAircraftCarrier().setEnd(1,4);
+
+
+        for(int j = 0;j < 10; j++){
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/0", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getComputerHits());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/0", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getComputerMisses());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/0", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getComputerHits());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/0", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getPlayerMisses());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/0", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getPlayerHits());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/0", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getPlayerMisses());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/0", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getPlayerHits());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/0", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getPlayerMisses());
+                assertEquals(res.status, 200);
+            }
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/1", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getComputerHits());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/1", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getComputerMisses());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/1", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getComputerHits());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/1", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getPlayerMisses());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/1", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getPlayerHits());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/1", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getPlayerMisses());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/1", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getPlayerHits());
+                assertEquals(res.status, 200);
+            }
+
+            for(int i = 0;i < 10; i++) {
+                Gson gson = new Gson();
+                String jason = gson.toJson(model);
+                TestResponse res = request("POST", "/fireUpdated/"+i+"/"+j+"/1", jason);
+                Point testPoint = new Point(j,i);
+                model.addPointtoArray(testPoint, model.getPlayerMisses());
+                assertEquals(res.status, 200);
+            }
+        }
+
+        Gson gson = new Gson();
+        String jason = gson.toJson(model);
+
+        TestResponse res1 = request("POST", "/fireUpdated/2/2/0", jason);
         assertEquals(res1.status, 200);
 
-        TestResponse res2 = request("POST", "/fire/4/4", jason);
+        TestResponse res2 = request("POST", "/fireUpdated/4/4/0", jason);
         assertEquals(res2.status, 200);
 
-        TestResponse res3 = request("POST", "/fire/6/6", jason);
+        TestResponse res3 = request("POST", "/fireUpdated/6/6/0", jason);
         assertEquals(res3.status, 200);
     }
 

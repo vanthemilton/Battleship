@@ -8,7 +8,6 @@ import java.util.List;
  */
 public class BattleshipModelNormal extends BattleshipModel {
 
-
     //                  Member variables
     //private Ship playerAircraftCarrier;
     private Ship playerBattleship;
@@ -44,19 +43,15 @@ public class BattleshipModelNormal extends BattleshipModel {
         computerHits = new ArrayList<Point>();
         computerMisses = new ArrayList<Point>();
 
-        playerShips = new ArrayList<Ship>();
-        playerShips.add(playerAircraftCarrier);
-        playerShips.add(playerBattleship);
-        playerShips.add(playerCruiser);
-        playerShips.add(playerDestroyer);
-        playerShips.add(playerSubmarine);
+        playerArray[1] = playerBattleship;
+        playerArray[2] = playerSubmarine;
+        playerArray[3] = playerCruiser;
+        playerArray[4] = playerDestroyer;
 
-        computerShips = new ArrayList<Ship>();
-        computerShips.add(computerAircraftCarrier);
-        computerShips.add(computerBattleship);
-        computerShips.add(computerCruiser);
-        computerShips.add(computerDestroyer);
-        computerShips.add(computerSubmarine);
+        computerArray[1] = computerBattleship;
+        computerArray[2] = computerSubmarine;
+        computerArray[3] = computerCruiser;
+        computerArray[4] = computerDestroyer;
     }
 
     //          Get ship by ID function, assumes user only selects from drop down menu on front end
@@ -145,6 +140,27 @@ public class BattleshipModelNormal extends BattleshipModel {
 
     public Ship getComputerDestroyer() {
         return computerDestroyer;
+    }
+
+    public static Ship[] resetArrayNormal(BattleshipModelNormal model, boolean player) {
+        Ship[] array = new Ship[5];
+
+        if(player){
+            array[0] = model.getPlayerAircraftCarrier();
+            array[1] = model.getPlayerBattleship();
+            array[2] = model.getPlayerSubmarine();
+            array[3] = model.getPlayerCruiser();
+            array[4] = model.getPlayerDestroyer();
+
+        } else {
+            array[0] = model.getComputerAircraftCarrier();
+            array[1] = model.getComputerBattleship();
+            array[2] = model.getComputerSubmarine();
+            array[3] = model.getComputerCruiser();
+            array[4] = model.getComputerDestroyer();
+        }
+
+        return array;
     }
 
 }
