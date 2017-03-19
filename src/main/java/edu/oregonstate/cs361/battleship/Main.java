@@ -322,7 +322,7 @@ public class Main {
                 //System.out.println("Player");
                 //System.out.println(model.getShipByID(CArray[i].getName()).getHealth());
                 model.getShipByID(CArray[i].getName()).setHealth(CArray[i].getHealth() - 1);
-                /*System.out.println(model.getShipByID(CArray[i].getName()).getHealth());
+                System.out.println(model.getShipByID(CArray[i].getName()).getHealth());
 
                 //This is for sinking the ship.
                 if(model.getShipByID(CArray[i].getName()).getHealth() == 0){
@@ -330,7 +330,7 @@ public class Main {
                     System.out.println("Sink: " + model.getShipByID(CArray[i].getName()).getHealth());
                 }else{
                     System.out.println("Didn't Sink health: " + model.getShipByID(CArray[i].getName()).getHealth());
-                }*/
+                }
             }
         }
 
@@ -374,7 +374,7 @@ public class Main {
                 //System.out.println("Computer");
                 //System.out.println(model.getShipByID(PArray[i].getName()).getHealth());
                 model.getShipByID(PArray[i].getName()).setHealth(PArray[i].getHealth() - 1);
-                /*System.out.println(model.getShipByID(PArray[i].getName()).getHealth());
+                System.out.println(model.getShipByID(PArray[i].getName()).getHealth());
 
                 //This is for sinking the ship.
                 if(model.getShipByID(PArray[i].getName()).getHealth() == 0){
@@ -382,7 +382,7 @@ public class Main {
                     System.out.println("Sink: " + model.getShipByID(PArray[i].getName()).getHealth());
                 }else{
                     System.out.println("Didn't Sink health: " + model.getShipByID(PArray[i].getName()).getHealth());
-                }*/
+                }
             }
         }
 
@@ -801,23 +801,17 @@ public class Main {
         return false; // points given are not horizontal or vertical and not valid, can't hit diagonally
     }
 
-    /*public static BattleshipModelUpdated Sink( Point shipStart, Point shipEnd, boolean player, BattleshipModelUpdated model ){
-        Point Shot = new Point();
+    public static BattleshipModelUpdated Sink( Point shipStart, Point shipEnd, boolean player, BattleshipModelUpdated model ){
 
         if( shipStart.getDown() == shipEnd.getDown() ){
             int y = shipStart.getDown();
 
             for ( int x = shipStart.getAcross(); x <= shipEnd.getAcross(); x++ ){
+                Point Shot = new Point();
                 Shot.setAcross(x);
                 Shot.setDown(y);
 
-                System.out.println("y: " + y);
-                System.out.println("x: " + x);
-
-                if( !alreadyShot(Shot, model, player) ){
-                    System.out.println("y: " + y);
-                    System.out.println("x: " + x);
-                    System.out.println("Yes ^");
+                if( !(alreadyShot(Shot, model, player)) ){
 
                     if(player){
                         model.addPointtoArray( Shot, model.getComputerHits() );
@@ -825,9 +819,11 @@ public class Main {
                         model.addPointtoArray( Shot, model.getPlayerHits() );
                     }
                 }else{
-                    System.out.println("y: " + y);
-                    System.out.println("x: " + x);
-                    System.out.println("Nope ^");
+                    if(player){
+                        model.addPointtoArray( Shot, model.getComputerHits() );
+                    }else{
+                        model.addPointtoArray( Shot, model.getPlayerHits() );
+                    }
                 }
             }
 
@@ -835,30 +831,27 @@ public class Main {
             int x = shipStart.getAcross();
 
             for ( int y = shipStart.getDown(); y <= shipEnd.getDown(); y++ ) {
+                Point Shot = new Point();
                 Shot.setAcross(x);
                 Shot.setDown(y);
 
-                System.out.println("y: " + y);
-                System.out.println("x: " + x);
+                if( !(alreadyShot(Shot, model, player)) ){
 
-                if( !alreadyShot(Shot, model, player) ){
-
-                    System.out.println("y: " + y);
-                    System.out.println("x: " + x);
-                    System.out.println("Yes ^");
                     if(player){
                         model.addPointtoArray( Shot, model.getComputerHits() );
                     }else{
                         model.addPointtoArray( Shot, model.getPlayerHits() );
                     }
                 }else{
-                    System.out.println("y: " + y);
-                    System.out.println("x: " + x);
-                    System.out.println("Nope ^");
+                    if(player){
+                        model.addPointtoArray( Shot, model.getComputerHits() );
+                    }else{
+                        model.addPointtoArray( Shot, model.getPlayerHits() );
+                    }
                 }
             }
         }
 
         return model;
-    }*/
+    }
 }
