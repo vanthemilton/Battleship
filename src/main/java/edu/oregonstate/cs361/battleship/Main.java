@@ -789,8 +789,6 @@ public class Main {
                     return true;   // if the coordinates of current point match shot, you hit!
             }
 
-            //return false; // check all points ship lies on, found no match to shot point
-
         } else if (shipStart.getAcross() == shipEnd.getAcross()) { // if start and end on same x coordinate, ship is vertical
             int x = shipStart.getAcross();
             for (int y = shipStart.getDown(); y <= shipEnd.getDown(); y++) {
@@ -798,7 +796,6 @@ public class Main {
                 if (x == shotPoint.getAcross() && y == shotPoint.getDown())
                     return true;   // if the coordinates of current point match shot, you hit!
             }
-            //return false; // check all points ship lies on, found no match to shot point
         }
 
         return false; // points given are not horizontal or vertical and not valid, can't hit diagonally
