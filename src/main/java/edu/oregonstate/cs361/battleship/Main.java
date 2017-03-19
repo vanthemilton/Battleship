@@ -38,6 +38,7 @@ public class Main {
         Gson gson = new Gson();
         String model = gson.toJson(test);
         return model;
+
     }
 
     //This function should return a new model
@@ -48,6 +49,7 @@ public class Main {
         Gson gson = new Gson();
         String model = gson.toJson(test);
         return model;
+
     }
 
     //This function should accept an HTTP request and deserialize it into an actual Java object.
@@ -57,6 +59,7 @@ public class Main {
         Gson gson = new Gson();
         BattleshipModelNormal game = gson.fromJson(data, BattleshipModelNormal.class);
         return game;
+
     }
 
     //This function should accept an HTTP request and deserialize it into an actual Java object.
@@ -66,6 +69,7 @@ public class Main {
         Gson gson = new Gson();
         BattleshipModelUpdated game = gson.fromJson(data, BattleshipModelUpdated.class);
         return game;
+
     }
 
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
@@ -137,7 +141,7 @@ public class Main {
                 }
             }
 
-            if (stop == 0) {
+            if (stop == 0) {    //Sets the start and end location of the ship
                 model.getShipByID(id).setStart(rows, column);
                 model.getShipByID(id).setEnd(rows, column + size - 1);
             }
@@ -155,6 +159,7 @@ public class Main {
         return gson.toJson(model);
     }
 
+    //Places the ships at random locations
     public static BattleshipModelUpdated placeShipUpdatedHard(BattleshipModelUpdated model) {
 
         Ship[] CArray = model.resetArrayUpdated(model, false);
@@ -179,6 +184,7 @@ public class Main {
             int movingPoint = 0, stoppedPoint = 0;
 
             while (stop == 0) {
+                //Gets a random starting location and horizontal/vertical
                 computer_x = (int) (Math.random() * 10 + 1);
                 computer_y = (int) (Math.random() * 10 + 1);
                 horizontal = (int) (Math.random() * 2 + 1);
@@ -208,11 +214,11 @@ public class Main {
 
                 if (stop == 1) {
                     for (movingPoint = movingPoint - 1; movingPoint < (computer_length_increase + 2); movingPoint++) {
-                        if (horizontal == 1) {
+                        if (horizontal == 1) {  //Horizontal
                             cord.setAcross(movingPoint);
                             cord.setDown(stoppedPoint);
 
-                        } else {
+                        } else {                //Vertical
                             cord.setAcross(stoppedPoint);
                             cord.setDown(movingPoint);
                         }
@@ -303,23 +309,28 @@ public class Main {
         }
 
         j = model.getComputerHits().size();
-        Point Clipper = new Point((PArray[3].getStart().getAcross() + PArray[3].getEnd().getAcross())/2,(PArray[3].getStart().getDown() + PArray[3].getEnd().getDown())/2);
+        //Point Clipper = new Point((PArray[3].getStart().getAcross() + PArray[3].getEnd().getAcross())/2,(PArray[3].getStart().getDown() + PArray[3].getEnd().getDown())/2);
 
 
         // The following branch tree checks if a point fired at
         // BY A PLAYER has hit a COMPUTER ship and adds the point to the array of hits if so
         for (int i = 0; i < 5; i++) {
             if (Hit(CArray[i].getStart(), CArray[i].getEnd(), FireSpot)) {
-                /*if(i == 2){
-                    model.addPointtoArray(PArray[i].getStart(), model.getComputerHits());
-                    model.addPointtoArray(PArray[i].getEnd(), model.getComputerHits());
-                    model.addPointtoArray(Clipper, model.getComputerHits());
 
-                }else {*/
-                    model.addPointtoArray(FireSpot, model.getComputerHits());
-                //}
 
+                model.addPointtoArray(FireSpot, model.getComputerHits());
+                //System.out.println("Player");
+                //System.out.println(model.getShipByID(CArray[i].getName()).getHealth());
                 model.getShipByID(CArray[i].getName()).setHealth(CArray[i].getHealth() - 1);
+                /*System.out.println(model.getShipByID(CArray[i].getName()).getHealth());
+
+                //This is for sinking the ship.
+                if(model.getShipByID(CArray[i].getName()).getHealth() == 0){
+                    model = Sink(model.getShipByID(CArray[i].getName()).getStart(), model.getShipByID(CArray[i].getName()).getEnd(), true, model);
+                    System.out.println("Sink: " + model.getShipByID(CArray[i].getName()).getHealth());
+                }else{
+                    System.out.println("Didn't Sink health: " + model.getShipByID(CArray[i].getName()).getHealth());
+                }*/
             }
         }
 
@@ -352,23 +363,26 @@ public class Main {
         } while ( alreadyShot( FireSpotComputer, model,false));
 
         j = model.getPlayerHits().size();
-        Point Clipper = new Point((PArray[3].getStart().getAcross() + PArray[3].getEnd().getAcross())/2,(PArray[3].getStart().getDown() + PArray[3].getEnd().getDown())/2);
-
+        //Point Clipper = new Point((PArray[3].getStart().getAcross() + PArray[3].getEnd().getAcross())/2,(PArray[3].getStart().getDown() + PArray[3].getEnd().getDown())/2);
 
         // The following branch tree checks if a point fired at
         // BY A PLAYER has hit a COMPUTER ship and adds the point to the array of hits if so
         for (int i = 0; i < 5; i++) {
             if (Hit(PArray[i].getStart(), PArray[i].getEnd(), FireSpotComputer)) {
-                /*if(i == 2){
-                    model.addPointtoArray(PArray[i].getStart(), model.getPlayerHits());
-                    model.addPointtoArray(PArray[i].getEnd(), model.getPlayerHits());
-                    model.addPointtoArray(Clipper, model.getPlayerHits());
 
-                }else {*/
-                    model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
-                //}
-
+                model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
+                //System.out.println("Computer");
+                //System.out.println(model.getShipByID(PArray[i].getName()).getHealth());
                 model.getShipByID(PArray[i].getName()).setHealth(PArray[i].getHealth() - 1);
+                /*System.out.println(model.getShipByID(PArray[i].getName()).getHealth());
+
+                //This is for sinking the ship.
+                if(model.getShipByID(PArray[i].getName()).getHealth() == 0){
+                    model = Sink(model.getShipByID(PArray[i].getName()).getStart(), model.getShipByID(PArray[i].getName()).getEnd(), false, model);
+                    System.out.println("Sink: " + model.getShipByID(PArray[i].getName()).getHealth());
+                }else{
+                    System.out.println("Didn't Sink health: " + model.getShipByID(PArray[i].getName()).getHealth());
+                }*/
             }
         }
 
@@ -400,23 +414,25 @@ public class Main {
         }
 
         j = model.getPlayerHits().size();
-        Point Clipper = new Point((PArray[3].getStart().getAcross() + PArray[3].getEnd().getAcross())/2,(PArray[3].getStart().getDown() + PArray[3].getEnd().getDown())/2);
-
 
         // The following branch tree checks if a point fired at
         // BY A PLAYER has hit a COMPUTER ship and adds the point to the array of hits if so
         for (int i = 0; i < 5; i++) {
             if (Hit(PArray[i].getStart(), PArray[i].getEnd(), FireSpotComputer)) {
-                /*if(i == 2){
-                    model.addPointtoArray(PArray[i].getStart(), model.getPlayerHits());
-                    model.addPointtoArray(PArray[i].getEnd(), model.getPlayerHits());
-                    model.addPointtoArray(Clipper, model.getPlayerHits());
 
-                }else {*/
                 model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
-                //}
-
+                //System.out.println("Computer");
+                //System.out.println(model.getShipByID(PArray[i].getName()).getHealth());
                 model.getShipByID(PArray[i].getName()).setHealth(PArray[i].getHealth() - 1);
+                /*System.out.println(model.getShipByID(PArray[i].getName()).getHealth());
+
+                //This is for sinking the ship.
+                if(model.getShipByID(PArray[i].getName()).getHealth() == 0){
+                    model = Sink(model.getShipByID(PArray[i].getName()).getStart(), model.getShipByID(PArray[i].getName()).getEnd(), false, model);
+                    System.out.println("Sink: " + model.getShipByID(PArray[i].getName()).getHealth());
+                }else{
+                    System.out.println("Didn't Sink health: " + model.getShipByID(PArray[i].getName()).getHealth());
+                }*/
             }
         }
 
@@ -513,7 +529,6 @@ public class Main {
             return gson.toJson(model);
         }
 
-
         int rows = Integer.parseInt(row);
         int column = Integer.parseInt(col);
 
@@ -522,12 +537,12 @@ public class Main {
 
         Ship[] PArray = model.resetArrayNormal( model, true);
 
-        int size = model.getShipByID(id).getLength();
+        int sizeOfShip = model.getShipByID(id).getLength();
         int stop = 0;
         Point cord = new Point();
 
-        if (orientation.equals("horizontal") && (rows + size - 1) < 11 && rows > 0 && column < 11 && column > 0) {
-            for (int i = rows; i < (rows + size); i++) {
+        if (orientation.equals("horizontal") && (rows + sizeOfShip - 1) < 11 && rows > 0 && column < 11 && column > 0) {
+            for (int i = rows; i < ( rows + sizeOfShip ); i++) {
                 cord.setAcross(i);
                 cord.setDown(column);
 
@@ -541,11 +556,11 @@ public class Main {
             //Sets the placement of the ship
             if (stop == 0) {
                 model.getShipByID(id).setStart(rows, column);
-                model.getShipByID(id).setEnd(rows + size - 1, column);
+                model.getShipByID(id).setEnd(rows + sizeOfShip - 1, column);
             }
 
-        } else if (orientation.equals("vertical") && rows < 11 && rows > 0 && column + size - 1 < 11 && column > 0) {
-            for (int k = column; k < (column + size); k++) {
+        } else if (orientation.equals("vertical") && rows < 11 && rows > 0 && column + sizeOfShip - 1 < 11 && column > 0) {
+            for (int k = column; k < ( column + sizeOfShip ); k++) {
                 cord.setAcross(rows);
                 cord.setDown(k);
 
@@ -559,18 +574,14 @@ public class Main {
 
             if (stop == 0) {
                 model.getShipByID(id).setStart(rows, column);
-                model.getShipByID(id).setEnd(rows, column + size - 1);
+                model.getShipByID(id).setEnd(rows, column + sizeOfShip - 1);
             }
         }
 
         //Computer placement of the same ship
         Point computerStart;
         Point computerEnd;
-        int computer_x = 0;
-        int computer_y = 0;
-        int horizontal = 0;
-        int computer_length_increase = 0;
-        int computerLength = model.getShipByID(id).getLength() - 1;
+        int computer_x, computer_y, horizontal;
 
         //If the player sets down a ship the computer sets down the same ship
         model.getShipByID("computer" + id).setStart( 0, 0);
@@ -589,17 +600,15 @@ public class Main {
             computerEnd = new Point(0, 0);
             stop = 1;
 
-            if (horizontal == 1 && computer_x + computerLength < 11) { //horizontal
-                computerEnd = new Point(computer_x + computerLength, computer_y);
-                computer_length_increase = computerEnd.getAcross();
+            if (horizontal == 1 && computer_x + sizeOfShip - 1 < 11) { //horizontal
 
+                computerEnd = new Point(computer_x + sizeOfShip - 1, computer_y);
                 movingPoint = computer_x;
                 stoppedPoint = computer_y;
 
-            } else if (horizontal == 2 && computer_y + computerLength < 11) { //vertical
-                computerEnd = new Point(computer_x, computer_y + computerLength);
-                computer_length_increase = computerEnd.getDown();
+            } else if (horizontal == 2 && computer_y + sizeOfShip - 1 < 11) { //vertical
 
+                computerEnd = new Point(computer_x, computer_y + sizeOfShip - 1);
                 movingPoint = computer_y;
                 stoppedPoint = computer_x;
 
@@ -608,7 +617,7 @@ public class Main {
             }
 
             if (stop == 1) {
-                for (movingPoint = movingPoint - 1; movingPoint < (computer_length_increase + 2); movingPoint++) {
+                for (; movingPoint < (computerEnd.getDown()); movingPoint++) {
                     if (horizontal == 1) {
                         cord.setAcross(movingPoint);
                         cord.setDown(stoppedPoint);
@@ -684,7 +693,7 @@ public class Main {
             }
         }
 
-        int j = model.computerHits.size();
+        int j = 0;
 
         // The following branch tree checks if a point fired at
         // BY A PLAYER has hit a COMPUTER ship and adds the point to the array of hits if so
@@ -692,10 +701,11 @@ public class Main {
             if( Hit( CArray[i].getStart(), CArray[i].getEnd(), FireSpot ) ){
                 model.addPointtoArray(FireSpot, model.getComputerHits());
                 model.getShipByID(CArray[i].getName()).setHealth(CArray[i].getHealth()-1);
+                j = 1;
             }
         }
 
-        if(j == model.computerHits.size()){
+        if(j == 0){
             model.addPointtoArray(FireSpot, model.getComputerMisses());
         }
 
@@ -709,7 +719,7 @@ public class Main {
             FireSpotComputer = new Point(shootX, shootY);
         } while( alreadyShot( FireSpotComputer, model,false) );
 
-        j = model.playerHits.size();
+        j = 0;
 
         // Following branch tree checks if a point fired at BY THE COMPUTER has hit a PLAYER ship
         // And adds the point to the array of hits if so
@@ -717,12 +727,13 @@ public class Main {
             if( Hit( PArray[i].getStart(), PArray[i].getEnd(), FireSpotComputer ) ){
                 model.addPointtoArray(FireSpotComputer, model.getPlayerHits());
                 model.getShipByID(PArray[i].getName()).setHealth(PArray[i].getHealth()-1);
+                j = 1;
             }
         }
 
         //if player missed
-        if(j == model.playerHits.size()){
-            model.addPointtoArray(FireSpot, model.getPlayerMisses());
+        if(j == 0){
+            model.addPointtoArray(FireSpotComputer, model.getPlayerMisses());
         }
 
         Gson gson = new Gson();
@@ -778,18 +789,76 @@ public class Main {
                     return true;   // if the coordinates of current point match shot, you hit!
             }
 
-            return false; // check all points ship lies on, found no match to shot point
-
-        } else if (shotPoint.getAcross() == shipStart.getAcross()) { // if start and end on same x coordinate, ship is vertical
+        } else if (shipStart.getAcross() == shipEnd.getAcross()) { // if start and end on same x coordinate, ship is vertical
             int x = shipStart.getAcross();
             for (int y = shipStart.getDown(); y <= shipEnd.getDown(); y++) {
 
                 if (x == shotPoint.getAcross() && y == shotPoint.getDown())
                     return true;   // if the coordinates of current point match shot, you hit!
             }
-            return false; // check all points ship lies on, found no match to shot point
         }
 
         return false; // points given are not horizontal or vertical and not valid, can't hit diagonally
     }
+
+    /*public static BattleshipModelUpdated Sink( Point shipStart, Point shipEnd, boolean player, BattleshipModelUpdated model ){
+        Point Shot = new Point();
+
+        if( shipStart.getDown() == shipEnd.getDown() ){
+            int y = shipStart.getDown();
+
+            for ( int x = shipStart.getAcross(); x <= shipEnd.getAcross(); x++ ){
+                Shot.setAcross(x);
+                Shot.setDown(y);
+
+                System.out.println("y: " + y);
+                System.out.println("x: " + x);
+
+                if( !alreadyShot(Shot, model, player) ){
+                    System.out.println("y: " + y);
+                    System.out.println("x: " + x);
+                    System.out.println("Yes ^");
+
+                    if(player){
+                        model.addPointtoArray( Shot, model.getComputerHits() );
+                    }else{
+                        model.addPointtoArray( Shot, model.getPlayerHits() );
+                    }
+                }else{
+                    System.out.println("y: " + y);
+                    System.out.println("x: " + x);
+                    System.out.println("Nope ^");
+                }
+            }
+
+        } else if ( shipStart.getAcross() == shipEnd.getAcross() ) {
+            int x = shipStart.getAcross();
+
+            for ( int y = shipStart.getDown(); y <= shipEnd.getDown(); y++ ) {
+                Shot.setAcross(x);
+                Shot.setDown(y);
+
+                System.out.println("y: " + y);
+                System.out.println("x: " + x);
+
+                if( !alreadyShot(Shot, model, player) ){
+
+                    System.out.println("y: " + y);
+                    System.out.println("x: " + x);
+                    System.out.println("Yes ^");
+                    if(player){
+                        model.addPointtoArray( Shot, model.getComputerHits() );
+                    }else{
+                        model.addPointtoArray( Shot, model.getPlayerHits() );
+                    }
+                }else{
+                    System.out.println("y: " + y);
+                    System.out.println("x: " + x);
+                    System.out.println("Nope ^");
+                }
+            }
+        }
+
+        return model;
+    }*/
 }

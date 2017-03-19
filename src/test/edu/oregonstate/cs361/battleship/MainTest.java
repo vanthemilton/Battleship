@@ -282,6 +282,31 @@ class  MainTest {
         jason = gson.toJson(model);
         TestResponse res6 = request("POST", "/placeShipUpdated/Submarine/1/1/vertical/0", jason);
         assertEquals(res6.status, 200);
+
+
+        model = new BattleshipModelUpdated();
+        gson = new Gson();
+        jason = gson.toJson(model);
+        TestResponse Res = request("POST", "/placeShipUpdated/Battleship/1/1/vertical/1", jason);
+        assertEquals(Res.status, 200);
+
+        TestResponse Res2 = request("POST", "/placeShipUpdated/AircraftCarrier/2/1/vertical/1", jason);
+        assertEquals(Res2.status, 200);
+
+        TestResponse Res3 = request("POST", "/placeShipUpdated/Clipper/1/1/vertical/1", jason);
+        assertEquals(Res3.status, 200);
+
+        TestResponse Res4 = request("POST", "/placeShipUpdated/Dinghy/1/1/vertical/1", jason);
+        assertEquals(Res4.status, 200);
+
+        TestResponse Res5 = request("POST", "/placeShipUpdated/Submarine/1/1/vertical/1", jason);
+        assertEquals(Res5.status, 200);
+
+        testPoint = new Point(1,1);
+        model.addPointtoArray(testPoint, model.getPlayerHits());
+        jason = gson.toJson(model);
+        TestResponse Res6 = request("POST", "/placeShipUpdated/Submarine/1/1/vertical/1", jason);
+        assertEquals(Res6.status, 200);
     }
 
     @Test
